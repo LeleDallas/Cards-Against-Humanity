@@ -1,0 +1,1 @@
+export interface user { [uid: string]: string }
