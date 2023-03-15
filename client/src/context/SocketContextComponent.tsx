@@ -61,13 +61,11 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
             console.info('User handshake callback message received');
             socketDispatch({ type: 'update_users', payload: users });
             socketDispatch({ type: 'update_uid', payload: uid });
+            setLoading(false);
         });
-
-        setLoading(false);
     };
 
     if (loading) return <p>... loading Socket IO ....</p>;
-
     return <SocketContextProvider value={{ socketState: socketState, socketDispatch: socketDispatch }}> {children} </SocketContextProvider>
 };
 

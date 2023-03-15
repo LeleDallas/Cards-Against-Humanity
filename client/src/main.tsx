@@ -8,5 +8,5 @@ import SocketContextComponent from './context/SocketContextComponent';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <SocketContextComponent>
     <App />
-  </SocketContextComponent>,
+  </SocketContextComponent>
 )
