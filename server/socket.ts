@@ -29,7 +29,6 @@ export class ServerSocket {
         socket.on('handshake', (callback: (uid: string, users: string[]) => void) => {
             console.info('Handshake received from: ' + socket.id);
             const reconnected = Object.values(this.users).includes(socket.id);
-            console.log("RECONNECTED", reconnected)
             if (reconnected) {
                 console.info('This user has reconnected.');
                 const uid = this.GetUidFromSocketID(socket.id);
@@ -53,12 +52,10 @@ export class ServerSocket {
                 users.filter((id) => id !== socket.id),
                 users
             );
-            console.log(users)
         });
 
         socket.on('send_message', () => {
             const uid = this.GetUidFromSocketID(socket.id);
-            console.log("OK " + socket.id)
         })
 
         socket.on('disconnect', () => {
@@ -73,6 +70,15 @@ export class ServerSocket {
 
                 this.SendMessage('user_disconnected', users, socket.id);
             }
+        });
+        socket.on('create_room', (value) => {
+            console.info(`User ${socket.id} want to create a room ${value}`);
+            socket.join(value);
+        });
+        socket.on('join_room', (value) => {
+            console.info(`User ${socket.id} want to join room ${value}`);
+            socket.join(value);
+            this.io.to(value).emit("event");
         });
     };
 
