@@ -13,7 +13,7 @@ export const defaultSocketContextState: SocketContextState = {
     users: []
 };
 
-export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user';
+export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room';
 export type SocketContextPayload = string | Array<string> | Socket;
 
 export interface SocketContextActionsPayload {
@@ -23,7 +23,6 @@ export interface SocketContextActionsPayload {
 
 export const socketReducer = (state: SocketContextState, action: SocketContextActionsPayload) => {
     console.log('Message received - Action: ' + action.type + ' - Payload: ', action.payload);
-
     switch (action.type) {
         case 'update_socket':
             return { ...state, socket: action.payload as Socket };

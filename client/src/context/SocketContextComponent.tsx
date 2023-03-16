@@ -1,6 +1,8 @@
 import React, { PropsWithChildren, useEffect, useReducer, useState } from 'react';
 import { useSocket } from '../hooks/useSocket';
 import { defaultSocketContextState, SocketContextProvider, socketReducer } from './SocketContext'
+import 'antd/dist/reset.css';
+import SpinningCard from '../components/Cards/SpinningCard';
 
 export interface SocketContextComponentProps extends PropsWithChildren { }
 
@@ -22,8 +24,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         startListeners();
         sendHandshake();
     }, []);
-
-    const startListeners = () => {
+const startListeners = () => {
         socket.on('user_connected', (users: string[]) => {
             console.info('User connected message received');
             socketDispatch({ type: 'update_users', payload: users });
@@ -52,6 +53,10 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
             alert('We are unable to connect you to the chat service.' +
                 'Please make sure your internet connection is stable or try again later.');
         });
+
+        socket.on('event', () => {
+            console.info('Event.')
+        });
     };
 
     const sendHandshake = async () => {
@@ -65,7 +70,10 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         });
     };
 
-    if (loading) return <p>... loading Socket IO ....</p>;
+    if (loading) return (
+        <SpinningCard />
+    )
+
     return <SocketContextProvider value={{ socketState: socketState, socketDispatch: socketDispatch }}> {children} </SocketContextProvider>
 };
 
