@@ -1,11 +1,12 @@
 import React from 'react';
-import { expect, it, describe, assert } from 'vitest'
-import { render } from '@testing-library/react';
+import { expect, it, describe, assert, afterEach, vitest } from 'vitest'
+import { cleanup, render } from '@testing-library/react';
 import { SocketContextProvider, defaultSocketContextState } from '../src/context/SocketContext';
 import SocketContextComponent from '../src/context/SocketContextComponent';
 
 
-describe('SocketContextComponent', () => {
+
+describe('SocketContextComponent', async () => {
     const socketState = {
         socketState: defaultSocketContextState,
         socketDispatch: () => { }
@@ -15,7 +16,15 @@ describe('SocketContextComponent', () => {
             <SocketContextComponent />
         </SocketContextProvider>
     );
-    it('renders loading message when loading is true', async () => {
-        expect(getByText("... loading Socket IO ....").textContent).toBe("... loading Socket IO ....")
+
+    afterEach(() => {
+        cleanup();
+        vitest.resetAllMocks();
     });
+
+    it('renders loading message when loading is true', async () => {
+        expect(getByText("Loading...").textContent).toBe("Loading...")
+    });
+
 });
+
