@@ -94,13 +94,15 @@ export class ServerSocket {
         socket.on('create_room', (value, callback) => {
             if (this.io.sockets.adapter.rooms.has(value)) return
             console.info(`User ${socket.id} want to create a room ${value}`);
-            socket.join(value);
+            socket.join("room_" + value);
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            this.io.emit("update_rooms", response);
             callback(response);
         });
 
         socket.on('get_rooms', (callback) => {
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            this.io.emit("update_rooms", response);
             callback(response);
         });
 
