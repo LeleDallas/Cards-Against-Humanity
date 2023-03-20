@@ -1,38 +1,45 @@
-import { Button, List, Row } from "antd"
-import { useEffect, useState } from "react"
-import { SocketContextState } from "../../context/SocketContext"
+import { Button, Col, Input, Row, message } from "antd"
+import { useContext, useEffect, useState } from "react"
+import socketContext, { SocketContextState } from "../../context/SocketContext"
 
-
-const Lobby = ({ socket, users, uid }: SocketContextState) => {
-    const [rooms, setRooms] = useState<Map<any, any>>(new Map())
+const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
     const [update, setUpdate] = useState<boolean>(false)
+    const [lobbyName, setLobbyName] = useState<string>("")
+
+    const createRoom = () => {
+        if (lobbyName.length === 0) {
+            message.error("Insert a Lobby name")
+            return
+        }
+        socket?.emit("create_room", lobbyName, (response: any) => console.log('Server responded with:', response))
+        setUpdate(!update)
+    }
 
     useEffect(() => {
-        socket?.emit('get_rooms', (response: any) => {
-            const newRooms = new Map();
-            for (const [key, value] of Object.entries(response.data)) {
-                if (key.startsWith('room')) {
-                    newRooms.set(key, value);
-                }
-            }
-            setRooms(newRooms);
+        console.log(Object.entries(rooms))
+        Object.keys(rooms).forEach(function (key, index) {
+            rooms[key] *= 2;
         });
-    }, [update]);
+    }, [rooms]);
 
 
     return (
         <div>
-            <p> Users Online: {users.length}</p>
-            {Array.from(rooms.keys()).map((room) => (
-                <div key={room}>{room}</div>
-            ))}
-            <Row>
-                <Button onClick={() => socket?.emit("join_room", "room_id", (response: any) => console.log('Server responded with:', response))}>Connect 1</Button>
-                <Button onClick={() => socket?.emit("join_room", "room_id1", (response: any) => console.log('Server responded with:', response))}>Connect 2</Button>
-            </Row>
-            <Row>
-                <Button onClick={() => socket?.emit("create_room", "room_id", (response: any) => console.log('Server responded with:', response))}>Create 1</Button>
-                <Button onClick={() => socket?.emit("create_room", "room_id1", (response: any) => console.log('Server responded with:', response))}>Create 2</Button>
+            <p>Users Online: {users.length}</p>
+            <Row justify="space-between">
+                <Input placeholder="Lobby name" onChange={(value) => setLobbyName(value.target.value)} />
+                <Button onClick={() => createRoom()}>Create Lobby</Button>
+                {Object.keys(rooms).map((key, index) =>
+                    <Button key={key}
+                        onClick={() =>
+                            socket?.emit(
+                                "join_room",
+                                key,
+                                (response: any) => console.log('Server responded with:', response)
+                            )}
+                    >
+                        Connect {key}
+                    </Button>)}
             </Row>
         </div >
     )

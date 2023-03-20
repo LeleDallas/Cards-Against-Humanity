@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import socketContext from './context/SocketContext';
-import { Button } from 'antd';
 import Lobby from './components/Lobby/Lobby';
 
 export interface AppProps { }
 
 const App: React.FunctionComponent<AppProps> = (props) => {
-  const { socket, uid, users } = useContext(socketContext).socketState;
+  const { socket, uid, users, rooms } = useContext(socketContext).socketState;
   return (
     <div>
       <h2>Socket IO Information:</h2>
@@ -17,8 +16,8 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         <br />
         Socket ID: <strong>{socket?.id}</strong>
         <br />
-        <Lobby socket={socket} uid={uid} users={users} />
       </div>
+      <Lobby socket={socket} uid={uid} users={users} rooms={rooms} />
     </div>
   );
 };
