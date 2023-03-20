@@ -24,7 +24,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         startListeners();
         sendHandshake();
     }, []);
-const startListeners = () => {
+    const startListeners = () => {
         socket.on('user_connected', (users: string[]) => {
             console.info('User connected message received');
             socketDispatch({ type: 'update_users', payload: users });
@@ -33,6 +33,7 @@ const startListeners = () => {
         socket.on('user_disconnected', (uid: string) => {
             console.info('User disconnected message received');
             socketDispatch({ type: 'remove_user', payload: uid });
+            socket.disconnect()
         });
 
         socket.io.on('reconnect', (attempt) => {
