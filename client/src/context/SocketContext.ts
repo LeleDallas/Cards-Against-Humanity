@@ -5,15 +5,17 @@ export interface SocketContextState {
     socket: Socket | undefined;
     uid: string;
     users: Array<string>;
+    rooms: any;
 }
 
 export const defaultSocketContextState: SocketContextState = {
     socket: undefined,
     uid: '',
-    users: []
+    users: [],
+    rooms: {},
 };
 
-export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room';
+export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room' | "update_rooms";
 export type SocketContextPayload = string | Array<string> | Socket;
 
 export interface SocketContextActionsPayload {
@@ -32,6 +34,8 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
             return { ...state, users: action.payload as Array<string> };
         case 'remove_user':
             return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
+        case 'update_rooms':
+            return { ...state, rooms: action.payload as Array<string> };
         default:
             return state;
     }

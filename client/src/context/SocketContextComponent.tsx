@@ -24,6 +24,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         startListeners();
         sendHandshake();
     }, []);
+
     const startListeners = () => {
         socket.on('user_connected', (users: string[]) => {
             console.info('User connected message received');
@@ -33,7 +34,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         socket.on('user_disconnected', (uid: string) => {
             console.info('User disconnected message received');
             socketDispatch({ type: 'remove_user', payload: uid });
-            socket.disconnect()
+            // socket.disconnect()
         });
 
         socket.io.on('reconnect', (attempt) => {
@@ -55,9 +56,9 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
                 'Please make sure your internet connection is stable or try again later.');
         });
 
-        socket.on('event', () => {
-            console.info('Event.')
-        });
+        socket.on('event', () => console.info('Event.'));
+
+        socket.on('update_rooms', (rooms: any) => socketDispatch({ type: "update_rooms", payload: rooms?.data }));
     };
 
     const sendHandshake = async () => {
