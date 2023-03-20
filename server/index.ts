@@ -51,6 +51,5 @@ application.use((req, res, next) => {
   });
 });
 
-
 httpServer.listen(port, () => console.info(`Server is running`));
 

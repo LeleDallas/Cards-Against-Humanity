@@ -20,10 +20,32 @@ export class ServerSocket {
                 origin: '*'
             }
         });
-        this.io.on('connect', this.StartListeners);
+        this.io.on('connect', this.startListeners);
     }
 
-    StartListeners = (socket: Socket) => {
+    getRooms = () => {
+        const availableRooms: Map<string, Set<string>> = this.io.sockets.adapter.rooms;
+
+        const filteredRooms = new Map<string, Array<string>>();
+
+        for (const [roomId, users] of availableRooms.entries()) {
+            if (roomId.startsWith("room")) {
+                filteredRooms.set(roomId, [...users]);
+            }
+        }
+        return filteredRooms;
+    };
+
+    getUidFromSocketID = (id: string) => {
+        return Object.keys(this.users).find((uid) => this.users[uid] === id);
+    };
+
+    sendMessage = (name: string, users: string[], payload?: Object) => {
+        console.info(`Emitting event: ${name} to`, users);
+        users.forEach((id) => (payload ? this.io.to(id).emit(name, payload) : this.io.to(id).emit(name)));
+    };
+
+    startListeners = (socket: Socket) => {
         console.info('Message received from socketId: ' + socket.id);
 
         socket.on('handshake', (callback: (uid: string, users: string[]) => void) => {
@@ -31,7 +53,7 @@ export class ServerSocket {
             const reconnected = Object.values(this.users).includes(socket.id);
             if (reconnected) {
                 console.info('This user has reconnected.');
-                const uid = this.GetUidFromSocketID(socket.id);
+                const uid = this.getUidFromSocketID(socket.id);
                 const users = Object.values(this.users);
                 if (uid) {
                     console.info('Sending callback for reconnect ...');
@@ -42,12 +64,11 @@ export class ServerSocket {
 
             const uid = v4();
             this.users[uid] = socket.id;
-
             const users = Object.values(this.users);
             console.info('Sending callback ...');
             callback(uid, users);
 
-            this.SendMessage(
+            this.sendMessage(
                 'user_connected',
                 users.filter((id) => id !== socket.id),
                 users
@@ -55,39 +76,41 @@ export class ServerSocket {
         });
 
         socket.on('send_message', () => {
-            const uid = this.GetUidFromSocketID(socket.id);
+            const uid = this.getUidFromSocketID(socket.id);
         })
 
         socket.on('disconnect', () => {
             console.info('Disconnect received from: ' + socket.id);
 
-            const uid = this.GetUidFromSocketID(socket.id);
+            const uid = this.getUidFromSocketID(socket.id);
 
             if (uid) {
                 delete this.users[uid];
-
                 const users = Object.values(this.users);
-
-                this.SendMessage('user_disconnected', users, socket.id);
+                this.sendMessage('user_disconnected', users, socket.id);
             }
         });
-        socket.on('create_room', (value) => {
+
+        socket.on('create_room', (value, callback) => {
+            if (this.io.sockets.adapter.rooms.has(value)) return
             console.info(`User ${socket.id} want to create a room ${value}`);
             socket.join(value);
+            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            callback(response);
         });
-        socket.on('join_room', (value) => {
+
+        socket.on('get_rooms', (callback) => {
+            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            callback(response);
+        });
+
+        socket.on('join_room', (value, callback) => {
+            if (!this.io.sockets.adapter.rooms.has(value)) return
             console.info(`User ${socket.id} want to join room ${value}`);
             socket.join(value);
             this.io.to(value).emit("event");
+            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            callback(response);
         });
-    };
-
-    GetUidFromSocketID = (id: string) => {
-        return Object.keys(this.users).find((uid) => this.users[uid] === id);
-    };
-
-    SendMessage = (name: string, users: string[], payload?: Object) => {
-        console.info(`Emitting event: ${name} to`, users);
-        users.forEach((id) => (payload ? this.io.to(id).emit(name, payload) : this.io.to(id).emit(name)));
     };
 }
