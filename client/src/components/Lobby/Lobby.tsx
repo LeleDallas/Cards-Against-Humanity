@@ -1,6 +1,6 @@
-import { Button, Col, Input, Row, message } from "antd"
-import { useContext, useEffect, useState } from "react"
-import socketContext, { SocketContextState } from "../../context/SocketContext"
+import { Button, Input, Row, message } from "antd"
+import { useEffect, useState } from "react"
+import { SocketContextState } from "../../context/SocketContext"
 
 const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
     const [update, setUpdate] = useState<boolean>(false)
@@ -16,10 +16,6 @@ const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
     }
 
     useEffect(() => {
-        console.log(Object.entries(rooms))
-        Object.keys(rooms).forEach(function (key, index) {
-            rooms[key] *= 2;
-        });
     }, [rooms]);
 
 
