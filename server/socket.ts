@@ -100,6 +100,15 @@ export class ServerSocket {
             callback(response);
         });
 
+        socket.on('delete_room', (value, callback) => {
+            if (this.io.sockets.adapter.rooms.has(value)) return
+            console.info(`User ${socket.id} want to delete a room ${value}`);
+            this.io.sockets.in("room_" + value).socketsLeave("room_" + value)
+            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            this.io.emit("update_rooms", response);
+            callback(response);
+        });
+
         socket.on('get_rooms', (callback) => {
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
             this.io.emit("update_rooms", response);
@@ -111,6 +120,15 @@ export class ServerSocket {
             console.info(`User ${socket.id} want to join room ${value}`);
             socket.join(value);
             this.io.to(value).emit("event");
+            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            callback(response);
+        });
+
+        socket.on('leave_room', (value, callback) => {
+            if (!this.io.sockets.adapter.rooms.has(value)) return
+            console.info(`User ${socket.id} want to leave room ${value}`);
+            socket.leave(value);
+            this.io.to(value).emit("leave_event");
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
             callback(response);
         });
