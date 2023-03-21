@@ -9,13 +9,14 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [react()],
   test: {
-    setupFiles: [resolve(__dirname, './setup.js')],
+    globals: true,
     environment: "jsdom",
+    setupFiles: [resolve(__dirname, './setup.js')],
     coverage: {
       provider: "c8",
       all: true,
-      exclude: ["src/**/*.main.tsx"],
       include: ["src/**/*.tsx"],
+      exclude: ["src/main.tsx"],
     },
   },
 });

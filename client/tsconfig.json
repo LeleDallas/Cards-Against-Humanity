@@ -17,5 +17,6 @@
     "jsx": "react-jsx"
   },
   "include": ["src", "test/App.test.tsx"],
+  "types": ["node", "jest", "@testing-library/jest-dom"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
