@@ -1,7 +1,8 @@
-import express, { Express, Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import http from 'http';
 import { ServerSocket } from './socket';
+
 dotenv.config();
 
 const port = process.env.PORT;
@@ -53,3 +54,5 @@ application.use((req, res, next) => {
 
 httpServer.listen(port, () => console.info(`Server is running`));
 
+
+export default {application, httpServer}
