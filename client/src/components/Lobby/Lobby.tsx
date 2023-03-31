@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
     const [update, setUpdate] = useState<boolean>(false)
     const [lobbyName, setLobbyName] = useState<string>("")
+    const navigate = useNavigate()
 
     const createRoom = () => {
         if (lobbyName.length === 0) {
@@ -16,6 +17,13 @@ const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
         }
         socket?.emit("create_room", lobbyName, (response: any) => console.log('Server responded with:', response))
         setUpdate(!update)
+        navigate("/waiting",{state: {lobbyName, type: "admin"}})
+    }
+
+    const joinRoom = () => {
+        socket?.emit("join_room", lobbyName, (response: any) => console.log('Server responded with:', response))
+        setUpdate(!update)
+        navigate("/waiting",{state: {lobbyName, type: "user"}})
     }
 
     useEffect(() => {
@@ -30,14 +38,7 @@ const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
                 {Object.keys(rooms).map((key, index) =>
                     <Button
                         key={key}
-                        onClick={() =>
-                            socket?.emit(
-                                "join_room",
-                                key,
-                                (response: any) => console.log('Server responded with:', response)
-                            )
-
-                        }
+                        onClick={() => joinRoom()}
                     >
                         Connect {key}
                     </Button>)}
