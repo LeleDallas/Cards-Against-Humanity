@@ -1,7 +1,9 @@
+import '@testing-library/jest-dom';
 import { expect, it, describe, assert } from 'vitest'
 import { render, waitFor, screen } from '@testing-library/react';
 import App from '../src/App';
 import { SocketContextProvider, defaultSocketContextState } from '../src/context/SocketContext';
+
 
 describe('App', () => {
   it('renders socket information correctly', async (t) => {
@@ -15,6 +17,6 @@ describe('App', () => {
         <App />
       </SocketContextProvider>
     );
-    expect(getByText("Socket IO Information:").textContent).toBe("Socket IO Information:")
+    expect(getByText(/Socket IO Information:/)).toBeInTheDocument()
   });
 });

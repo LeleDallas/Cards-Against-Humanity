@@ -1,10 +1,9 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import { expect, it, describe, assert, afterEach, vitest } from 'vitest'
 import { cleanup, render } from '@testing-library/react';
 import { SocketContextProvider, defaultSocketContextState } from '../src/context/SocketContext';
 import SocketContextComponent from '../src/context/SocketContextComponent';
-
-
 
 describe('SocketContextComponent', async () => {
     const socketState = {
@@ -23,8 +22,7 @@ describe('SocketContextComponent', async () => {
     });
 
     it('renders loading message when loading is true', async () => {
-        expect(getByText("Loading...").textContent).toBe("Loading...")
+        expect(getByText(/Loading/)).toBeInTheDocument()
     });
 
 });
-
