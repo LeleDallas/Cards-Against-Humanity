@@ -1,6 +1,9 @@
 import { Button, Input, Row, message } from "antd"
 import { useEffect, useState } from "react"
 import { SocketContextState } from "../../context/SocketContext"
+import { useNavigate } from "react-router-dom"
+
+
 
 const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
     const [update, setUpdate] = useState<boolean>(false)
@@ -18,7 +21,6 @@ const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
     useEffect(() => {
     }, [rooms]);
 
-
     return (
         <div>
             <p>Users Online: {users.length}</p>
@@ -26,13 +28,16 @@ const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
                 <Input placeholder="Lobby name" onChange={(value) => setLobbyName(value.target.value)} />
                 <Button onClick={() => createRoom()}>Create Lobby</Button>
                 {Object.keys(rooms).map((key, index) =>
-                    <Button key={key}
+                    <Button
+                        key={key}
                         onClick={() =>
                             socket?.emit(
                                 "join_room",
                                 key,
                                 (response: any) => console.log('Server responded with:', response)
-                            )}
+                            )
+
+                        }
                     >
                         Connect {key}
                     </Button>)}
