@@ -36,6 +36,7 @@ width: 100%;
 font-size: 1.2em;
 border-radius: 0.6em;
 backface-visibility: hidden;
+border: 1px solid #000
 `
 const Back = styled(Center)`
 height: 100%;
