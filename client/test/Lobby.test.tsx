@@ -5,6 +5,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import Lobby from '../src/components/Lobby/Lobby';
 import { defaultSocketContextState } from '../src/context/SocketContext';
 import { Manager, Socket } from 'socket.io-client';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('Lobby component', () => {
     let lobbyRenderResult;
@@ -13,12 +14,14 @@ describe('Lobby component', () => {
     const mockSocket = defaultSocketContextState
     beforeEach(() => {
         lobbyRenderResult = render(
-            <Lobby
-                socket={defaultSocketContextState.socket}
-                users={defaultSocketContextState.users}
-                uid={mockUid}
-                rooms={mockRooms}
-            />
+            <BrowserRouter>
+                <Lobby
+                    socket={defaultSocketContextState.socket}
+                    users={defaultSocketContextState.users}
+                    uid={mockUid}
+                    rooms={mockRooms}
+                />
+            </BrowserRouter>
         )
     });
 

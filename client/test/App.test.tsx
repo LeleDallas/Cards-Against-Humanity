@@ -3,6 +3,7 @@ import { expect, it, describe, assert } from 'vitest'
 import { render, waitFor, screen } from '@testing-library/react';
 import App from '../src/App';
 import { SocketContextProvider, defaultSocketContextState } from '../src/context/SocketContext';
+import { BrowserRouter } from 'react-router-dom';
 
 
 describe('App', () => {
@@ -13,9 +14,11 @@ describe('App', () => {
     };
 
     const { getByText } = render(
-      <SocketContextProvider value={socketState}>
-        <App />
-      </SocketContextProvider>
+      <BrowserRouter>
+        <SocketContextProvider value={socketState}>
+          <App />
+        </SocketContextProvider>
+      </BrowserRouter>
     );
     expect(getByText(/Socket IO Information:/)).toBeInTheDocument()
   });
