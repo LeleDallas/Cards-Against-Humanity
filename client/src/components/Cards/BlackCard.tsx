@@ -1,12 +1,14 @@
+import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 
-const Card = styled.div`
-height: 25em;
-width: 18.75em;
+const Card = styled.div<any>`
+height: ${isMobile ? "18em" : "25em"};
+width: ${isMobile ? "13.75em" : "18.75em"};
 position: relative;
 font-family: "Poppins", sans-serif;
 border-radius: 0.6em;
 border: 1px solid #fff;
+${props => props.cardStyle}
 
 `
 const Front = styled.div`
@@ -23,10 +25,10 @@ font-weight: 500;
 letter-spacing: 0.05em;
 `
 
-const BlackCard = (props: any) =>
-  <Card>
+const BlackCard = ({ cardStyle = {}, title = "Cards Against Humanity? More like ____________." }) =>
+  <Card cardStyle={cardStyle}>
     <Front>
-      <Title style={{ color: "#fff" }}>Cards Against Humanity? More like ____________.</Title>
+      <Title style={{ color: "#fff" }}>{title}</Title>
     </Front>
   </Card>
 
