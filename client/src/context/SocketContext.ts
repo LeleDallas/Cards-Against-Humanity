@@ -35,7 +35,7 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
         case 'remove_user':
             return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
         case 'update_rooms':
-            return { ...state, rooms: action.payload as Array<string> };
+            return { ...state, rooms: action.payload as any };
         default:
             return state;
     }

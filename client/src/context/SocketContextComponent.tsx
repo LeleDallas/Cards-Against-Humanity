@@ -56,8 +56,6 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
                 'Please make sure your internet connection is stable or try again later.');
         });
 
-        socket.on('event', () => console.info('Event.'));
-
         socket.on('update_rooms', (rooms: any) => socketDispatch({ type: "update_rooms", payload: rooms?.data }));
     };
 
