@@ -1,47 +1,36 @@
-import { Button, Input, Row, message } from "antd"
-import { useEffect, useState } from "react"
-import { SocketContextState } from "../../context/SocketContext"
+import { Button, Row } from "antd"
+import { useContext, useEffect } from "react"
+import socketContext from "../../context/SocketContext"
 import { useNavigate } from "react-router-dom"
+import { LeftOutlined, ReloadOutlined } from "@ant-design/icons"
+import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
+import BlackCard from "../Cards/BlackCard"
 
-
-
-const Lobby = ({ socket, users, uid, rooms }: SocketContextState) => {
-    const [update, setUpdate] = useState<boolean>(false)
-    const [lobbyName, setLobbyName] = useState<string>("")
+const Lobby = () => {
+    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
 
-    const createRoom = () => {
-        if (lobbyName.length === 0) {
-            message.error("Insert a Lobby name")
-            return
-        }
-        socket?.emit("create_room", lobbyName, (response: any) => console.log('Server responded with:', response))
-        setUpdate(!update)
-        navigate("/waiting",{state: {lobbyName, type: "admin"}})
-    }
-
-    const joinRoom = () => {
-        socket?.emit("join_room", lobbyName, (response: any) => console.log('Server responded with:', response))
-        setUpdate(!update)
-        navigate("/waiting",{state: {lobbyName, type: "user"}})
+    const reloadPage = () => {
+        socket?.emit("get_rooms", (res: any) => console.log(res));
     }
 
     useEffect(() => {
-    }, [rooms]);
+        reloadPage()
+    }, []);
 
     return (
-        <div>
-            <p>Users Online: {users.length}</p>
-            <Row justify="space-between">
-                <Input placeholder="Lobby name" onChange={(value) => setLobbyName(value.target.value)} />
-                <Button onClick={() => createRoom()}>Create Lobby</Button>
-                {Object.keys(rooms).map((key, index) =>
-                    <Button
-                        key={key}
-                        onClick={() => joinRoom()}
-                    >
-                        Connect {key}
-                    </Button>)}
+        <div style={{ margin: 20 }}>
+            <Row justify="space-between" align="middle">
+                <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate(-1)}>Back</Button>
+                <Button icon={<ReloadOutlined />} type="primary" onClick={() => reloadPage()}>Refresh</Button>
+            </Row>
+            <Row justify="center" style={{ marginTop: 22 }}>
+                <BlackCard cardStyle={{ height: "12.75em", whiteSpace: "pre-line" }} title={`Choose a room ____________. \n\nUsers Online: ${users.length}`} />
+            </Row>
+            <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32,32]}>
+                {Object.keys(rooms).map((roomName, index) =>
+                    <WhiteLobbyCard join lobbyName={roomName} players={rooms[roomName]} key={index} />
+                )}
             </Row>
         </div >
     )
