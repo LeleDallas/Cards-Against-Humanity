@@ -1,0 +1,81 @@
+import { Button, List, Result } from 'antd';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import socketContext from '../../context/SocketContext';
+
+const Card = styled.div`
+height: 25em;
+width: 18.75em;
+position: relative;
+font-family: "Poppins", sans-serif;
+border: 1px solid #000;
+border-radius: 0.6em;
+`
+const Front = styled.div`
+padding:20px;
+background-color: #ffffff;
+height: 100%;
+width: 100%;
+font-size: 1.2em;
+border-radius: 0.6em;
+backface-visibility: hidden;
+text-align: center;
+`
+const Title = styled.h3`
+font-weight: 500;
+letter-spacing: 0.05em;
+`
+
+const JoinButton = styled(Button)`
+position: absolute;
+bottom: 20px;
+left: 0;
+right: 0;
+margin: 0 20px
+`
+interface WhiteLobbyCard {
+    lobbyName: string,
+    players: Array<string> | undefined,
+    join?: boolean
+}
+
+const WhiteLobbyCard = ({ lobbyName, players, join = false }: WhiteLobbyCard) => {
+    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
+    const navigate = useNavigate()
+    const joinRoom = (lobbyName: string) => {
+        socket?.emit("join_room", lobbyName, (response: any) => {
+            if (response.success) {
+                navigate("/waiting", { state: { lobbyName, type: "user" } })
+            }
+        })
+    }
+
+    return (
+        players === undefined ?
+            <Result
+                status="warning"
+                title="This room do not exist anymore."
+                extra={
+                    <Button type="primary" key="console" onClick={() => navigate("/")}>
+                        Go to the homepage
+                    </Button>
+                }
+            /> :
+            <Card>
+                <Front>
+                    <Title style={{ color: "#000000" }}>{lobbyName}</Title>
+                    <List
+                        header={<div>Players inside: {players?.length} </div>}
+                        dataSource={players}
+                        renderItem={(item: string) => <List.Item style={{ textAlign: "center" }}>{item}</List.Item>}
+                    />
+                    {join &&
+                        <JoinButton type="primary" onClick={() => joinRoom(lobbyName)}>
+                            Connect
+                        </JoinButton>}
+                </Front>
+            </Card >
+    )
+}
+export default WhiteLobbyCard;

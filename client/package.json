@@ -8,19 +8,35 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "vitest --coverage"
+    "coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "host": "vite --host"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@testing-library/jest-dom": "^5.16.5",
     "antd": "^5.2.3",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.0.1",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.1.0",
     "@vitest/coverage-c8": "^0.29.1",
-    "typescript": "^4.9.3",
+    "@vitest/ui": "^0.29.2",
+    "jsdom": "^21.1.1",
+    "typescript": "^5.0.2",
     "vite": "^4.1.0",
     "vitest": "^0.29.1"
   }
