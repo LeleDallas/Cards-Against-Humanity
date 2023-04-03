@@ -4,16 +4,18 @@ import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
 import Home from '../src/components/Home/Home';
 import { BrowserRouter } from 'react-router-dom';
-import * as router from 'react-router-dom'
+import * as deviceDetect from 'react-device-detect';
 
-const mockedUsedNavigate = vi.fn()
-
-vi.mock('react-router-dom', async () => {
+const mockedUseNavigate = vi.fn();
+vi.mock("react-router-dom", async () => {
+    const mod = await vi.importActual<typeof import("react-router-dom")>(
+        "react-router-dom"
+    );
     return {
-        ...((await vi.importActual('react-router-dom')) as any),
-        useNavigate: () => mockedUsedNavigate,
-    }
-})
+        ...mod,
+        useNavigate: () => mockedUseNavigate,
+    };
+});
 
 
 describe('Home', () => {
@@ -28,7 +30,6 @@ describe('Home', () => {
     });
 
     it('can navigate between screens', () => {
-        const navigate = vi.spyOn(router, 'useNavigate')
         const { getByText } = render(
             <BrowserRouter>
                 <Home />
@@ -38,10 +39,23 @@ describe('Home', () => {
         const create = getByText('Create room')
         const rules = getByText('Rules')
         fireEvent.click(join)
-        expect(navigate).toHaveBeenCalledTimes(1)
+        expect(mockedUseNavigate).toHaveBeenCalledTimes(1)
         fireEvent.click(create)
-        expect(navigate).toHaveBeenCalledTimes(1)
+        expect(mockedUseNavigate).toHaveBeenCalledTimes(2)
         fireEvent.click(rules)
-        expect(navigate).toHaveBeenCalledTimes(1)
+        expect(mockedUseNavigate).toHaveBeenCalledTimes(3)
+    })
+
+    it('change value based on devices', () => {
+        const { getByAltText } = render(
+            <BrowserRouter>
+                <Home />
+            </BrowserRouter>
+        );
+
+      
+        const berry = getByAltText('berry')
+        expect(berry).toBeInTheDocument()
+
     })
 });
