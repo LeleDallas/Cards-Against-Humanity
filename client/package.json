@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "host": "vite --host"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -17,6 +18,7 @@
     "antd": "^5.2.3",
     "dotenv": "^16.0.3",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
     "socket.io": "^4.6.1",
