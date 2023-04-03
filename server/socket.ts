@@ -25,7 +25,6 @@ export class ServerSocket {
 
     getRooms = () => {
         const availableRooms: Map<string, Set<string>> = this.io.sockets.adapter.rooms;
-
         const filteredRooms = new Map<string, Array<string>>();
 
         for (const [roomId, users] of availableRooms.entries()) {
@@ -34,6 +33,16 @@ export class ServerSocket {
             }
         }
         return filteredRooms;
+    };
+
+    getCurrentRoom = (lobbyName: string) => {
+        let users = this.io.sockets.adapter.rooms.get(lobbyName)
+        return {
+            data: {
+                lobbyName,
+                users: JSON.stringify(users && [...users])
+            }
+        }
     };
 
     getUidFromSocketID = (id: string) => {
@@ -93,17 +102,17 @@ export class ServerSocket {
 
         socket.on('create_room', (value, callback) => {
             if (this.io.sockets.adapter.rooms.has("room_" + value)) return
-            console.info(`User ${socket.id} want to create a room ${value}`);
             socket.join("room_" + value);
-            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
-            this.io.emit("update_rooms", response);
+            const response = { success: true, ...this.getCurrentRoom("room_" + value) };
+            const response2 = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+
+            this.io.emit("update_rooms", response2);
             callback(response);
         });
 
         socket.on('delete_room', (value, callback) => {
-            if (this.io.sockets.adapter.rooms.has("room_" + value)) return
             console.info(`User ${socket.id} want to delete a room ${value}`);
-            this.io.sockets.in("room_" + value).socketsLeave("room_" + value)
+            this.io.sockets.in(value).socketsLeave(value)
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
             this.io.emit("update_rooms", response);
             callback(response);
@@ -116,11 +125,12 @@ export class ServerSocket {
         });
 
         socket.on('join_room', (value, callback) => {
-            if (!this.io.sockets.adapter.rooms.has("room_" + value)) return
+            if (!this.io.sockets.adapter.rooms.has(value)) return
             console.info(`User ${socket.id} want to join room ${value}`);
             socket.join(value);
             this.io.to(value).emit("event");
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            this.io.emit("update_rooms", response);
             callback(response);
         });
 
