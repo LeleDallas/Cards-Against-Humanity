@@ -4,12 +4,14 @@ import React from 'react';
 import { expect, it, describe } from 'vitest'
 import { render } from '@testing-library/react';
 import AppRoute from '../src/route/AppRoute';
+import { BrowserRouter } from 'react-router-dom';
 
-
-describe('BlackCard', () => {
-    it('renders card correctly', () => {
+describe('AppRoute', () => {
+    it('renders route correctly', () => {
         const { getByText } = render(
-            <AppRoute />
+            <BrowserRouter>
+                <AppRoute />
+            </BrowserRouter>
         );
         expect(getByText("Cards Against Humanity")).toBeInTheDocument()
     });
