@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { expect, it, describe, beforeEach } from 'vitest'
-import { render, waitFor } from '@testing-library/react'
+import { expect, it, describe } from 'vitest'
+import { render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom';
 import GameScorer from '../src/components/Game/GameScorer';
 
