@@ -15,7 +15,7 @@ export const defaultSocketContextState: SocketContextState = {
     rooms: {},
 };
 
-export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room' | "update_rooms";
+export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room' | "update_rooms" | "start_game";
 export type SocketContextPayload = string | Array<string> | Socket;
 
 export interface SocketContextActionsPayload {
