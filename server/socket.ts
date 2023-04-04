@@ -135,22 +135,35 @@ export class ServerSocket {
         });
 
         socket.on('leave_room', (value, callback) => {
-            if (!this.io.sockets.adapter.rooms.has("room_" + value)) return
+            if (!this.io.sockets.adapter.rooms.has(value)) return
             console.info(`User ${socket.id} want to leave room ${value}`);
             socket.leave(value);
-            this.io.to(value).emit("leave_event");
             const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
             callback(response);
         });
 
-        socket.on('start_game', (roomName, callback) => {
-            if (!this.io.sockets.adapter.rooms.has("room_" + roomName)) return
-            let roomPlayers = this.io.sockets.adapter.rooms.get("room_" + roomName)?.size
-            if (roomPlayers && roomPlayers < 4) return
+        socket.on('request_start_game', (roomName, callback) => {
+            if (!this.io.sockets.adapter.rooms.has(roomName)) return
+            let roomPlayers = this.io.sockets.adapter.rooms.get(roomName)?.size
+            if (roomPlayers && roomPlayers < 3) {
+                callback({ success: false })
+                return
+            }
+            let randomCzar = roomPlayers && Math.floor(Math.random() * roomPlayers)
+            let index = 0
+            let isCzar = "user"
 
-            console.info(`User ${socket.id} want to start game in ${roomName}`);
-            socket.emit("start_game_player")
-            const response = { success: true, data: Object.fromEntries([...this.getRooms()]) };
+            this.io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+                if (index === randomCzar) {
+                    socket.to(socketId).emit("start_game", "czar")
+                    if (socketId === socket.id)
+                        isCzar = "czar"
+                }
+                else
+                    socket.to(socketId).emit("start_game", "user")
+                index++
+            })
+            const response = { success: true, isCzar };
             callback(response);
         });
     };
