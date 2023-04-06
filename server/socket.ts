@@ -135,7 +135,7 @@ export class ServerSocket {
         });
 
         socket.on('leave_room', (value, callback) => {
-            if (!this.io.sockets.adapter.rooms.has("room_" + value)) return
+            if (!this.io.sockets.adapter.rooms.has(value)) return
             console.info(`User ${socket.id} want to leave room ${value}`);
             socket.leave(value);
             this.io.to(value).emit("leave_event");

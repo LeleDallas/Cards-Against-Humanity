@@ -1,5 +1,5 @@
 import { Button, Popconfirm, Row } from "antd"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import socketContext from "../../context/SocketContext"
 import { useLocation, useNavigate } from "react-router-dom"
 import { LeftOutlined } from "@ant-design/icons"
@@ -7,11 +7,13 @@ import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
 import { SocketRoomResponse } from "../../types/socketResponse"
 import { isMobile } from "react-device-detect"
 
+
 const WaitingLobby = ({ ...props }) => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const { state } = useLocation();
-    console.log(rooms[state?.lobbyName])
+    console.log("ROOMS "+state?.lobbyName)
+
     return (
         <div style={{ margin: 30 }}>
             <Row justify="space-between">
@@ -30,7 +32,11 @@ const WaitingLobby = ({ ...props }) => {
                     >
                         <Button icon={<LeftOutlined />} type="primary" >Back</Button>
                     </Popconfirm> :
-                    <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate(-1)}>Back</Button>
+                    <Button icon={<LeftOutlined />} type="primary" onClick={() => {socket?.emit("leave_room",state?.lobbyName, (response: any)=> {
+                        if (response.success) {
+                            navigate(-1)
+                        }
+                    })}}>Back</Button>
                 }
             </Row>
             <Row justify="center" style={{ marginTop: isMobile ? 22 : 0 }}>
