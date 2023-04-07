@@ -9,13 +9,21 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-var app = express()
+const app = express()
 
 const application = express();
 
 const httpServer = http.createServer(application);
 
 new ServerSocket(httpServer);
+
+let allowCrossDomain = function(req:any, res:any, next:any) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Headers', "*");
+  next();
+}
+app.use(allowCrossDomain);
+application.use(allowCrossDomain);
 
 application.use((req, res, next) => {
   console.info(`METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
@@ -30,6 +38,7 @@ application.use((req, res, next) => {
 application.use(express.urlencoded({ extended: true }));
 application.use(express.json());
 
+//maybe to eliminate
 application.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
