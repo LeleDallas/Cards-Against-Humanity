@@ -1,5 +1,5 @@
 import { Button, Popconfirm, Row } from "antd"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import socketContext from "../../context/SocketContext"
 import { useLocation, useNavigate } from "react-router-dom"
 import { LeftOutlined } from "@ant-design/icons"
@@ -7,12 +7,26 @@ import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
 import { SocketRoomResponse } from "../../types/socketResponse"
 import { isMobile } from "react-device-detect"
 
-
 const WaitingLobby = ({ ...props }) => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const { state } = useLocation();
-    console.log("ROOMS "+state?.lobbyName)
+
+    const [black, setBlacks] = useState([]);
+    const [white, setWhites] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/cards/', {mode: 'cors'})
+            .then((res) => res.json())
+            .then((data) => {
+                setBlacks(data.filter((el:any) => el.isBlack == true));
+                setWhites(data.filter((el:any) => el.isBlack == false));
+                console.log(white);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, []);
 
     return (
         <div style={{ margin: 30 }}>
@@ -32,18 +46,20 @@ const WaitingLobby = ({ ...props }) => {
                     >
                         <Button icon={<LeftOutlined />} type="primary" >Back</Button>
                     </Popconfirm> :
-                    <Button icon={<LeftOutlined />} type="primary" onClick={() => {socket?.emit("leave_room",state?.lobbyName, (response: any)=> {
-                        if (response.success) {
-                            navigate(-1)
-                        }
-                    })}}>Back</Button>
+                    <Button icon={<LeftOutlined />} type="primary" onClick={() => {
+                        socket?.emit("leave_room", state?.lobbyName, (response: any) => {
+                            if (response.success) {
+                                navigate(-1)
+                            }
+                        })
+                    }}>Back</Button>
                 }
             </Row>
             <Row justify="center" style={{ marginTop: isMobile ? 22 : 0 }}>
                 <WhiteLobbyCard lobbyName={state?.lobbyName} players={rooms[state?.lobbyName]} />
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
-                { state?.type === "admin"  && <Button style={{ width: 200 }} type="primary" size="large">Start Game</Button>}
+                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large">Start Game</Button>}
             </Row>
         </div >
     )
