@@ -14,14 +14,20 @@ const WaitingLobby = ({ ...props }) => {
 
     const [black, setBlacks] = useState([]);
     const [white, setWhites] = useState([]);
+    const [deck, setDeck] = useState([])
+    const [question, setQuestion] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/cards/', {mode: 'cors'})
+        fetch('http://localhost:3001/cards/', { mode: 'cors' })
             .then((res) => res.json())
             .then((data) => {
-                setBlacks(data.filter((el:any) => el.isBlack == true));
-                setWhites(data.filter((el:any) => el.isBlack == false));
-                console.log(white);
+                setBlacks(data.filter((el: any) => el.isBlack == true));
+                setWhites(data.filter((el: any) => el.isBlack == false));
+            }).then(() => {
+                setDeck([...white].sort(() => 0.5 - Math.random()).slice(0, 10))
+                setQuestion(black[Math.floor(Math.random() * black.length)])
+                console.log(question, deck);
+
             })
             .catch((err) => {
                 console.log(err.message);
@@ -59,7 +65,7 @@ const WaitingLobby = ({ ...props }) => {
                 <WhiteLobbyCard lobbyName={state?.lobbyName} players={rooms[state?.lobbyName]} />
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
-                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large">Start Game</Button>}
+                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large" onClick={() => { }}>Start Game</Button>}
             </Row>
         </div >
     )
