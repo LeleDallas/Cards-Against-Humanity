@@ -6,6 +6,9 @@ import { LeftOutlined } from "@ant-design/icons"
 import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
 import { SocketRoomResponse } from "../../types/socketResponse"
 import { isMobile } from "react-device-detect"
+import BlackCard from "../Cards/BlackCard"
+import cards from "../../../../server/db/models/cards"
+import WhiteCard from "../Cards/WhiteCard"
 
 const WaitingLobby = ({ ...props }) => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;
@@ -14,8 +17,8 @@ const WaitingLobby = ({ ...props }) => {
 
     const [black, setBlacks] = useState([]);
     const [white, setWhites] = useState([]);
-    const [deck, setDeck] = useState([])
-    const [question, setQuestion] = useState([]);
+    const [deck, setDeck] = useState<cards[]>([])
+    const [question, setQuestion] = useState<cards>();
 
     useEffect(() => {
         fetch('http://localhost:3001/cards/', { mode: 'cors' })
@@ -26,13 +29,11 @@ const WaitingLobby = ({ ...props }) => {
             }).then(() => {
                 setDeck([...white].sort(() => 0.5 - Math.random()).slice(0, 10))
                 setQuestion(black[Math.floor(Math.random() * black.length)])
-                console.log(question, deck);
-
             })
             .catch((err) => {
                 console.log(err.message);
             });
-    }, []);
+    }, [white.length > 0 && black.length > 0]);
 
     return (
         <div style={{ margin: 30 }}>
@@ -63,6 +64,8 @@ const WaitingLobby = ({ ...props }) => {
             </Row>
             <Row justify="center" style={{ marginTop: isMobile ? 22 : 0 }}>
                 <WhiteLobbyCard lobbyName={state?.lobbyName} players={rooms[state?.lobbyName]} />
+                {question !== undefined && <BlackCard title={question!.title}></BlackCard>}
+                {deck.length !== 0 && <WhiteCard title={deck[0]!.title}></WhiteCard>}
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
                 {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large" onClick={() => { }}>Start Game</Button>}
