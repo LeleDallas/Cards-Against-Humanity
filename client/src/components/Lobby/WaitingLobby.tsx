@@ -21,19 +21,32 @@ const WaitingLobby = ({ ...props }) => {
     const [question, setQuestion] = useState<cards>();
 
     useEffect(() => {
-        fetch('http://localhost:3001/cards/', { mode: 'cors' })
+        if (white.length == 0){
+            fetch('http://localhost:3001/cards/', { mode: 'cors' })
             .then((res) => res.json())
             .then((data) => {
                 setBlacks(data.filter((el: any) => el.isBlack == true));
                 setWhites(data.filter((el: any) => el.isBlack == false));
-            }).then(() => {
-                setDeck([...white].sort(() => 0.5 - Math.random()).slice(0, 10))
-                setQuestion(black[Math.floor(Math.random() * black.length)])
             })
             .catch((err) => {
                 console.log(err.message);
             });
+        }
     }, [white.length > 0 && black.length > 0]);
+
+
+    let drawCards = function(type:any, quantity:number = 1) {
+        let drawed:any = null;
+        if (type == "black"){
+            const index = Math.floor(Math.random() * black.length);
+            drawed = black[index];
+            setBlacks(black.filter((_, card) => card !== index))
+        }else{
+            drawed = [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
+            setWhites(white.filter((_, card) => card >= quantity))
+        }
+        return drawed;
+    }
 
     return (
         <div style={{ margin: 30 }}>
@@ -68,7 +81,7 @@ const WaitingLobby = ({ ...props }) => {
                 {deck.length !== 0 && <WhiteCard title={deck[0]!.title}></WhiteCard>}
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
-                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large" onClick={() => { }}>Start Game</Button>}
+                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large" onClick={() => {console.log(drawCards("white", 3), white.length)}}>Start Game</Button>}
             </Row>
         </div >
     )
