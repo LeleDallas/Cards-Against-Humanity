@@ -1,10 +1,9 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { expect, it, describe, vi } from 'vitest'
+import { expect, it, describe, vi, test } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
 import Home from '../src/components/Home/Home';
 import { BrowserRouter } from 'react-router-dom';
-import * as deviceDetect from 'react-device-detect';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -16,7 +15,6 @@ vi.mock("react-router-dom", async () => {
         useNavigate: () => mockedUseNavigate,
     };
 });
-
 
 describe('Home', () => {
     it('renders correctly', () => {
@@ -47,15 +45,29 @@ describe('Home', () => {
     })
 
     it('change value based on devices', () => {
-        const { getByAltText } = render(
+
+        const mockedMobile = vi.fn();
+        vi.mock("react-device-detect", async () => {
+            const mod = await vi.importActual<typeof import("react-device-detect")>(
+                "react-device-detect"
+            );
+            return {
+                ...mod,
+                isMobile: () => mockedMobile,
+            };
+        });
+        
+        const { queryByAltText, getByText } = render(
             <BrowserRouter>
                 <Home />
             </BrowserRouter>
         );
+        expect(queryByAltText('berry')).not.toBeInTheDocument()
+        expect(queryByAltText('jazzHands')).not.toBeInTheDocument()
 
-      
-        const berry = getByAltText('berry')
-        expect(berry).toBeInTheDocument()
-
+        const join = getByText('Join room')
+        const create = getByText('Create room')
+        const rules = getByText('Rules')
+        expect(getComputedStyle(join).width).toBe(250)
     })
 });

@@ -6,6 +6,7 @@ import { ConfigProvider } from "antd";
 import CreateLobby from "../components/Lobby/CreateLobby";
 import Lobby from "../components/Lobby/Lobby";
 import Rules from "../components/Rules/Rules";
+import Game from "../components/Game/Game";
 
 const AppRoute = (props: any) =>
     <ConfigProvider
@@ -22,6 +23,7 @@ const AppRoute = (props: any) =>
                 <Route path="/rules" element={<Rules />} />
                 <Route path="/create" element={<CreateLobby />} />
                 <Route path="/waiting" element={<WaitingLobby {...props} />} />
+                <Route path="/game" element={<Game {...props} />} />
             </Routes>
         </SocketContextComponent>
     </ConfigProvider>

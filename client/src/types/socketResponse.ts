@@ -5,3 +5,7 @@ export type SocketRoomResponse = {
         users: Array<string>
     }
 }
+export type SocketGameStartResponse = {
+    success: boolean,
+    isCzar: string
+}
