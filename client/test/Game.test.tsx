@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom';
-import Game from '../src/components/Game/Game';
+import Game from '../src/pages/Game/Game';
 import { act } from 'react-dom/test-utils';
 
 const mockedUseNavigate = vi.fn();

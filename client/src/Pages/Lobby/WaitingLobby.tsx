@@ -3,9 +3,9 @@ import { useContext } from "react"
 import socketContext from "../../context/SocketContext"
 import { useLocation, useNavigate } from "react-router-dom"
 import { LeftOutlined } from "@ant-design/icons"
-import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
 import { SocketGameStartResponse, SocketRoomResponse } from "../../types/socketResponse"
 import { isMobile } from "react-device-detect"
+import WhiteLobbyCard from "../../components/Cards/WhiteLobbyCard"
 
 const WaitingLobby = ({ ...props }) => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;

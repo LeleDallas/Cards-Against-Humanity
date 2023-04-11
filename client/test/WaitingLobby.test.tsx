@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom';
-import WaitingLobby from '../src/components/Lobby/WaitingLobby';
+import WaitingLobby from '../src/pages/Lobby/WaitingLobby';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {

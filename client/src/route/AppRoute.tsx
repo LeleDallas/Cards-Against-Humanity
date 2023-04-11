@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import SocketContextComponent from "../context/SocketContextComponent";
-import Home from "../components/Home/Home";
-import WaitingLobby from "../components/Lobby/WaitingLobby";
 import { ConfigProvider } from "antd";
-import CreateLobby from "../components/Lobby/CreateLobby";
-import Lobby from "../components/Lobby/Lobby";
-import Rules from "../components/Rules/Rules";
-import Game from "../components/Game/Game";
+import Game from "../pages/Game/Game";
+import Home from "../pages/Home/Home";
+import Lobby from "../pages/Lobby/Lobby";
+import Rules from "../pages/Rules/Rules";
+import CreateLobby from "../pages/Lobby/CreateLobby";
+import WaitingLobby from "../pages/Lobby/WaitingLobby";
+
 
 const AppRoute = (props: any) =>
     <ConfigProvider

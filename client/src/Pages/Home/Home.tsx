@@ -1,7 +1,5 @@
 import { Button, Row } from "antd"
 import { useNavigate } from "react-router-dom";
-import WhiteCard from "../Cards/WhiteCard";
-import BlackCard from "../Cards/BlackCard";
 import styled from "styled-components";
 import cowboyBoot from '../../assets/cowboyboot.png';
 import fartAndWalkaway from '../../assets/fartandwalkaway.png';
@@ -12,6 +10,8 @@ import pizza from '../../assets/pizza.png';
 import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
 import cards from "../../../../server/db/models/cards"
+import WhiteCard from "../../components/Cards/WhiteCard";
+import BlackCard from "../../components/Cards/BlackCard";
 
 const ContainerWhite = styled.div`
 position: absolute;

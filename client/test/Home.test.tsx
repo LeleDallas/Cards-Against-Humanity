@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { expect, it, describe, vi, test } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
-import Home from '../src/components/Home/Home';
+import Home from '../src/pages/Home/Home';
 import { BrowserRouter } from 'react-router-dom';
 
 const mockedUseNavigate = vi.fn();

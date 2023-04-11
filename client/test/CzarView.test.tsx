@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import CzarView from '../src/components/Game/CzarView';
+import CzarView from '../src/pages/Game/CzarView';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {

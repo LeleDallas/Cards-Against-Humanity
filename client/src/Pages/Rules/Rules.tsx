@@ -1,9 +1,9 @@
 import { Button, Col, Row, Typography } from "antd"
-import BlackCard from "../Cards/BlackCard"
-import WhiteCard from "../Cards/WhiteCard"
 import { LeftOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { isMobile } from "react-device-detect"
+import BlackCard from "../../components/Cards/BlackCard"
+import WhiteCard from "../../components/Cards/WhiteCard"
 
 
 const Rules = () => {

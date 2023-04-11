@@ -1,6 +1,6 @@
 import { Button, Col, Row } from "antd"
-import BlackCard from "../Cards/BlackCard"
-import WhiteCard from "../Cards/WhiteCard"
+import BlackCard from "../../components/Cards/BlackCard"
+import WhiteCard from "../../components/Cards/WhiteCard"
 import { useState } from "react"
 import cards from "../../../../server/db/models/cards"
 
