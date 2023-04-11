@@ -21,10 +21,10 @@ const CzarView = ({ ...props }) => {
     const [selected, setSelected] = useState("")
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
-    const {lobbyName} = props
+    const {roomName} = props
 
     const sendBlack = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card: string) => {
-        socket?.emit("send_black_card", card, lobbyName, (response: SocketGameStartResponse) => {
+        socket?.emit("send_black_card", card, roomName, (response: SocketGameStartResponse) => {
         })
     }  
 

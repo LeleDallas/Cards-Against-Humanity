@@ -45,7 +45,7 @@ describe('Waiting Lobby component', () => {
             pathname: '/path',
             search: '',
             hash: '',
-            state: { lobbyName: "test", type: "admin" },
+            state: { roomName: "test", type: "admin" },
         });
         const { getByText } = render(
             <BrowserRouter>

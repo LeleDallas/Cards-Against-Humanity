@@ -29,7 +29,6 @@ const PlayerView = ({ ...props }) => {
     return (
         <>
             <Row justify="center" style={{ marginTop: 12 }}>
-
                 <BlackCard
                     cardStyle={{ width: 240, height: 240 }}
                     title={black_card}

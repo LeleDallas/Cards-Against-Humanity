@@ -30,7 +30,7 @@ describe('WhiteLobbyCard guest', () => {
     it('renders guest card correctly', () => {
         const { getByText } = render(
             <BrowserRouter>
-                <WhiteLobbyCard join players={mockRoom.players} lobbyName={mockRoom.title} />
+                <WhiteLobbyCard join players={mockRoom.players} roomName={mockRoom.title} />
             </BrowserRouter>
 
         );
@@ -43,7 +43,7 @@ describe('WhiteLobbyCard guest', () => {
     it('show alert on no player room', () => {
         const { getByText } = render(
             <BrowserRouter>
-                <WhiteLobbyCard join players={noPlayers.players} lobbyName={mockRoom.title} />
+                <WhiteLobbyCard join players={noPlayers.players} roomName={mockRoom.title} />
             </BrowserRouter>
         );
         expect(getByText('This room do not exist anymore.')).toBeInTheDocument()
@@ -55,7 +55,7 @@ describe('WhiteLobbyCard host', () => {
     it('renders host card correctly', () => {
         const { getByText } = render(
             <BrowserRouter>
-                <WhiteLobbyCard players={mockRoom.players} lobbyName={mockRoom.title} />
+                <WhiteLobbyCard players={mockRoom.players} roomName={mockRoom.title} />
             </BrowserRouter>
 
         );
@@ -67,7 +67,7 @@ describe('WhiteLobbyCard host', () => {
     it('can navigate between screens', () => {
         const { getByText } = render(
             <BrowserRouter>
-                <WhiteLobbyCard join players={mockRoom.players} lobbyName={mockRoom.title} />
+                <WhiteLobbyCard join players={mockRoom.players} roomName={mockRoom.title} />
             </BrowserRouter>
         );
         const connect = getByText('Connect')

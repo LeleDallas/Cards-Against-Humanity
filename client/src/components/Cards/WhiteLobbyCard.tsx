@@ -35,18 +35,18 @@ right: 0;
 margin: 0 20px
 `
 interface WhiteLobbyCard {
-    lobbyName: string,
+    roomName: string,
     players: Array<string> | undefined,
     join?: boolean
 }
 
-const WhiteLobbyCard = ({ lobbyName, players, join = false }: WhiteLobbyCard) => {
+const WhiteLobbyCard = ({ roomName, players, join = false }: WhiteLobbyCard) => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
-    const joinRoom = (lobbyName: string) => {
-        socket?.emit("join_room", lobbyName, (response: any) => {
+    const joinRoom = (roomName: string) => {
+        socket?.emit("join_room", roomName, (response: any) => {
             if (response.success) {
-                navigate("/waiting", { state: { lobbyName, type: "user" } })
+                navigate("/waiting", { state: { roomName, type: "user" } })
             }
         })
     }
@@ -64,14 +64,14 @@ const WhiteLobbyCard = ({ lobbyName, players, join = false }: WhiteLobbyCard) =>
             /> :
             <Card>
                 <Front>
-                    <Title style={{ color: "#000000" }}>{lobbyName}</Title>
+                    <Title style={{ color: "#000000" }}>{roomName}</Title>
                     <List
                         header={<div>Players inside: {players?.length} </div>}
                         dataSource={players}
                         renderItem={(item: string) => <List.Item style={{ textAlign: "center" }}>{item}</List.Item>}
                     />
                     {join &&
-                        <JoinButton type="primary" onClick={() => joinRoom(lobbyName)}>
+                        <JoinButton type="primary" onClick={() => joinRoom(roomName)}>
                             Connect
                         </JoinButton>}
                 </Front>

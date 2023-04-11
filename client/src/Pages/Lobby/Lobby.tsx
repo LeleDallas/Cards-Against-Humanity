@@ -27,9 +27,9 @@ const Lobby = () => {
             <Row justify="center" style={{ marginTop: 22 }}>
                 <BlackCard cardStyle={{ height: "12.75em", whiteSpace: "pre-line" }} title={`Choose a room ____________. \n\nUsers Online: ${users.length}`} />
             </Row>
-            <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32,32]}>
+            <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32, 32]}>
                 {Object.keys(rooms).map((roomName, index) =>
-                    <WhiteLobbyCard join lobbyName={roomName} players={rooms[roomName]} key={index} />
+                    <WhiteLobbyCard join roomName={roomName} players={rooms[roomName]} key={index} />
                 )}
             </Row>
         </div >

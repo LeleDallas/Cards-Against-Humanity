@@ -12,12 +12,12 @@ const WaitingLobby = ({ ...props }) => {
     const navigate = useNavigate()
     const { state } = useLocation();
     const startGame = () => {
-        socket?.emit("request_start_game", state?.lobbyName, (response: SocketGameStartResponse) => {
+        socket?.emit("request_start_game", state?.roomName, (response: SocketGameStartResponse) => {
             if (response?.success) {
                 message.success("Game is starting!")
                 navigate("/game", { state: {
                     isCzar : response.isCzar,
-                    lobbyName : state.lobbyName
+                    roomName : state.roomName
                 } })
             }
             else
@@ -33,7 +33,7 @@ const WaitingLobby = ({ ...props }) => {
                         title="Leave room alert"
                         description="Are you sure to exit and delete this room?"
                         onConfirm={() => {
-                            socket?.emit("delete_room", state?.lobbyName, (response: SocketRoomResponse) => {
+                            socket?.emit("delete_room", state?.roomName, (response: SocketRoomResponse) => {
                                 response?.success &&
                                     navigate("/")
                             })
@@ -44,7 +44,7 @@ const WaitingLobby = ({ ...props }) => {
                         <Button icon={<LeftOutlined />} type="primary" >Back</Button>
                     </Popconfirm> :
                     <Button icon={<LeftOutlined />} type="primary" onClick={() => {
-                        socket?.emit("leave_room", state?.lobbyName, (response: SocketRoomResponse) => {
+                        socket?.emit("leave_room", state?.roomName, (response: SocketRoomResponse) => {
                             response?.success &&
                                 navigate(-1)
                         })
@@ -52,10 +52,10 @@ const WaitingLobby = ({ ...props }) => {
                 }
             </Row>
             <Row justify="center" style={{ marginTop: isMobile ? 22 : 0 }}>
-                <WhiteLobbyCard lobbyName={state?.lobbyName} players={rooms[state?.lobbyName]} />
+                <WhiteLobbyCard roomName={state?.roomName} players={rooms[state?.roomName]} />
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
-                {rooms[state?.lobbyName] && state?.type === "admin" && <Button onClick={() => startGame()} style={{ width: 200 }} type="primary" size="large">Start Game</Button>}
+                {rooms[state?.roomName] && state?.type === "admin" && <Button onClick={() => startGame()} style={{ width: 200 }} type="primary" size="large">Start Game</Button>}
             </Row>
         </div >
     )
