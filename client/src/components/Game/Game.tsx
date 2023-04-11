@@ -6,7 +6,6 @@ import styled from "styled-components"
 import PlayerView from "./PlayerView"
 import CzarView from "./CzarView"
 import GameScorer from "./GameScorer"
-import cards from "../../../../server/db/models/cards"
 
 const Loader = styled.div`
     height: 100%;
@@ -26,22 +25,6 @@ const Game = ({ ...props }) => {
     const { state } = useLocation();
     const [modal, showModal] = useState(false)
     const [lobbyType, setLobbyType] = useState<string>(state)
-    const [black, setBlacks] = useState([]);
-    const [white, setWhites] = useState([]);
-
-    useEffect(() => {
-        if (white.length == 0) {
-            fetch('http://localhost:3001/cards/', { mode: 'cors' })
-                .then((res) => res.json())
-                .then((data) => {
-                    setBlacks(data.filter((card: cards) => card.isBlack == true));
-                    setWhites(data.filter((card: cards) => card.isBlack == false));
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }
-    }, [white.length > 0 && black.length > 0]);
 
     return (
         <div style={{ margin: 30 }}>

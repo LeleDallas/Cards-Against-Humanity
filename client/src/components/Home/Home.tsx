@@ -10,6 +10,8 @@ import berry from '../../assets/miracleberry.png';
 import airplane from '../../assets/paperairplane.png';
 import pizza from '../../assets/pizza.png';
 import { isMobile } from "react-device-detect";
+import { useEffect, useState } from "react";
+import cards from "../../../../server/db/models/cards"
 
 const ContainerWhite = styled.div`
 position: absolute;
@@ -30,6 +32,22 @@ rotate: 22deg;
 
 const Home = () => {
     const navigate = useNavigate();
+    const [black, setBlacks] = useState([]);
+    const [white, setWhites] = useState([]);
+    useEffect(() => {
+        if (white.length == 0) {
+            fetch('http://localhost:3000/cards/', { mode: 'cors' })
+                .then((res) => res.json())
+                .then((data) => {
+                    setBlacks(data.filter((card: cards) => card.isBlack == true));
+                    setWhites(data.filter((card: cards) => card.isBlack == false));
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
+    }, [white.length > 0 && black.length > 0]);
+
     return (
         <div style={{ width: "100%", height: "100%" }}>
             <ContainerWhite>
