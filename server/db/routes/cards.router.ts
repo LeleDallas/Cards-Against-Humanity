@@ -1,15 +1,16 @@
-import express, { Request, Response } from "express";
+import { Router, json, Request, Response } from "express";
+
 import { collections } from "../services/database.service";
 
-export const cardsRouter = express.Router();
+export const cardsRouter = Router();
 
-cardsRouter.use(express.json());
+cardsRouter.use(json());
 
-cardsRouter.get("/", async (_req: Request, res: Response) => {
+cardsRouter.get("/cards", async (_req: Request, res: Response) => {
     try {
         const cards = (await collections.cards!.find({}).toArray());
-        res.status(200).send(cards);
+        return res.status(200).send(cards);
     } catch (error: any) {
-        res.status(500).send(error.message);
+        return res.status(500).send(error.message);
     }
 });
