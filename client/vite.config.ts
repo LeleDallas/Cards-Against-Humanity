@@ -15,8 +15,8 @@ export default defineConfig({
     coverage: {
       provider: "c8",
       all: true,
-      include: ["src/**/*.tsx"],
-      exclude: ["src/main.tsx"],
+      include: ["src/**/*.tsx", "src/**/*.ts"],
+      exclude: ["src/main.tsx", "src/types", "src/vite-env.d.ts", "src/reducers.ts"],
     },
   },
 });

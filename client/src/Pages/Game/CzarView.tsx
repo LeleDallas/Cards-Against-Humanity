@@ -3,7 +3,7 @@ import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
-import { drawBlackCard, sendBlack, setCurrentSolution } from "../../hooks/functions"
+import { drawBlackCard, onConfirm, sendBlack, setCurrentSolution } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 
 const CzarView = ({ ...props }) => {
@@ -22,11 +22,6 @@ const CzarView = ({ ...props }) => {
         }, 200);
 
     }, [])
-
-    const onConfirm = () => {
-        //TO DO
-        //Notify all
-    }
 
     return (
         <>

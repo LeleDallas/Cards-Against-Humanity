@@ -7,7 +7,7 @@ import BlackCard from "../../components/Cards/BlackCard"
 import WhiteLobbyCard from "../../components/Cards/WhiteLobbyCard"
 
 const Lobby = () => {
-    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
+    const { socket, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
 
     const reloadPage = () => {

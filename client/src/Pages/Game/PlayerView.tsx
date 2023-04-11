@@ -8,8 +8,8 @@ import { drawWhiteCards, sendWhiteResponse } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
 
-const PlayerView = ({ ...props }) => {
-    const { socket, uid, users, rooms, black_card, czarSocketId } = useContext(socketContext).socketState;
+const PlayerView = () => {
+    const { socket, black_card, czarSocketId } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
     const white = useAppSelector(state => state?.whiteCards?.cards)
@@ -29,11 +29,10 @@ const PlayerView = ({ ...props }) => {
         setSelected("")
     }
 
-
     return (
         <>
             <Row justify="center" style={{ marginTop: 12 }}>
-                {black_card == "" ?
+                {black_card === "" ?
                     <BlackCard
                         cardStyle={{ width: 240, height: 240 }}
                         title=""

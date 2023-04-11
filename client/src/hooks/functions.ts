@@ -2,6 +2,25 @@ import { Socket } from "socket.io-client";
 import { Cards } from "../types/cards";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { SocketGameStartResponse, SocketRoomResponse } from "../types/socketResponse";
+import { NavigateFunction } from "react-router-dom";
+import { message } from "antd";
+
+export const createRoom = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction
+) => {
+    if (roomName.length === 0) {
+        message.error("Insert a Lobby name")
+        return
+    }
+    socket?.emit("create_room", roomName, (response: SocketRoomResponse) => {
+        if (response.success) {
+            navigate("/waiting", { state: { roomName: response.data.roomName, type: "admin" } })
+        }
+    })
+}
+
 
 export const drawBlackCard = (black: Array<Cards>): Cards =>
     black[Math.floor(Math.random() * black.length)];
@@ -41,4 +60,9 @@ export const sendWhiteResponse = (
 ) => {
     socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => {
     })
-}  
+}
+
+export const onConfirm = () => {
+    //TO DO
+    //Notify all
+}

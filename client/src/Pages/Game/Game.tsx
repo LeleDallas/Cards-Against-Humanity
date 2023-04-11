@@ -9,14 +9,6 @@ import PlayerView from "./PlayerView"
 import socketContext from "../../context/SocketContext"
 import { SocketRoomResponse } from "../../types/socketResponse"
 
-
-const Loader = styled.div`
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-`
-
 const items = [
     {
         label: <GameScorer />,
