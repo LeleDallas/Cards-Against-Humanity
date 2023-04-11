@@ -4,6 +4,8 @@ import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import PlayerView from '../src/pages/Game/PlayerView';
+import { store } from '../src/store/store';
+import { Provider } from 'react-redux';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -19,18 +21,22 @@ vi.mock("react-router-dom", async () => {
 describe('Czar View', () => {
     it('renders view correctly', () => {
         const { getByText } = render(
-            <BrowserRouter>
-                <PlayerView />
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <PlayerView />
+                </BrowserRouter>
+            </Provider>
         );
         expect(getByText("Submit Response")).toBeInTheDocument()
     });
 
     it('select a card on click', () => {
         const { getByText } = render(
-            <BrowserRouter>
-                <PlayerView />
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <PlayerView />
+                </BrowserRouter>
+            </Provider>
         );
         const card = getByText("1")
         expect(card).toBeInTheDocument()
