@@ -6,47 +6,11 @@ import { LeftOutlined } from "@ant-design/icons"
 import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
 import { SocketRoomResponse } from "../../types/socketResponse"
 import { isMobile } from "react-device-detect"
-import BlackCard from "../Cards/BlackCard"
-import cards from "../../../../server/db/models/cards"
-import WhiteCard from "../Cards/WhiteCard"
 
 const WaitingLobby = ({ ...props }) => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const { state } = useLocation();
-
-    const [black, setBlacks] = useState([]);
-    const [white, setWhites] = useState([]);
-    const [deck, setDeck] = useState<cards[]>([])
-    const [question, setQuestion] = useState<cards>();
-
-    useEffect(() => {
-        if (white.length == 0){
-            fetch('http://localhost:3001/cards/', { mode: 'cors' })
-            .then((res) => res.json())
-            .then((data) => {
-                setBlacks(data.filter((el: any) => el.isBlack == true));
-                setWhites(data.filter((el: any) => el.isBlack == false));
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-        }
-    }, [white.length > 0 && black.length > 0]);
-
-
-    let drawCards = function(type:any, quantity:number = 1) {
-        let drawed:any = null;
-        if (type == "black"){
-            const index = Math.floor(Math.random() * black.length);
-            drawed = black[index];
-            setBlacks(black.filter((_, card) => card !== index))
-        }else{
-            drawed = [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
-            setWhites(white.filter((_, card) => card >= quantity))
-        }
-        return drawed;
-    }
 
     return (
         <div style={{ margin: 30 }}>
@@ -77,11 +41,9 @@ const WaitingLobby = ({ ...props }) => {
             </Row>
             <Row justify="center" style={{ marginTop: isMobile ? 22 : 0 }}>
                 <WhiteLobbyCard lobbyName={state?.lobbyName} players={rooms[state?.lobbyName]} />
-                {question !== undefined && <BlackCard title={question!.title}></BlackCard>}
-                {deck.length !== 0 && <WhiteCard title={deck[0]!.title}></WhiteCard>}
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
-                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large" onClick={() => {console.log(drawCards("white", 3), white.length)}}>Start Game</Button>}
+                {state?.type === "admin" && <Button style={{ width: 200 }} type="primary" size="large">Start Game</Button>}
             </Row>
         </div >
     )
