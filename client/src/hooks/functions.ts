@@ -1,7 +1,7 @@
 import { Socket } from "socket.io-client";
 import { Cards } from "../types/cards";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { SocketRoomResponse } from "../types/socketResponse";
+import { SocketGameStartResponse, SocketRoomResponse } from "../types/socketResponse";
 
 export const drawBlackCard = (black: Array<Cards>): Cards =>
     black[Math.floor(Math.random() * black.length)];
@@ -29,7 +29,16 @@ export const setCurrentSolution = (
     }
 }
 
-export const sendBlack = (socket:Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card:string) => {
-    socket?.emit("send_black_card", card, (response: SocketRoomResponse) => {
+// export const sendBlack = (socket:Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card:string) => {
+//     socket?.emit("send_black_card", card, (response: SocketRoomResponse) => {
+//     })
+// }
+
+export const sendWhiteResponse = (
+    socket: Socket,
+    czarSocketId: string,
+    card: string,
+) => {
+    socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => {
     })
-}
+}  
