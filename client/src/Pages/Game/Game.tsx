@@ -3,9 +3,10 @@ import { Button, Dropdown, Modal, Row } from "antd"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import PlayerView from "./PlayerView"
-import CzarView from "./CzarView"
 import GameScorer from "./GameScorer"
+import CzarView from "./CzarView"
+import PlayerView from "./PlayerView"
+
 
 const Loader = styled.div`
     height: 100%;

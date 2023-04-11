@@ -4,6 +4,7 @@ import WhiteCard from "../../components/Cards/WhiteCard"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
+import { drawWhiteCards } from "../../hooks/functions"
 
 const PlayerView = ({ ...props }) => {
     const [selected, setSelected] = useState<string>("")
@@ -12,19 +13,14 @@ const PlayerView = ({ ...props }) => {
 
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
 
-    const drawWhiteCards = (quantity: number) => {
-        const draw: Array<Cards> = [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
-        setPlayerHand((oldHand:Array<Cards>) => [...oldHand, ...draw]);
-    }
-    
     useEffect(() => {
         setPlayerHand([])
-        drawWhiteCards(10)
+        setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 10)]);
     }, [])
-    
+
     const drawNew = () => {
         setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
-        drawWhiteCards(1)
+        setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
         setSelected("")
     }
 
@@ -45,7 +41,7 @@ const PlayerView = ({ ...props }) => {
                             selected={selected === card.title}
                             cardStyle={{ width: 180, height: 200 }}
                             title={card.title}
-                            frontStyle={{fontSize:"15px"}}
+                            frontStyle={{ fontSize: "15px" }}
                         />
                     </Col>
                 )}

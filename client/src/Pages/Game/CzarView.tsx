@@ -4,6 +4,7 @@ import WhiteCard from "../../components/Cards/WhiteCard"
 import { useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
+import { drawBlackCard } from "../../hooks/functions"
 
 let rawResponse = [
     { isBlack: false, title: "dasds \nassad" },
@@ -32,16 +33,11 @@ const CzarView = ({ ...props }) => {
         //Notify all
     }
 
-    let drawBlackCard = function() {
-        const index:number = Math.floor(Math.random() * black.length);
-        const draw:Cards = black[index];
-        return draw;
-    }
 
     return (
         <>
             <Row justify="center" style={{ margin: 12 }}>
-                <BlackCard title={drawBlackCard().title} cardStyle={{ width: 240, height: 240 }} />
+                <BlackCard title={drawBlackCard(black).title} cardStyle={{ width: 240, height: 240 }} />
             </Row>
             <Row justify="center" gutter={[32, 32]}>
                 {rawResponse.map((card, index) =>
