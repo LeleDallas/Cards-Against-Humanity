@@ -66,3 +66,42 @@ export const onConfirm = () => {
     //TO DO
     //Notify all
 }
+
+
+export const startGame = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction
+) => {
+    socket?.emit("request_start_game", roomName, (response: SocketGameStartResponse) => {
+        if (response?.success) {
+            message.success("Game is starting!")
+            navigate("/game", {
+                state: {
+                    isCzar: response.isCzar,
+                    roomName: roomName
+                }
+            })
+        }
+        else
+            message.error("This room has not reach the minimum people to start a game!")
+    })
+}
+
+export const deleteRoom = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction
+) => {
+    socket?.emit("delete_room", roomName, (response: SocketRoomResponse) =>
+        response?.success && navigate("/"))
+}
+
+export const leaveRoom = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction
+) => {
+    socket?.emit("leave_room", roomName, (response: SocketRoomResponse) =>
+        response?.success && navigate(-1))
+}
