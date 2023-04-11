@@ -4,21 +4,25 @@ const initialState = {
     cards: [],
 }
 
-export const cardsSlice = createSlice({
-    name: 'cards',
+export const blackCards = createSlice({
+    name: 'black',
     initialState: initialState,
     reducers: {
-        getCards: (state, action) => {
+        updateBlack: (state, action) => {
             state.cards = action.payload
-            // localStorage.setItem("Cards", JSON.stringify(action.payload))
-        },
-        updateCards: (state, action) => {
-            state.cards = action.payload
-            // localStorage.setItem("Cards", JSON.stringify(action.payload))
         }
     },
 })
 
-export const { getCards: userCards, updateCards } = cardsSlice.actions
+export const whiteCards = createSlice({
+    name: 'white',
+    initialState: initialState,
+    reducers: {
+        updateWhite: (state, action) => {
+            state.cards = action.payload
+        }
+    },
+})
 
-export default cardsSlice.reducer
+export const { updateBlack } = blackCards.actions
+export const { updateWhite } = whiteCards.actions

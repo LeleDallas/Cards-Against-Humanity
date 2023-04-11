@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { cardsSlice } from '../reducers'
+import { blackCards, whiteCards } from '../reducers'
 
 export const store = configureStore({
     reducer: {
-        cards: cardsSlice.reducer
+        whiteCards: whiteCards.reducer,
+        blackCards: blackCards.reducer
     },
 })
 
