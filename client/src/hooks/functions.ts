@@ -29,10 +29,10 @@ export const setCurrentSolution = (
     }
 }
 
-// export const sendBlack = (socket:Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card:string) => {
-//     socket?.emit("send_black_card", card, (response: SocketRoomResponse) => {
-//     })
-// }
+export const sendBlack = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card: string, roomName: string) => {
+    socket?.emit("send_black_card", card, roomName, socket.id, (response: SocketGameStartResponse) => {
+    })
+}
 
 export const sendWhiteResponse = (
     socket: Socket,
