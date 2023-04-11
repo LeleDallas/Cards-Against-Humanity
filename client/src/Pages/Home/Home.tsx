@@ -9,9 +9,11 @@ import airplane from '../../assets/paperairplane.png';
 import pizza from '../../assets/pizza.png';
 import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
-import cards from "../../../../server/db/models/cards"
 import WhiteCard from "../../components/Cards/WhiteCard";
 import BlackCard from "../../components/Cards/BlackCard";
+import { useDispatch } from "react-redux";
+import { updateBlack, updateWhite } from "../../reducers";
+import { Cards } from "../../types/cards";
 
 const ContainerWhite = styled.div`
 position: absolute;
@@ -34,13 +36,15 @@ const Home = () => {
     const navigate = useNavigate();
     const [black, setBlacks] = useState([]);
     const [white, setWhites] = useState([]);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         if (white.length == 0) {
             fetch('http://localhost:3000/cards/', { mode: 'cors' })
                 .then((res) => res.json())
                 .then((data) => {
-                    setBlacks(data.filter((card: cards) => card.isBlack == true));
-                    setWhites(data.filter((card: cards) => card.isBlack == false));
+                    dispatch(updateBlack(data.filter((card: Cards) => card.isBlack == true)));
+                    dispatch(updateWhite(data.filter((card: Cards) => card.isBlack == false)));    
                 })
                 .catch((err) => {
                     console.log(err.message);
