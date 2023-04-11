@@ -1,33 +1,31 @@
 import { Button, Col, Row } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
-import { useState } from "react"
-import cards from "../../../../server/db/models/cards"
-
-let rawWhiteData = [
-    { isBlack: false, title: "1" },
-    { isBlack: false, title: "2" },
-    { isBlack: false, title: "3" },
-    { isBlack: false, title: "4" },
-    { isBlack: false, title: "5" },
-    { isBlack: false, title: "6" },
-    { isBlack: false, title: "7" },
-    { isBlack: false, title: "8" },
-    { isBlack: false, title: "9" },
-    { isBlack: false, title: "10" },
-]
+import { useEffect, useState } from "react"
+import { useAppSelector } from "../../hooks/hooks"
+import { Cards } from "../../types/cards"
 
 const PlayerView = ({ ...props }) => {
     const [selected, setSelected] = useState<string>("")
+    const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
+    const white = useAppSelector(state => state?.whiteCards?.cards)
 
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
 
-    const [white, setWhites] = useState([]); // to be changed with redux
-
-    let drawWhiteCards = function(quantity:number) {
-        const draw:Array<cards> = [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
-        setWhites(white.filter((_, card) => card >= quantity))
-        return draw;
+    const drawWhiteCards = (quantity: number) => {
+        const draw: Array<Cards> = [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
+        setPlayerHand((oldHand:Array<Cards>) => [...oldHand, ...draw]);
+    }
+    
+    useEffect(() => {
+        setPlayerHand([])
+        drawWhiteCards(10)
+    }, [])
+    
+    const drawNew = () => {
+        setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
+        drawWhiteCards(1)
+        setSelected("")
     }
 
     return (
@@ -40,18 +38,18 @@ const PlayerView = ({ ...props }) => {
                 />
             </Row>
             <Row justify="center" align="middle" gutter={[32, 32]} style={{ marginTop: 12 }}>
-                {rawWhiteData.map((card, index) =>
-                    !card.isBlack &&
+                {playerHand.map((card, index) =>
                     <Col key={index} onClick={() => useSelect(card.title)}>
                         <WhiteCard
                             hoverable
                             selected={selected === card.title}
                             cardStyle={{ width: 180, height: 200 }}
                             title={card.title}
+                            frontStyle={{fontSize:"15px"}}
                         />
                     </Col>
                 )}
-                <Button disabled={selected === ""} type="primary" onClick={() => console.log(selected)}>Submit Response</Button>
+                <Button disabled={selected === ""} type="primary" onClick={() => drawNew()}>Submit Response</Button>
             </Row >
         </>
 
