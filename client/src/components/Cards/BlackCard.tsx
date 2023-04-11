@@ -25,10 +25,20 @@ font-weight: 500;
 letter-spacing: 0.05em;
 `
 
-const BlackCard = ({ cardStyle = {}, title = "Cards Against Humanity? More like ____________." }) =>
+interface BlackProps {
+  title?: string,
+  cardStyle?: React.CSSProperties,
+  frontStyle?: React.CSSProperties,
+  children?: JSX.Element | JSX.Element[],
+  hoverable?: boolean,
+  selected?: boolean,
+}
+
+const BlackCard = ({ cardStyle = {}, title = "Cards Against Humanity? More like ____________.", children }: BlackProps) =>
   <Card cardStyle={cardStyle}>
     <Front>
       <Title style={{ color: "#fff" }}>{title}</Title>
+      {children}
     </Front>
   </Card>
 

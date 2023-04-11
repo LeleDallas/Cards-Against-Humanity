@@ -31,7 +31,10 @@ const CzarView = ({ ...props }) => {
     useEffect(() => {
         const card = drawBlackCard(black).title
         setBlackCard(card)
-        sendBlack(socket, card)
+        setTimeout(() => {
+            sendBlack(socket, card)
+        }, 200);
+        
     }, [])
 
     const onConfirm = () => {
