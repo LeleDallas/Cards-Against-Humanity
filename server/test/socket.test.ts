@@ -82,16 +82,16 @@ describe('Server Socket', () => {
 
 
     it('should return the current room when getCurrentRoom is called', () => {
-        const lobbyName = 'room1';
+        const roomName = 'room1';
         const user1 = 'user1';
         const user2 = 'user2';
         const room = new Set([user1, user2]);
-        (serverSocket.io.sockets.adapter as any).rooms.set(lobbyName, room);
+        (serverSocket.io.sockets.adapter as any).rooms.set(roomName, room);
 
-        const result = getCurrentRoom(lobbyName, getUsersInRoom(serverSocket.io, lobbyName));
+        const result = getCurrentRoom(roomName, getUsersInRoom(serverSocket.io, roomName));
         expect(result).toEqual({
             data: {
-                lobbyName,
+                roomName,
                 users: JSON.stringify([...room])
             }
         });
