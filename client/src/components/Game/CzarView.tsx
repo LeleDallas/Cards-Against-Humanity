@@ -2,6 +2,7 @@ import { Button, Col, Row } from "antd"
 import BlackCard from "../Cards/BlackCard"
 import WhiteCard from "../Cards/WhiteCard"
 import { useState } from "react"
+import cards from "../../../../server/db/models/cards"
 
 let rawResponse = [
     { isBlack: false, title: "dasds \nassad" },
@@ -14,6 +15,7 @@ let rawBlackData = { isBlack: true, title: "BLACK CARD" }
 const CzarView = ({ ...props }) => {
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
+    const [black, setBlacks] = useState([]); // to be changed with redux
 
     const setCurrentSolution = (solution: string) => {
         if (solution !== selected) {
@@ -29,6 +31,13 @@ const CzarView = ({ ...props }) => {
     const onConfirm = () => {
         //TO DO
         //Notify all
+    }
+
+    let drawBlackCard = function() {
+        const index:number = Math.floor(Math.random() * black.length);
+        const draw:cards = black[index];
+        setBlacks(black.filter((_, card) => card !== index))
+        return draw;
     }
 
     return (

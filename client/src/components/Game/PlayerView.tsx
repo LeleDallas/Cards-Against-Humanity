@@ -2,6 +2,7 @@ import { Button, Col, Row } from "antd"
 import BlackCard from "../Cards/BlackCard"
 import WhiteCard from "../Cards/WhiteCard"
 import { useState } from "react"
+import cards from "../../../../server/db/models/cards"
 
 let rawWhiteData = [
     { isBlack: false, title: "1" },
@@ -21,6 +22,13 @@ const PlayerView = ({ ...props }) => {
 
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
 
+    const [white, setWhites] = useState([]); // to be changed with redux
+
+    let drawWhiteCards = function(quantity:number) {
+        const draw:Array<cards> = [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
+        setWhites(white.filter((_, card) => card >= quantity))
+        return draw;
+    }
 
     return (
         <>
