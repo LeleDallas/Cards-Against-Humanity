@@ -153,11 +153,18 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         callback(response);
     });
 
-    socket.on('send_black_card', (value, roomName, callback) => {
-        console.info(`The card is ${value}`);
+    socket.on('send_black_card', (cardTitle, roomName, czarSocket, callback) => {
+        console.info(`The card is ${cardTitle}`);
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
-            socket.to(socketId).emit("get_black_card", value)
+            socket.to(socketId).emit("get_black_card", cardTitle, czarSocket)
         })
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('send_white_card', (cZarSocketId, card, callback) => {
+        console.info(`The white card is ${card}`);
+        socket.to(cZarSocketId).emit("get_white_card", card)
         const response = { success: true };
         callback(response);
     });
