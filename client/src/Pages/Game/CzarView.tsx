@@ -2,20 +2,19 @@ import { Button, Col, Row } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
 import { useState } from "react"
-import cards from "../../../../server/db/models/cards"
+import { useAppSelector } from "../../hooks/hooks"
+import { Cards } from "../../types/cards"
 
 let rawResponse = [
     { isBlack: false, title: "dasds \nassad" },
     { isBlack: false, title: "sSA" },
     { isBlack: false, title: "aSas" },
 ]
-let rawBlackData = { isBlack: true, title: "BLACK CARD" }
-
 
 const CzarView = ({ ...props }) => {
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
-    const [black, setBlacks] = useState([]); // to be changed with redux
+    const black = useAppSelector(state => state.blackCards.cards)
 
     const setCurrentSolution = (solution: string) => {
         if (solution !== selected) {
@@ -35,15 +34,14 @@ const CzarView = ({ ...props }) => {
 
     let drawBlackCard = function() {
         const index:number = Math.floor(Math.random() * black.length);
-        const draw:cards = black[index];
-        setBlacks(black.filter((_, card) => card !== index))
+        const draw:Cards = black[index];
         return draw;
     }
 
     return (
         <>
             <Row justify="center" style={{ margin: 12 }}>
-                <BlackCard title={rawBlackData.title} cardStyle={{ width: 240, height: 240 }} />
+                <BlackCard title={drawBlackCard().title} cardStyle={{ width: 240, height: 240 }} />
             </Row>
             <Row justify="center" gutter={[32, 32]}>
                 {rawResponse.map((card, index) =>
