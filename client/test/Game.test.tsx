@@ -76,6 +76,8 @@ describe('Game', () => {
         )
         const scores = getByText("Scores")
         fireEvent.mouseOver(scores)
+        fireEvent.mouseEnter(scores)
+        fireEvent.click(scores)
         // expect(getByText("1")).toBeInTheDocument()
     })
 })
