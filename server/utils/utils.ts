@@ -146,10 +146,20 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
                     isCzar = "czar"
             }
             else
-                socket.to(socketId).emit("start_game", "user")
+                socket.to(socketId).emit("start_game", "user", roomName)
             index++
         })
         const response = { success: true, isCzar };
         callback(response);
     });
+
+    socket.on('send_black_card', (value, lobbyName, callback) => {
+        console.info(`The card is ${value}`);
+        io.sockets.adapter.rooms.get(lobbyName)?.forEach((socketId) => {
+            socket.to(socketId).emit("get_black_card", value)
+        })
+        const response = { success: true};
+        callback(response);
+    });
+
 };

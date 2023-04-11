@@ -6,6 +6,7 @@ export interface SocketContextState {
     uid: string;
     users: Array<string>;
     rooms: any;
+    black_card: string;
 }
 
 export const defaultSocketContextState: SocketContextState = {
@@ -13,9 +14,10 @@ export const defaultSocketContextState: SocketContextState = {
     uid: '',
     users: [],
     rooms: {},
+    black_card: ""
 };
 
-export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room' | "update_rooms" | "start_game";
+export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room' | "update_rooms" | "start_game" | 'get_black_card';
 export type SocketContextPayload = string | Array<string> | Socket;
 
 export interface SocketContextActionsPayload {
@@ -36,6 +38,8 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
             return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
         case 'update_rooms':
             return { ...state, rooms: action.payload as any };
+        case 'get_black_card':
+            return {...state, black_card: action.payload as string};
         default:
             return state;
     }

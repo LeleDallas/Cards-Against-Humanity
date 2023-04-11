@@ -1,4 +1,7 @@
+import { Socket } from "socket.io-client";
 import { Cards } from "../types/cards";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { SocketRoomResponse } from "../types/socketResponse";
 
 export const drawBlackCard = (black: Array<Cards>): Cards =>
     black[Math.floor(Math.random() * black.length)];
@@ -24,4 +27,9 @@ export const setCurrentSolution = (
         setSelected("")
         setSolution(false)
     }
+}
+
+export const sendBlack = (socket:Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card:string) => {
+    socket?.emit("send_black_card", card, (response: SocketRoomResponse) => {
+    })
 }

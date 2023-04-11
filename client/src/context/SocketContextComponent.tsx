@@ -59,7 +59,12 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         });
 
         socket.on('update_rooms', (rooms: any) => socketDispatch({ type: "update_rooms", payload: rooms?.data }));
-        socket.on('start_game', (isCzar: string) => navigate("/game", { state: isCzar }));
+        socket.on('start_game', (isCzar: string, roomName: string) => navigate("/game", { state: {
+            isCzar : isCzar,
+            roomName : roomName
+        } }));
+
+        socket.on('get_black_card', (title: string) => socketDispatch({ type: "get_black_card", payload: title }));
     };
 
     const sendHandshake = async () => {
