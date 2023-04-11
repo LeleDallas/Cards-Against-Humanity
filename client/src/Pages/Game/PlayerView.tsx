@@ -4,12 +4,12 @@ import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
-import { drawWhiteCards } from "../../hooks/functions"
+import { drawWhiteCards, sendWhiteResponse } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
 
 const PlayerView = ({ ...props }) => {
-    const { socket, uid, users, rooms, black_card } = useContext(socketContext).socketState;
+    const { socket, uid, users, rooms, black_card, czarSocketId } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
     const white = useAppSelector(state => state?.whiteCards?.cards)
@@ -23,10 +23,12 @@ const PlayerView = ({ ...props }) => {
     }, [])
 
     const drawNew = () => {
+        sendWhiteResponse(socket!, czarSocketId, selected)
         setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
         setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
         setSelected("")
     }
+
 
     return (
         <>

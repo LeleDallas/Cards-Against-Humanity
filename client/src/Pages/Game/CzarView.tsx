@@ -16,17 +16,18 @@ let rawResponse = [
 ]
 
 const CzarView = ({ ...props }) => {
-    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
+    const { socket, white_card } = useContext(socketContext).socketState;
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
-    const {roomName} = props
+    const { roomName } = props
 
     const sendBlack = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card: string) => {
-        socket?.emit("send_black_card", card, roomName, (response: SocketGameStartResponse) => {
+        socket?.emit("send_black_card", card, roomName, socket.id, (response: SocketGameStartResponse) => {
         })
-    }  
+    }
+    console.log(white_card)
 
     useEffect(() => {
         const card = drawBlackCard(black)?.title
@@ -34,7 +35,7 @@ const CzarView = ({ ...props }) => {
         setTimeout(() => {
             sendBlack(socket, card)
         }, 200);
-        
+
     }, [])
 
     const onConfirm = () => {
@@ -48,13 +49,13 @@ const CzarView = ({ ...props }) => {
                 <BlackCard title={blackCard} cardStyle={{ width: 240, height: 240 }} />
             </Row>
             <Row justify="center" gutter={[32, 32]}>
-                {rawResponse.map((card, index) =>
-                    <Col key={index} onClick={() => setCurrentSolution(card.title, selected, setSelected, setSolution)}>
+                {white_card.map((card, index) =>
+                    <Col key={index} onClick={() => setCurrentSolution(card, selected, setSelected, setSolution)}>
                         <WhiteCard
                             hoverable
-                            selected={selected === card.title}
+                            selected={selected === card}
                             cardStyle={{ width: 180, height: 200 }}
-                            title={card.title} />
+                            title={card} />
                     </Col>
                 )}
             </Row>
