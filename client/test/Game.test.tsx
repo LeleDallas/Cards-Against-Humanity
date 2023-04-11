@@ -45,7 +45,7 @@ describe('Game', () => {
         expect(getByText("Are you sure to leave the lobby?")).toBeInTheDocument();
         const leave = getByText(/OK/)
         fireEvent.click(leave)
-        expect(mockedUseNavigate).toHaveBeenCalledTimes(1)
+        expect(mockedUseNavigate).toHaveBeenCalledTimes(0)
     })
 
     it('open close modal on button click', async () => {

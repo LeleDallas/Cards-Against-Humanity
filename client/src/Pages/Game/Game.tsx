@@ -28,8 +28,7 @@ const Game = ({ ...props }) => {
     const navigate = useNavigate()
     const { state } = useLocation();
     const [modal, showModal] = useState(false)
-    const [lobbyType, setLobbyType] = useState<string>(state.isCzar)
-    console.log(state)
+    const [lobbyType, setLobbyType] = useState<string>(state?.isCzar)
 
     return (
         <div style={{ margin: 30 }}>
@@ -39,7 +38,7 @@ const Game = ({ ...props }) => {
                     <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
                 </Dropdown>
             </Row>
-            {lobbyType === "czar" ? <CzarView roomName={state.roomName} /> : <PlayerView roomName={state.roomName} />}
+            {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView roomName={state?.roomName} />}
             <Modal open={modal} title="Are you sure to leave the lobby?"
                 onOk={() =>
                     socket?.emit("leave_room", state?.roomName, (response: SocketRoomResponse) => {

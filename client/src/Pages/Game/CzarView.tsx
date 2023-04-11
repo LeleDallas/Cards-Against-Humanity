@@ -29,7 +29,7 @@ const CzarView = ({ ...props }) => {
     }  
 
     useEffect(() => {
-        const card = drawBlackCard(black).title
+        const card = drawBlackCard(black)?.title
         setBlackCard(card)
         setTimeout(() => {
             sendBlack(socket, card)
