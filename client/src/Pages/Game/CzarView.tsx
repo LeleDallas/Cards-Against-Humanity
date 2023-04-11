@@ -1,9 +1,13 @@
 import { Button, Col, Row } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { drawBlackCard, setCurrentSolution } from "../../hooks/functions"
+import socketContext from "../../context/SocketContext"
+import { SocketGameStartResponse } from "../../types/socketResponse"
+import { Socket } from "socket.io-client"
+import { DefaultEventsMap } from "@socket.io/component-emitter"
 
 let rawResponse = [
     { isBlack: false, title: "test1" },
@@ -12,13 +16,22 @@ let rawResponse = [
 ]
 
 const CzarView = ({ ...props }) => {
+    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
+    const {lobbyName} = props
+
+    const sendBlack = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card: string) => {
+        socket?.emit("send_black_card", card, lobbyName, (response: SocketGameStartResponse) => {
+        })
+    }  
 
     useEffect(() => {
-        setBlackCard(drawBlackCard(black)?.title)
+        const card = drawBlackCard(black).title
+        setBlackCard(card)
+        sendBlack(socket, card)
     }, [])
 
     const onConfirm = () => {

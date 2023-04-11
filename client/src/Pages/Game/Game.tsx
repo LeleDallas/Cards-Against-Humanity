@@ -25,7 +25,7 @@ const Game = ({ ...props }) => {
     const navigate = useNavigate()
     const { state } = useLocation();
     const [modal, showModal] = useState(false)
-    const [lobbyType, setLobbyType] = useState<string>(state)
+    const [lobbyType, setLobbyType] = useState<string>(state.isCzar)
 
     return (
         <div style={{ margin: 30 }}>
@@ -35,7 +35,7 @@ const Game = ({ ...props }) => {
                     <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
                 </Dropdown>
             </Row>
-            {lobbyType === "czar" ? <CzarView /> : <PlayerView />}
+            {lobbyType === "czar" ? <CzarView lobbyName = {state.lobbyName}/> : <PlayerView lobbyName = {state.lobbyName}/>}
             <Modal open={modal} title="Are you sure to leave the lobby?"
                 onOk={() => navigate(-1)}
                 onCancel={() => showModal(false)}

@@ -1,12 +1,14 @@
 import { Button, Col, Row } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
 import { drawWhiteCards } from "../../hooks/functions"
+import socketContext from "../../context/SocketContext"
 
 const PlayerView = ({ ...props }) => {
+    const { socket, uid, users, rooms, black_card } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
     const white = useAppSelector(state => state?.whiteCards?.cards)
@@ -23,14 +25,14 @@ const PlayerView = ({ ...props }) => {
         setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
         setSelected("")
     }
-
+    console.log(black_card)
     return (
         <>
             <Row justify="center" style={{ marginTop: 12 }}>
 
                 <BlackCard
                     cardStyle={{ width: 240, height: 240 }}
-                    title={"Black Card _____"}
+                    title={black_card}
                 />
             </Row>
             <Row justify="center" align="middle" gutter={[32, 32]} style={{ marginTop: 12 }}>

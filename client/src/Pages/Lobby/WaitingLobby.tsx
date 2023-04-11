@@ -15,7 +15,10 @@ const WaitingLobby = ({ ...props }) => {
         socket?.emit("request_start_game", state?.lobbyName, (response: SocketGameStartResponse) => {
             if (response?.success) {
                 message.success("Game is starting!")
-                navigate("/game", { state: response.isCzar })
+                navigate("/game", { state: {
+                    isCzar : response.isCzar,
+                    lobbyName : state.lobbyName
+                } })
             }
             else
                 message.error("This room has not reach the minimum people to start a game!")
