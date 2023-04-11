@@ -39,4 +39,21 @@ describe('Waiting Lobby component', () => {
         fireEvent.click(start)
         expect(mockedUseNavigate).toHaveBeenCalledTimes(1)
     })
+
+    it('fire back event', () => {
+        mockedUseNavigate.mockReturnValueOnce({
+            pathname: '/path',
+            search: '',
+            hash: '',
+            state: { lobbyName: "test", type: "admin" },
+        });
+        const { getByText } = render(
+            <BrowserRouter>
+                <WaitingLobby />
+            </BrowserRouter>
+        )
+        const back = getByText(/Back/)
+        fireEvent.click(back)
+        expect(mockedUseNavigate).toHaveBeenCalledTimes(1)
+    })
 })
