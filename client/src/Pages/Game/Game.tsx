@@ -40,9 +40,6 @@ const Game = ({ ...props }) => {
                 onOk={() => navigate(-1)}
                 onCancel={() => showModal(false)}
             />
-            {/* <Spin tip="Loading" size="large">
-                <Loader />
-            </Spin> */}
         </div >
     )
 }

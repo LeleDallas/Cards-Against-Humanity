@@ -1,10 +1,9 @@
 import { Button, Col, Row } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
-import { Cards } from "../../types/cards"
-import { drawBlackCard } from "../../hooks/functions"
+import { drawBlackCard, setCurrentSolution } from "../../hooks/functions"
 
 let rawResponse = [
     { isBlack: false, title: "dasds \nassad" },
@@ -15,34 +14,26 @@ let rawResponse = [
 const CzarView = ({ ...props }) => {
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
+    const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
 
-    const setCurrentSolution = (solution: string) => {
-        if (solution !== selected) {
-            setSelected(solution)
-            setSolution(true)
-        }
-        else {
-            setSelected("")
-            setSolution(false)
-        }
-    }
+    useEffect(() => {
+        setBlackCard(drawBlackCard(black).title)
+    }, [])
 
     const onConfirm = () => {
         //TO DO
         //Notify all
     }
 
-
     return (
         <>
             <Row justify="center" style={{ margin: 12 }}>
-                <BlackCard title={drawBlackCard(black).title} cardStyle={{ width: 240, height: 240 }} />
+                <BlackCard title={blackCard} cardStyle={{ width: 240, height: 240 }} />
             </Row>
             <Row justify="center" gutter={[32, 32]}>
                 {rawResponse.map((card, index) =>
-                    !card.isBlack &&
-                    <Col key={index} onClick={() => setCurrentSolution(card.title)}>
+                    <Col key={index} onClick={() => setCurrentSolution(card.title, selected, setSelected, setSolution)}>
                         <WhiteCard
                             hoverable
                             selected={selected === card.title}
