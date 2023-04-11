@@ -3,6 +3,7 @@ import { useSocket } from '../hooks/useSocket';
 import { defaultSocketContextState, SocketContextProvider, socketReducer } from './SocketContext'
 import 'antd/dist/reset.css';
 import SpinningCard from '../components/Cards/SpinningCard';
+import { useNavigate } from 'react-router-dom';
 
 export interface SocketContextComponentProps extends PropsWithChildren { }
 
@@ -17,6 +18,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
 
     const [socketState, socketDispatch] = useReducer(socketReducer, defaultSocketContextState);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate()
 
     useEffect(() => {
         socket.connect();
@@ -57,6 +59,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         });
 
         socket.on('update_rooms', (rooms: any) => socketDispatch({ type: "update_rooms", payload: rooms?.data }));
+        socket.on('start_game', (isCzar: string) => navigate("/game", { state: isCzar }));
     };
 
     const sendHandshake = async () => {

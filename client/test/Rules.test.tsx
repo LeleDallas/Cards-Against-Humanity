@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { expect, it, describe, beforeEach, vi } from 'vitest'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import Rules from '../src/components/Rules/Rules';
+import Rules from '../src/pages/Rules/Rules';
 import { BrowserRouter } from 'react-router-dom';
 
 const mockedUseNavigate = vi.fn();

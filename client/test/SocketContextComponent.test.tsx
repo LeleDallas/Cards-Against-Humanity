@@ -4,6 +4,7 @@ import { expect, it, describe, assert, afterEach, vitest } from 'vitest'
 import { cleanup, render } from '@testing-library/react';
 import { SocketContextProvider, defaultSocketContextState } from '../src/context/SocketContext';
 import SocketContextComponent from '../src/context/SocketContextComponent';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('SocketContextComponent', async () => {
     const socketState = {
@@ -11,9 +12,11 @@ describe('SocketContextComponent', async () => {
         socketDispatch: () => { }
     };
     const { getByText } = render(
-        <SocketContextProvider value={socketState}>
-            <SocketContextComponent />
-        </SocketContextProvider>
+        <BrowserRouter>
+            <SocketContextProvider value={socketState}>
+                <SocketContextComponent />
+            </SocketContextProvider>
+        </BrowserRouter>
     );
 
     afterEach(() => {

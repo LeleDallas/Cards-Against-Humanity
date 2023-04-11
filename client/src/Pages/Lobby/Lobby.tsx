@@ -3,8 +3,8 @@ import { useContext, useEffect } from "react"
 import socketContext from "../../context/SocketContext"
 import { useNavigate } from "react-router-dom"
 import { LeftOutlined, ReloadOutlined } from "@ant-design/icons"
-import WhiteLobbyCard from "../Cards/WhiteLobbyCard"
-import BlackCard from "../Cards/BlackCard"
+import BlackCard from "../../components/Cards/BlackCard"
+import WhiteLobbyCard from "../../components/Cards/WhiteLobbyCard"
 
 const Lobby = () => {
     const { socket, uid, users, rooms } = useContext(socketContext).socketState;

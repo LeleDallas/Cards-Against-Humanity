@@ -1,10 +1,11 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { expect, it, describe, vi } from 'vitest'
+import { expect, it, describe, vi, test } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
-import Home from '../src/components/Home/Home';
+import Home from '../src/pages/Home/Home';
 import { BrowserRouter } from 'react-router-dom';
-import * as deviceDetect from 'react-device-detect';
+import { Provider } from 'react-redux';
+import { store } from '../src/store/store';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -17,13 +18,14 @@ vi.mock("react-router-dom", async () => {
     };
 });
 
-
 describe('Home', () => {
     it('renders correctly', () => {
         const { getByText } = render(
-            <BrowserRouter>
-                <Home />
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </Provider>
 
         );
         expect(getByText("Cards Against Humanity? More like ____________.")).toBeInTheDocument()
@@ -31,9 +33,11 @@ describe('Home', () => {
 
     it('can navigate between screens', () => {
         const { getByText } = render(
-            <BrowserRouter>
-                <Home />
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </Provider>
         );
         const join = getByText('Join room')
         const create = getByText('Create room')
@@ -47,15 +51,31 @@ describe('Home', () => {
     })
 
     it('change value based on devices', () => {
-        const { getByAltText } = render(
-            <BrowserRouter>
-                <Home />
-            </BrowserRouter>
+
+        const mockedMobile = vi.fn();
+        vi.mock("react-device-detect", async () => {
+            const mod = await vi.importActual<typeof import("react-device-detect")>(
+                "react-device-detect"
+            );
+            return {
+                ...mod,
+                isMobile: () => mockedMobile,
+            };
+        });
+
+        const { queryByAltText, getByText } = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </Provider>
         );
+        expect(queryByAltText('berry')).not.toBeInTheDocument()
+        expect(queryByAltText('jazzHands')).not.toBeInTheDocument()
 
-      
-        const berry = getByAltText('berry')
-        expect(berry).toBeInTheDocument()
-
+        const join = getByText('Join room')
+        const create = getByText('Create room')
+        const rules = getByText('Rules')
+        expect(getComputedStyle(join).width).toBe("")
     })
 });
