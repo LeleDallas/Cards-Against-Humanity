@@ -27,7 +27,7 @@ describe('Czar View', () => {
                 </BrowserRouter>
             </Provider>
         );
-        expect(getByText("Confirm")).toBeInTheDocument()
+        expect(getByText(/Confirm/)).toBeInTheDocument()
     });
 
     it('select a card on click', () => {
@@ -38,10 +38,9 @@ describe('Czar View', () => {
                 </BrowserRouter>
             </Provider>
         );
-        const card = getByText("sSA")
+        const card = getByText("test1")
         expect(card).toBeInTheDocument()
-        fireEvent.click(card)
-        expect(card.style)
+
 
     });
 

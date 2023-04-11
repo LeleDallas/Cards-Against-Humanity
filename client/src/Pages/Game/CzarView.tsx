@@ -6,9 +6,9 @@ import { useAppSelector } from "../../hooks/hooks"
 import { drawBlackCard, setCurrentSolution } from "../../hooks/functions"
 
 let rawResponse = [
-    { isBlack: false, title: "dasds \nassad" },
-    { isBlack: false, title: "sSA" },
-    { isBlack: false, title: "aSas" },
+    { isBlack: false, title: "test1" },
+    { isBlack: false, title: "test2" },
+    { isBlack: false, title: "test3" },
 ]
 
 const CzarView = ({ ...props }) => {
@@ -18,7 +18,7 @@ const CzarView = ({ ...props }) => {
     const black = useAppSelector(state => state.blackCards.cards)
 
     useEffect(() => {
-        setBlackCard(drawBlackCard(black).title)
+        setBlackCard(drawBlackCard(black)?.title)
     }, [])
 
     const onConfirm = () => {

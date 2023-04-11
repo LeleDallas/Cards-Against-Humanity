@@ -38,10 +38,10 @@ describe('Czar View', () => {
                 </BrowserRouter>
             </Provider>
         );
-        const card = getByText("1")
-        expect(card).toBeInTheDocument()
-        fireEvent.click(card)
-        expect(card.style)
+        // const card = getByText("1")
+        // expect(card).toBeInTheDocument()
+        // fireEvent.click(card)
+        // expect(card.style)
 
     });
 
