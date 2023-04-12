@@ -28,6 +28,7 @@
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@testing-library/dom": "^9.0.1",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
