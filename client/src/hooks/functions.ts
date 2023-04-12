@@ -48,18 +48,20 @@ export const setCurrentSolution = (
     }
 }
 
-export const sendBlack = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, card: string, roomName: string) => {
-    socket?.emit("send_black_card", card, roomName, socket.id, (response: SocketGameStartResponse) => {
-    })
+export const sendBlack = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    card: string,
+    roomName: string
+) => {
+    socket?.emit("send_black_card", card, roomName, socket.id, (response: SocketGameStartResponse) => { })
 }
 
 export const sendWhiteResponse = (
-    socket: Socket,
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     czarSocketId: string,
     card: string,
 ) => {
-    socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => {
-    })
+    socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => { })
 }
 
 export const onConfirm = () => {

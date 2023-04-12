@@ -4,6 +4,7 @@ import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom';
 import WaitingLobby from '../src/pages/Lobby/WaitingLobby';
+import { SocketContextProvider } from '../src/context/SocketContext';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -56,4 +57,38 @@ describe('Waiting Lobby component', () => {
         fireEvent.click(back)
         expect(mockedUseNavigate).toHaveBeenCalledTimes(1)
     })
+
+    // it('calls leaveRoom function on click', () => {
+    //     const leaveRoom = vi.fn();
+    //     const navigate = vi.fn();
+    //     const socketState = { socket: {}, rooms: [] };
+    //     const location = { state: { type: 'user', roomName: 'Test Room' } };
+    //     const { getByRole } = render(
+    //         <BrowserRouter>
+    //             <SocketContextProvider value={socketState}>
+    //                 <WaitingLobby navigate={navigate} leaveRoom={leaveRoom} location={location} />
+    //             </SocketContextProvider>
+    //         </BrowserRouter>
+    //     );
+    //     const backButton = getByRole('button');
+    //     fireEvent.click(backButton);
+    //     expect(leaveRoom).toHaveBeenCalledWith(socketState.socket, location.state.roomName, navigate);
+    // });
+
+    // test('calls deleteRoom function on confirm', () => {
+    //     const deleteRoom = jest.fn();
+    //     const navigate = jest.fn();
+    //     const socketState = { socket: {}, rooms: [] };
+    //     const location = { state: { type: 'admin', roomName: 'Test Room' } };
+    //     const { getByRole } = render(
+    //         <BrowserRouter>
+    //             <WaitingLobby socketState={socketState} navigate={navigate} deleteRoom={deleteRoom} location={location} />
+    //         </BrowserRouter>
+    //     );
+    //     const backButton = getByRole('button');
+    //     fireEvent.click(backButton);
+    //     const confirmButton = getByRole('button', { name: 'Yes' });
+    //     fireEvent.click(confirmButton);
+    //     expect(deleteRoom).toHaveBeenCalledWith(socketState.socket, location.state.roomName, navigate);
+    // });
 })
