@@ -21,7 +21,7 @@ const Lobby = () => {
     return (
         <div style={{ margin: 20 }}>
             <Row justify="space-between" align="middle">
-                <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate(-1)}>Back</Button>
+                <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate("/")}>Back</Button>
                 <Button icon={<ReloadOutlined />} type="primary" onClick={() => reloadPage()}>Refresh</Button>
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
