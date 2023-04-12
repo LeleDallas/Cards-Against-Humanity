@@ -9,6 +9,7 @@ import WaitingLobby from "../pages/Lobby/WaitingLobby";
 import Game from "../pages/Game/Game";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
+import ErrorRoute from "./ErrorRoute";
 
 
 const AppRoute = (props: any) =>
@@ -28,6 +29,7 @@ const AppRoute = (props: any) =>
                     <Route path="/create" element={<CreateLobby />} />
                     <Route path="/waiting" element={<WaitingLobby {...props} />} />
                     <Route path="/game" element={<Game {...props} />} />
+                    <Route path="*" element={<ErrorRoute />} />
                 </Routes>
             </SocketContextComponent>
         </ConfigProvider>
