@@ -30,7 +30,7 @@ const Game = ({ ...props }) => {
                     <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
                 </Dropdown>
             </Row>
-            {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView roomName={state?.roomName} />}
+            {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView />}
             <Modal open={modal} title="Are you sure to leave the lobby?"
                 onOk={() =>
                     socket?.emit("leave_room", state?.roomName, (response: SocketRoomResponse) => {
