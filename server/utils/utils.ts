@@ -14,20 +14,20 @@ export const getRooms = (availableRooms: Map<string, Set<string>>,) => {
     return filteredRooms;
 };
 
-export const getUsersInRoom = (io: Server, lobbyName: string) => io.sockets.adapter.rooms.get(lobbyName)
+export const getUsersInRoom = (io: Server, roomName: string) => io.sockets.adapter.rooms.get(roomName)
 
-export const getCurrentRoom = (lobbyName: string, users: Set<string> | undefined) => {
+export const getCurrentRoom = (roomName: string, users: Set<string> | undefined) => {
     if (!users)
         return {
             data: {
-                lobbyName,
+                roomName,
                 users: JSON.stringify([])
             }
         }
     else
         return {
             data: {
-                lobbyName,
+                roomName,
                 users: JSON.stringify(users && [...users])
             }
         }
@@ -43,7 +43,7 @@ export const sendMessage = (messageType: string, users: string[], io: Server, pa
 
 
 export const startListeners = (io: Server, socket: Socket, socketUsers: user) => {
-    
+
     console.info('Message received from socketId: ' + socket.id);
 
     socket.on('handshake', (callback: (uid: string, users: string[]) => void) => {
@@ -141,15 +141,32 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
 
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
             if (index === randomCzar) {
-                socket.to(socketId).emit("start_game", "czar")
+                socket.to(socketId).emit("start_game", "czar", roomName)
                 if (socketId === socket.id)
                     isCzar = "czar"
             }
             else
-                socket.to(socketId).emit("start_game", "user")
+                socket.to(socketId).emit("start_game", "user", roomName)
             index++
         })
         const response = { success: true, isCzar };
         callback(response);
     });
+
+    socket.on('send_black_card', (cardTitle, roomName, czarSocket, callback) => {
+        console.info(`The card is ${cardTitle}`);
+        io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            socket.to(socketId).emit("get_black_card", cardTitle, czarSocket)
+        })
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('send_white_card', (cZarSocketId, card, callback) => {
+        console.info(`The white card is ${card}`);
+        socket.to(cZarSocketId).emit("get_white_card", card)
+        const response = { success: true };
+        callback(response);
+    });
+
 };

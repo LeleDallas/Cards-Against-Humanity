@@ -7,7 +7,7 @@ import BlackCard from "../../components/Cards/BlackCard"
 import WhiteLobbyCard from "../../components/Cards/WhiteLobbyCard"
 
 const Lobby = () => {
-    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
+    const { socket, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
 
     const reloadPage = () => {
@@ -21,15 +21,15 @@ const Lobby = () => {
     return (
         <div style={{ margin: 20 }}>
             <Row justify="space-between" align="middle">
-                <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate(-1)}>Back</Button>
+                <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate("/")}>Back</Button>
                 <Button icon={<ReloadOutlined />} type="primary" onClick={() => reloadPage()}>Refresh</Button>
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
                 <BlackCard cardStyle={{ height: "12.75em", whiteSpace: "pre-line" }} title={`Choose a room ____________. \n\nUsers Online: ${users.length}`} />
             </Row>
-            <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32,32]}>
+            <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32, 32]}>
                 {Object.keys(rooms).map((roomName, index) =>
-                    <WhiteLobbyCard join lobbyName={roomName} players={rooms[roomName]} key={index} />
+                    <WhiteLobbyCard join roomName={roomName} players={rooms[roomName]} key={index} />
                 )}
             </Row>
         </div >

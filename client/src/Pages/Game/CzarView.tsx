@@ -1,30 +1,27 @@
 import { Button, Col, Row } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
-import { drawBlackCard, setCurrentSolution } from "../../hooks/functions"
-
-let rawResponse = [
-    { isBlack: false, title: "test1" },
-    { isBlack: false, title: "test2" },
-    { isBlack: false, title: "test3" },
-]
+import { drawBlackCard, onConfirm, sendBlack, setCurrentSolution } from "../../hooks/functions"
+import socketContext from "../../context/SocketContext"
 
 const CzarView = ({ ...props }) => {
+    const { socket, white_card } = useContext(socketContext).socketState;
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
+    const { roomName } = props
 
     useEffect(() => {
-        setBlackCard(drawBlackCard(black)?.title)
-    }, [])
+        const card = drawBlackCard(black)?.title
+        setBlackCard(card)
+        setTimeout(() => {
+            sendBlack(socket, card, roomName)
+        }, 200);
 
-    const onConfirm = () => {
-        //TO DO
-        //Notify all
-    }
+    }, [])
 
     return (
         <>
@@ -32,13 +29,13 @@ const CzarView = ({ ...props }) => {
                 <BlackCard title={blackCard} cardStyle={{ width: 240, height: 240 }} />
             </Row>
             <Row justify="center" gutter={[32, 32]}>
-                {rawResponse.map((card, index) =>
-                    <Col key={index} onClick={() => setCurrentSolution(card.title, selected, setSelected, setSolution)}>
+                {white_card.map((card, index) =>
+                    <Col key={index} onClick={() => setCurrentSolution(card, selected, setSelected, setSolution)}>
                         <WhiteCard
                             hoverable
-                            selected={selected === card.title}
+                            selected={selected === card}
                             cardStyle={{ width: 180, height: 200 }}
-                            title={card.title} />
+                            title={card} />
                     </Col>
                 )}
             </Row>

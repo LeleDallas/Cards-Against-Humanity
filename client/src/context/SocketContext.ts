@@ -6,6 +6,9 @@ export interface SocketContextState {
     uid: string;
     users: Array<string>;
     rooms: any;
+    black_card: string;
+    czarSocketId: string;
+    white_card: Array<string>
 }
 
 export const defaultSocketContextState: SocketContextState = {
@@ -13,9 +16,24 @@ export const defaultSocketContextState: SocketContextState = {
     uid: '',
     users: [],
     rooms: {},
+    black_card: "",
+    czarSocketId: "",
+    white_card: [],
 };
 
-export type SocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'room' | "update_rooms" | "start_game";
+export type SocketContextActions =
+    'update_socket' |
+    'update_uid' |
+    'update_users' |
+    'remove_user' |
+    'room' |
+    "update_rooms" |
+    "start_game" |
+    'get_black_card' |
+    'set_czar' |
+    'get_white_card' |
+    'reset_white_card'
+    ;
 export type SocketContextPayload = string | Array<string> | Socket;
 
 export interface SocketContextActionsPayload {
@@ -36,6 +54,14 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
             return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
         case 'update_rooms':
             return { ...state, rooms: action.payload as any };
+        case 'get_black_card':
+            return { ...state, black_card: action.payload as string };
+        case 'set_czar':
+            return { ...state, czarSocketId: action.payload as string };
+        case 'get_white_card':
+            return { ...state, white_card: [...new Set([...state.white_card, action.payload as string])] };
+        case 'reset_white_card':
+            return { ...state, white_card: [] };
         default:
             return state;
     }

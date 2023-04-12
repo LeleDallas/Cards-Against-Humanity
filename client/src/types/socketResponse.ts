@@ -1,7 +1,7 @@
 export type SocketRoomResponse = {
     success: boolean,
     data: {
-        lobbyName: string
+        roomName: string
         users: Array<string>
     }
 }

@@ -36,7 +36,7 @@ describe('Server utils', () => {
         expect(getCurrentRoom(failedRoom, users)).toStrictEqual(
             {
                 "data": {
-                    "lobbyName": "failed_test",
+                    "roomName": "failed_test",
                     "users": "[]",
                 },
             }
@@ -45,7 +45,7 @@ describe('Server utils', () => {
         expect(getCurrentRoom(failedRoom, undefined)).toStrictEqual(
             {
                 "data": {
-                    "lobbyName": "failed_test",
+                    "roomName": "failed_test",
                     "users": "[]",
                 },
             }
@@ -57,7 +57,7 @@ describe('Server utils', () => {
         expect(getCurrentRoom(failedRoom, users)).toStrictEqual(
             {
                 "data": {
-                    "lobbyName": "failed_test",
+                    "roomName": "failed_test",
                     "users": '["1","2","3"]',
                 },
             }

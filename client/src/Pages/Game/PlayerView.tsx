@@ -1,15 +1,19 @@
-import { Button, Col, Row } from "antd"
+import { Button, Col, Row, Spin } from "antd"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
-import { drawWhiteCards } from "../../hooks/functions"
+import { drawWhiteCards, sendWhiteResponse } from "../../hooks/functions"
+import socketContext from "../../context/SocketContext"
+import { LoadingOutlined } from "@ant-design/icons"
 
-const PlayerView = ({ ...props }) => {
+const PlayerView = () => {
+    const { socket, black_card, czarSocketId } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
     const white = useAppSelector(state => state?.whiteCards?.cards)
+    const spin = <LoadingOutlined style={{ fontSize: 100 }} spin />;
 
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
 
@@ -19,6 +23,7 @@ const PlayerView = ({ ...props }) => {
     }, [])
 
     const drawNew = () => {
+        sendWhiteResponse(socket!, czarSocketId, selected)
         setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
         setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
         setSelected("")
@@ -27,11 +32,23 @@ const PlayerView = ({ ...props }) => {
     return (
         <>
             <Row justify="center" style={{ marginTop: 12 }}>
-
-                <BlackCard
-                    cardStyle={{ width: 240, height: 240 }}
-                    title={"Black Card _____"}
-                />
+                {black_card === "" ?
+                    <BlackCard
+                        cardStyle={{ width: 240, height: 240 }}
+                        title=""
+                        children=
+                        {
+                            <Row justify={"center"} align={"middle"}>
+                                <Spin indicator={spin} style={{ color: "#fff" }} size="large" />
+                            </Row>
+                        }
+                    />
+                    :
+                    <BlackCard
+                        cardStyle={{ width: 240, height: 240 }}
+                        title={black_card}
+                    />
+                }
             </Row>
             <Row justify="center" align="middle" gutter={[32, 32]} style={{ marginTop: 12 }}>
                 {playerHand.map((card, index) =>
