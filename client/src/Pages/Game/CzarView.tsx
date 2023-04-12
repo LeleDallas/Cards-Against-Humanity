@@ -7,9 +7,10 @@ import { drawBlackCard, onConfirm, sendBlack, setCurrentSolution } from "../../h
 import socketContext from "../../context/SocketContext"
 
 const CzarView = ({ ...props }) => {
-    const { socket, white_card } = useContext(socketContext).socketState;
+    const { socket, white_card, score } = useContext(socketContext).socketState;
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
+    const [selectedUser, setSelectedUser] = useState("")
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
     const { roomName } = props
@@ -29,8 +30,8 @@ const CzarView = ({ ...props }) => {
                 <BlackCard title={blackCard} cardStyle={{ width: 240, height: 240 }} />
             </Row>
             <Row justify="center" gutter={[32, 32]}>
-                {white_card.map((card, index) =>
-                    <Col key={index} onClick={() => setCurrentSolution(card, selected, setSelected, setSolution)}>
+                {Array.from(white_card).map(([userId, card], index) =>
+                    <Col key={index} onClick={() => setCurrentSolution(card, selected, userId, setSelected, setSolution, setSelectedUser)}>
                         <WhiteCard
                             hoverable
                             selected={selected === card}
@@ -40,7 +41,10 @@ const CzarView = ({ ...props }) => {
                 )}
             </Row>
             <Row justify="center" align="middle" style={{ marginTop: 32 }}>
-                <Button type="primary" onClick={onConfirm} disabled={!solution}>
+                <Button type="primary"
+                    onClick={() => onConfirm(socket, roomName, score, selectedUser)}
+                    disabled={!solution}
+                >
                     Confirm
                 </Button>
             </Row>

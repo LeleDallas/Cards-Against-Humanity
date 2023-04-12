@@ -1,16 +1,20 @@
 import { List } from "antd"
+import { useContext } from "react";
+import socketContext from "../../context/SocketContext";
 
 interface User {
-    points: number,
+    score: number,
     name: string,
-    id?: string
 }
 
-interface GameScorerProps {
-    players: Array<User>
-}
 
-const GameScorer = ({ players = [], ...props }: GameScorerProps) => {
+const GameScorer = ({ ...props }) => {
+    const { score } = useContext(socketContext).socketState;
+
+    console.log(score)
+
+    let players: Array<User> = Array.from(score, ([name, score]) => ({ name, score }));
+
     return (
         <>
             <List
@@ -18,7 +22,7 @@ const GameScorer = ({ players = [], ...props }: GameScorerProps) => {
                 itemLayout="horizontal"
                 dataSource={players}
                 renderItem={(user) => (
-                    <List.Item actions={[<a>{user.points}</a>]}>
+                    <List.Item actions={[<a>{user.score}</a>]}>
                         <div>{user.name}</div>
                     </List.Item>
                 )}
