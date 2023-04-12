@@ -12,9 +12,11 @@ import { useEffect } from "react";
 import WhiteCard from "../../components/Cards/WhiteCard";
 import BlackCard from "../../components/Cards/BlackCard";
 import { useDispatch } from "react-redux";
-import { updateBlack, updateWhite } from "../../reducers";
+import { updateBlack, updateUserName, updateWhite } from "../../reducers";
 import { Cards } from "../../types/cards";
 import { useAppSelector } from "../../hooks/hooks";
+import { faker } from '@faker-js/faker';
+
 
 const ContainerWhite = styled.div`
 position: absolute;
@@ -40,6 +42,7 @@ const Home = () => {
     const black = useAppSelector(state => state.blackCards.cards)
 
     useEffect(() => {
+        dispatch(updateUserName(faker.name.fullName()))
         if (white.length === 0 || black.length === 0) {
             fetch('http://localhost:3000/cards/', { mode: 'cors' })
                 .then((res) => res.json())

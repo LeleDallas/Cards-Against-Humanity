@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { blackCards, whiteCards } from '../reducers'
+import { blackCards, userName, whiteCards } from '../reducers'
 
 export const store = configureStore({
     reducer: {
         whiteCards: whiteCards.reducer,
-        blackCards: blackCards.reducer
+        blackCards: blackCards.reducer,
+        user: userName.reducer,
     },
 })
 
