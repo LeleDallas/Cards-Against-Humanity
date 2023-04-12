@@ -8,7 +8,8 @@ export interface SocketContextState {
     rooms: any;
     black_card: string;
     czarSocketId: string;
-    white_card: Array<string>
+    white_card: Map<string, string>
+    score: Map<string, number>,
 }
 
 export const defaultSocketContextState: SocketContextState = {
@@ -18,7 +19,8 @@ export const defaultSocketContextState: SocketContextState = {
     rooms: {},
     black_card: "",
     czarSocketId: "",
-    white_card: [],
+    white_card: new Map(),
+    score: new Map()
 };
 
 export type SocketContextActions =
@@ -27,14 +29,22 @@ export type SocketContextActions =
     'update_users' |
     'remove_user' |
     'room' |
-    "update_rooms" |
-    "start_game" |
+    'update_rooms' |
+    'start_game' |
     'get_black_card' |
     'set_czar' |
     'get_white_card' |
-    'reset_white_card'
+    'reset_white_card' |
+    'update_score' |
+    'reset_score'
     ;
-export type SocketContextPayload = string | Array<string> | Socket;
+
+type UserToCard = {
+    user: string;
+    cardTitle: string
+}
+
+export type SocketContextPayload = string | Array<string> | Socket | UserToCard | Map<string, number>;
 
 export interface SocketContextActionsPayload {
     type: SocketContextActions;
@@ -59,9 +69,16 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
         case 'set_czar':
             return { ...state, czarSocketId: action.payload as string };
         case 'get_white_card':
-            return { ...state, white_card: [...new Set([...state.white_card, action.payload as string])] };
+            let newMap = new Map(state.white_card)
+            let payload = action.payload as UserToCard
+            newMap.set(payload.user, payload.cardTitle)
+            return { ...state, white_card: newMap };
         case 'reset_white_card':
-            return { ...state, white_card: [] };
+            return { ...state, white_card: new Map() };
+        case 'update_score':
+            return { ...state, score: action.payload as Map<string, number>, };
+        case 'reset_score':
+            return { ...state, score: new Map(), };
         default:
             return state;
     }

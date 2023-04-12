@@ -138,8 +138,10 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         let randomCzar = roomPlayers && Math.floor(Math.random() * roomPlayers)
         let index = 0
         let isCzar = "user"
+        let userScore = new Map<string, number>()
 
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            userScore.set(socketId, 0)
             if (index === randomCzar) {
                 socket.to(socketId).emit("start_game", "czar", roomName)
                 if (socketId === socket.id)
@@ -149,9 +151,15 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
                 socket.to(socketId).emit("start_game", "user", roomName)
             index++
         })
+        socket.nsp.to(roomName).emit("update_score", Array.from([...userScore]))
+
         const response = { success: true, isCzar };
         callback(response);
     });
+
+    socket.on('request_update_score', (roomName: string, userScore: any) => {
+        socket.nsp.to(roomName).emit("update_score", userScore)
+    })
 
     socket.on('send_black_card', (cardTitle, roomName, czarSocket, callback) => {
         console.info(`The card is ${cardTitle}`);
@@ -164,7 +172,7 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
 
     socket.on('send_white_card', (cZarSocketId, card, callback) => {
         console.info(`The white card is ${card}`);
-        socket.to(cZarSocketId).emit("get_white_card", card)
+        socket.to(cZarSocketId).emit("get_white_card", card, socket.id)
         const response = { success: true };
         callback(response);
     });
