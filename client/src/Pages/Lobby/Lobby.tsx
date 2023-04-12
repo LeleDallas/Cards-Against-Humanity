@@ -10,9 +10,8 @@ const Lobby = () => {
     const { socket, users, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
 
-    const reloadPage = () => {
-        socket?.emit("get_rooms", (res: any) => console.log(res));
-    }
+    const reloadPage = () =>
+        socket?.emit("get_rooms", (res: any) => { });
 
     useEffect(() => {
         reloadPage()
@@ -25,7 +24,9 @@ const Lobby = () => {
                 <Button icon={<ReloadOutlined />} type="primary" onClick={() => reloadPage()}>Refresh</Button>
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>
-                <BlackCard cardStyle={{ height: "12.75em", whiteSpace: "pre-line" }} title={`Choose a room ____________. \n\nUsers Online: ${users.length}`} />
+                <BlackCard cardStyle={{ height: "12.75em", whiteSpace: "pre-line" }}
+                    title={`Choose a room ____________. \n\nUsers Online: ${users.length}`}
+                />
             </Row>
             <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32, 32]}>
                 {Object.keys(rooms).map((roomName, index) =>

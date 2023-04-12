@@ -9,18 +9,19 @@ import PlayerView from "./PlayerView"
 import socketContext from "../../context/SocketContext"
 import { SocketRoomResponse } from "../../types/socketResponse"
 
-const items = [
-    {
-        label: <GameScorer />,
-        key: '1',
-    },
-];
 const Game = ({ ...props }) => {
-    const { socket } = useContext(socketContext).socketState;
+    const { socket, rooms, score } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const { state } = useLocation();
     const [modal, showModal] = useState(false)
     const [lobbyType, setLobbyType] = useState<string>(state?.isCzar)
+
+    const items = [
+        {
+            label: <GameScorer />,
+            key: '1',
+        },
+    ];
 
     return (
         <div style={{ margin: 30 }}>

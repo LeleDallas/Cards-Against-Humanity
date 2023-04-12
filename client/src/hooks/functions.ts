@@ -35,15 +35,19 @@ export const drawNew = (playerHand: Array<Cards>, selected: string) =>
 export const setCurrentSolution = (
     solution: string,
     selected: string,
+    userSelected: string,
     setSelected: (string: string) => void,
-    setSolution: (isSelected: boolean) => void
+    setSolution: (isSelected: boolean) => void,
+    setSelectedUser: (userSelected: string) => void
 ) => {
     if (solution !== selected) {
         setSelected(solution)
         setSolution(true)
+        setSelectedUser(userSelected)
     }
     else {
         setSelected("")
+        setSelectedUser("")
         setSolution(false)
     }
 }
@@ -64,9 +68,24 @@ export const sendWhiteResponse = (
     socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => { })
 }
 
-export const onConfirm = () => {
+const updateScore = (oldScore: Map<string, number>, userKey: string) => {
+    const newScore = new Map();
+    oldScore.forEach((item: any) => newScore.set(item[0], item[1]));
+    newScore.set(userKey, newScore.get(userKey)! + 1);
+    return newScore
+}
+
+export const onConfirm = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    oldScore: Map<string, number>,
+    newCzarId: string
+) => {
     //TO DO
+    //update scores
     //Notify all
+    console.log(updateScore(oldScore, newCzarId))
+    socket?.emit("request_update_score", roomName, Array.from(updateScore(oldScore, newCzarId)))
 }
 
 
