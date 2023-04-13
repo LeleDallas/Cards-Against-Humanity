@@ -3,17 +3,21 @@ import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
-import { drawBlackCard, onConfirm, sendBlack, setCurrentSolution } from "../../hooks/functions"
+import { deleteRoom, drawBlackCard, onConfirm, resetWhite, sendBlack, setCurrentSolution, startGame } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
+import { useNavigate } from "react-router-dom"
 
 const CzarView = ({ ...props }) => {
-    const { socket, white_card, score } = useContext(socketContext).socketState;
+    const { socket, white_card, score, rooms } = useContext(socketContext).socketState;
     const [solution, setSolution] = useState(false)
     const [selected, setSelected] = useState("")
     const [selectedUser, setSelectedUser] = useState("")
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
     const { roomName } = props
+    const [hasPicked, setHasPicked] = useState(false)
+    const navigate = useNavigate()
+    const roomPlayers = rooms[roomName]
 
     useEffect(() => {
         const card = drawBlackCard(black)?.title
@@ -21,8 +25,26 @@ const CzarView = ({ ...props }) => {
         setTimeout(() => {
             sendBlack(socket, card, roomName)
         }, 200);
-
     }, [])
+
+    useEffect(() => {
+        if (white_card.size === roomPlayers.length - 1) {
+            onConfirm(socket, roomName, score, selectedUser, true)
+            setHasPicked(true)
+        }
+        if (white_card.size === 0 && hasPicked){
+            startGame(socket, roomName, navigate)
+            setHasPicked(false)
+        }
+    }, [white_card])
+
+    useEffect(() => {
+        if (rooms[roomName] === undefined){
+            deleteRoom(socket, roomName, navigate)
+        }
+    }, [rooms])
+    
+    
 
     return (
         <>
@@ -42,8 +64,8 @@ const CzarView = ({ ...props }) => {
             </Row>
             <Row justify="center" align="middle" style={{ marginTop: 32 }}>
                 <Button type="primary"
-                    onClick={() => onConfirm(socket, roomName, score, selectedUser)}
-                    disabled={!solution}
+                    onClick={() => onConfirm(socket, roomName, score, selectedUser, false)}
+                    disabled={!hasPicked}
                 >
                     Confirm
                 </Button>
