@@ -25,7 +25,7 @@ const Game = ({ ...props }) => {
     useEffect(() => {
         setLobbyType(state?.isCzar)
     }, [state])
-    
+
 
     return (
         <>
@@ -40,7 +40,6 @@ const Game = ({ ...props }) => {
                     }
                 /> :
                 <div style={{ margin: 30 }}>
-
                     <Row justify="space-between" style={{ marginBottom: 22 }}>
                         <Button type="primary" onClick={() => showModal(true)} icon={<LeftOutlined />}> Back</Button>
                         <Dropdown menu={{ items }} placement="bottomLeft">

@@ -184,6 +184,7 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
     });
 
     socket.on('request_update_score', (roomName: string, userScore: any) => {
+        console.log("SERVER", userScore)
         socket.nsp.to(roomName).emit("update_score", userScore)
     })
 

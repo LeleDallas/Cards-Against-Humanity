@@ -3,7 +3,7 @@ import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
-import { deleteRoom, drawBlackCard, nextCzar, onConfirm, resetWhite, sendBlack, setCurrentSolution, startGame } from "../../hooks/functions"
+import { drawBlackCard, nextCzar, onConfirm, sendBlack, setCurrentSolution } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { useNavigate } from "react-router-dom"
 
@@ -33,7 +33,7 @@ const CzarView = ({ ...props }) => {
             onConfirm(socket, roomName, score, selectedUser, true)
             setHasPicked(true)
         }
-        if (white_card.size === 0 && hasPicked){
+        if (white_card.size === 0 && hasPicked) {
             nextCzar(socket, roomName, navigate, selectedUser)
             setHasPicked(false)
         }
@@ -58,7 +58,7 @@ const CzarView = ({ ...props }) => {
             <Row justify="center" align="middle" style={{ marginTop: 32 }}>
                 <Button type="primary"
                     onClick={() => onConfirm(socket, roomName, score, selectedUser, false)}
-                    disabled={!hasPicked}
+                    disabled={!hasPicked || selected === ""}
                 >
                     Confirm
                 </Button>

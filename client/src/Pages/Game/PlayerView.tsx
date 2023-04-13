@@ -9,8 +9,8 @@ import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 
-const PlayerView = ({ ...props }) => {
-    const { socket, black_card, czarSocketId, new_turn, rooms } = useContext(socketContext).socketState;
+const PlayerView = () => {
+    const { socket, black_card, czarSocketId, new_turn } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
     const white = useAppSelector(state => state?.whiteCards?.cards)
