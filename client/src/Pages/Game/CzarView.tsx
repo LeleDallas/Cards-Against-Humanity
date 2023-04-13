@@ -29,7 +29,7 @@ const CzarView = ({ ...props }) => {
     }, [])
 
     useEffect(() => {
-        if (white_card.size === roomPlayers.length - 1) {
+        if (white_card.size === roomPlayers?.length - 1) {
             onConfirm(socket, roomName, score, selectedUser, true)
             setHasPicked(true)
         }
