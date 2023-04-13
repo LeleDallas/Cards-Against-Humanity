@@ -64,8 +64,9 @@ export const sendWhiteResponse = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     czarSocketId: string,
     card: string,
+    user: string
 ) => {
-    socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => { })
+    socket?.emit("send_white_card", czarSocketId, card, user, (response: SocketGameStartResponse) => { })
 }
 
 const updateScore = (oldScore: Map<string, number>, userKey: string) => {
@@ -79,14 +80,20 @@ export const onConfirm = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
     oldScore: Map<string, number>,
-    newCzarId: string
+    newCzarId: string,
+    hasPlayed: boolean
 ) => {
     //TO DO
     //update scores
     //Notify all
     socket?.emit("request_update_score", roomName, Array.from(updateScore(oldScore, newCzarId)))
+    socket?.emit("reset_turn", roomName, hasPlayed,(response: SocketGameStartResponse) => {})
 }
 
+export const resetWhite = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, czarSocketId: string) => {
+    socket?.emit("reset_white", czarSocketId, (response: SocketGameStartResponse) => {
+    })
+}
 
 export const startGame = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,

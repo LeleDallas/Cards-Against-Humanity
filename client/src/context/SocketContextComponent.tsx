@@ -75,6 +75,7 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
         socket.on('reset_white_card', () => socketDispatch({ type: "reset_white_card", payload: "" }));
         socket.on('update_score', (newScore: Map<string, number>) => socketDispatch({ type: "update_score", payload: newScore }))
         socket.on('reset_score', () => socketDispatch({ type: "reset_score", payload: "" }));
+        socket.on('new_turn', (hasPlayed: boolean) => socketDispatch({ type: "new_turn", payload: hasPlayed }));
     };
 
     const sendHandshake = async () => {

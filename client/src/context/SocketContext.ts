@@ -36,7 +36,8 @@ export type SocketContextActions =
     'get_white_card' |
     'reset_white_card' |
     'update_score' |
-    'reset_score'
+    'reset_score' |
+    'new_turn'
     ;
 
 type UserToCard = {
@@ -44,7 +45,7 @@ type UserToCard = {
     cardTitle: string
 }
 
-export type SocketContextPayload = string | Array<string> | Socket | UserToCard | Map<string, number>;
+export type SocketContextPayload = string | Array<string> | Socket | UserToCard | Map<string, number> | boolean;
 
 export interface SocketContextActionsPayload {
     type: SocketContextActions;
@@ -79,6 +80,8 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
             return { ...state, score: action.payload as Map<string, number>, };
         case 'reset_score':
             return { ...state, score: new Map(), };
+        case 'new_turn':
+            return { ...state, new_turn: action.payload as boolean };
         default:
             return state;
     }
