@@ -83,9 +83,6 @@ export const onConfirm = (
     newCzarId: string,
     hasPlayed: boolean
 ) => {
-    //TO DO
-    //update scores
-    //Notify all
     socket?.emit("request_update_score", roomName, Array.from(updateScore(oldScore, newCzarId)))
     socket?.emit("reset_turn", roomName, hasPlayed,(response: SocketGameStartResponse) => {})
 }
