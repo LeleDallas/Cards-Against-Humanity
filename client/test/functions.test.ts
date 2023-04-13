@@ -79,13 +79,15 @@ describe('Functions test', async () => {
         const selected = "solution1"
         const setSelected = vi.fn()
         const setSolution = vi.fn()
+        const setSelectedUser = vi.fn()
+        const userSelected = "string"
 
-        setCurrentSolution("solution2", selected, setSelected, setSolution)
+        setCurrentSolution("solution2", selected, userSelected, setSelected, setSolution, setSelectedUser)
 
         expect(setSelected).toHaveBeenCalledWith("solution2")
         expect(setSolution).toHaveBeenCalledWith(true)
 
-        setCurrentSolution("solution1", selected, setSelected, setSolution)
+        setCurrentSolution("solution1", selected, userSelected, setSelected, setSolution, setSelectedUser)
 
         expect(setSelected).toHaveBeenCalledWith("")
         expect(setSolution).toHaveBeenCalledWith(false)
@@ -120,7 +122,14 @@ describe('Functions test', async () => {
         })
     });
     test('onConfirm', async () => {
-        onConfirm()
+        it('should call request_update_score', () => {
+            const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
+            const roomName = 'test-room'
+            let oldScore = new Map()
+            onConfirm(socket, roomName, oldScore, "A")
+            expect(socket.emit).toHaveBeenCalledWith('request_update_score', roomName, expect.any(Function))
+        })
+
     });
 
     test('startGame', async () => {

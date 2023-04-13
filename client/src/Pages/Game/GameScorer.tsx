@@ -10,9 +10,6 @@ interface User {
 
 const GameScorer = ({ ...props }) => {
     const { score } = useContext(socketContext).socketState;
-
-    console.log(score)
-
     let players: Array<User> = Array.from(score, ([name, score]) => ({ name, score }));
 
     return (
