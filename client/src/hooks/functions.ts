@@ -21,7 +21,6 @@ export const createRoom = (
     })
 }
 
-
 export const drawBlackCard = (black: Array<Cards>): Cards =>
     black[Math.floor(Math.random() * black.length)];
 
@@ -150,9 +149,10 @@ export const deleteRoom = (
 export const leaveRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
+    inGame: boolean,
     navigate: NavigateFunction
 ) => {
-    socket?.emit("leave_room", roomName, (response: SocketRoomResponse) =>
+    socket?.emit("leave_room", roomName, inGame, (response: SocketRoomResponse) =>
         response?.success && navigate("/"))
 }
 

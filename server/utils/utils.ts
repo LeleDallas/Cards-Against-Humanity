@@ -120,18 +120,18 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         callback(response);
     });
 
-    socket.on('leave_room', (roomName, callback) => {
+    socket.on('leave_room', (roomName, inGame, callback) => {
         console.info(`User ${socket.id} want to leave room ${roomName}`);
         socket.leave(roomName);
         let roomPlayers = io.sockets.adapter.rooms.get(roomName)?.size
-        if (roomPlayers && roomPlayers < 3) {
+        if (roomPlayers && roomPlayers < 3 && inGame) {
             io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
-                console.log("IS leaving", socketId)
                 io.sockets.sockets.get(socketId)?.leave(roomName)
             });
         }
         const response = { success: true, data: Object.fromEntries([...getRooms(io.sockets.adapter.rooms)]) };
         callback(response);
+        io.emit("update_rooms", response);
     });
 
     socket.on('request_start_game', (roomName, callback) => {

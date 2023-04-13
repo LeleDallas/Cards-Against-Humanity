@@ -11,13 +11,13 @@ import BlackCard from "../../components/Cards/BlackCard"
 
 const Game = ({ ...props }) => {
     const { socket, rooms, score } = useContext(socketContext).socketState;
-    const navigate = useNavigate()
     const { state } = useLocation();
     const [modal, showModal] = useState(false)
     const [lobbyType, setLobbyType] = useState<string>(state?.isCzar)
     const [show, setShow] = useState<any>(false)
     const players = rooms[state?.roomName]
     let playersForScore: Array<User> = Array.from(score, ([name, score]) => ({ name, score }));
+    const navigate = useNavigate()
 
     const items = [
         {
@@ -56,7 +56,7 @@ const Game = ({ ...props }) => {
                     </Row>
                     {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView />}
                     <Modal open={modal} title="Are you sure to leave the lobby?"
-                        onOk={() => leaveRoom(socket, state?.roomName, navigate)}
+                        onOk={() => leaveRoom(socket, state?.roomName, true, navigate)}
                         onCancel={() => showModal(false)}
                     />
                     <Modal
@@ -84,7 +84,7 @@ const Game = ({ ...props }) => {
                         footer={[
                             <Row style={{ marginTop: 22 }} justify="center">
                                 <Button size="large" type="primary" onClick={() => {
-                                    leaveRoom(socket, state?.roomName, navigate)
+                                    leaveRoom(socket, state?.roomName, true, navigate)
                                 }}
                                 >
                                     Go back to Homepage

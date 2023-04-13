@@ -26,7 +26,7 @@ const WaitingLobby = () => {
                         <Button icon={<LeftOutlined />} type="primary" >Back</Button>
                     </Popconfirm> :
                     <Button icon={<LeftOutlined />} type="primary" onClick={() => {
-                        leaveRoom(socket, state?.roomName, navigate)
+                        leaveRoom(socket, state?.roomName, false, navigate)
                     }}>Back</Button>
                 }
             </Row>
