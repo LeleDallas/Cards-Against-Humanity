@@ -42,7 +42,7 @@ const Game = ({ ...props }) => {
                             <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
                         </Dropdown>
                     </Row>
-                    {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView />}
+                    {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView roomName={state?.roomName}/>}
                     <Modal open={modal} title="Are you sure to leave the lobby?"
                         onOk={() => leaveRoom(socket, state?.roomName, navigate)}
                         onCancel={() => showModal(false)}

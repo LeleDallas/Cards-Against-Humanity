@@ -177,9 +177,24 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         callback(response);
     });
 
-    socket.on('send_white_card', (cZarSocketId, card, callback) => {
+    socket.on('send_white_card', (cZarSocketId, card, user, callback) => {
         console.info(`The white card is ${card}`);
-        socket.to(cZarSocketId).emit("get_white_card", card, socket.id)
+        socket.to(cZarSocketId).emit("get_white_card", card, user)
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('reset_white', (cZarSocketId, callback) => {
+        console.info(`Reset White Cards`);
+        socket.to(cZarSocketId).emit("reset_white_card")
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('reset_turn', (roomName, hasPlayed, callback) => {
+        io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            socket.to(socketId).emit("new_turn", hasPlayed)
+        })
         const response = { success: true };
         callback(response);
     });
