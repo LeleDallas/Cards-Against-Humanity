@@ -121,7 +121,6 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
     });
 
     socket.on('leave_room', (roomName, callback) => {
-        if (!io.sockets.adapter.rooms.has(roomName)) return
         console.info(`User ${socket.id} want to leave room ${roomName}`);
         socket.leave(roomName);
         let roomPlayers = io.sockets.adapter.rooms.get(roomName)?.size
@@ -184,8 +183,11 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
     });
 
     socket.on('request_update_score', (roomName: string, userScore: any) => {
-        console.log("SERVER", userScore)
         socket.nsp.to(roomName).emit("update_score", userScore)
+    })
+
+    socket.on('request_reset_score', (roomName: string) => {
+        socket.nsp.to(roomName).emit("reset_score")
     })
 
     socket.on('send_black_card', (cardTitle, roomName, czarSocket, callback) => {

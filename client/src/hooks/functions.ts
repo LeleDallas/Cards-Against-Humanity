@@ -94,6 +94,12 @@ export const resetWhite = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | 
     })
 }
 
+export const resetScore = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string) => {
+    socket?.emit("request_reset_score", roomName)
+}
+
 export const startGame = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
@@ -147,5 +153,10 @@ export const leaveRoom = (
     navigate: NavigateFunction
 ) => {
     socket?.emit("leave_room", roomName, (response: SocketRoomResponse) =>
-        response?.success && navigate("/lobby"))
+        response?.success && navigate("/"))
+}
+
+export const checkScore = (players: Array<User>) => {
+    let res = players.filter(playerStatus => playerStatus.score > 1)
+    return { status: res.length > 0, res }
 }
