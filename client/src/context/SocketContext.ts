@@ -10,6 +10,7 @@ export interface SocketContextState {
     czarSocketId: string;
     white_card: Map<string, string>
     score: Map<string, number>,
+    new_turn: boolean
 }
 
 export const defaultSocketContextState: SocketContextState = {
@@ -20,7 +21,8 @@ export const defaultSocketContextState: SocketContextState = {
     black_card: "",
     czarSocketId: "",
     white_card: new Map(),
-    score: new Map()
+    score: new Map(),
+    new_turn: false
 };
 
 export type SocketContextActions =
