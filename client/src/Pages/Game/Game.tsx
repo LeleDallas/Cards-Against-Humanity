@@ -6,7 +6,6 @@ import GameScorer from "./GameScorer"
 import CzarView from "./CzarView"
 import PlayerView from "./PlayerView"
 import socketContext from "../../context/SocketContext"
-import { SocketRoomResponse } from "../../types/socketResponse"
 import { leaveRoom } from "../../hooks/functions"
 
 const Game = ({ ...props }) => {
