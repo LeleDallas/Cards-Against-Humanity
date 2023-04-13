@@ -43,7 +43,6 @@ export const sendMessage = (messageType: string, users: string[], io: Server, pa
 
 
 export const startListeners = (io: Server, socket: Socket, socketUsers: user) => {
-
     console.info('Message received from socketId: ' + socket.id);
 
     socket.on('handshake', (callback: (uid: string, users: string[]) => void) => {
@@ -177,9 +176,7 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
             else
                 socket.to(socketId).emit("start_game", "user", roomName)
         })
-
-        const response = { success: true };
-        callback(response);
+        callback({ success: true });
     });
 
     socket.on('request_update_score', (roomName: string, userScore: any) => {
@@ -195,30 +192,26 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
             socket.to(socketId).emit("get_black_card", cardTitle, czarSocket)
         })
-        const response = { success: true };
-        callback(response);
+        callback({ success: true });
     });
 
     socket.on('send_white_card', (cZarSocketId, card, user, callback) => {
         console.info(`The white card is ${card}`);
         socket.to(cZarSocketId).emit("get_white_card", card, user)
-        const response = { success: true };
-        callback(response);
+        callback({ success: true });
     });
 
     socket.on('reset_white', (cZarSocketId, callback) => {
         console.info(`Reset White Cards`);
         socket.to(cZarSocketId).emit("reset_white_card")
-        const response = { success: true };
-        callback(response);
+        callback({ success: true });
     });
 
     socket.on('reset_turn', (roomName, hasPlayed, callback) => {
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
             socket.to(socketId).emit("new_turn", hasPlayed)
         })
-        const response = { success: true };
-        callback(response);
+        callback({ success: true });
     });
 
 };

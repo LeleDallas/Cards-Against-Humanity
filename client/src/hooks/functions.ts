@@ -106,7 +106,7 @@ export const startGame = (
 ) => {
     socket?.emit("request_start_game", roomName, (response: SocketGameStartResponse) => {
         if (response?.success) {
-            message.success("Game is starting!")
+            message.success("Game started!")
             navigate("/game", {
                 state: {
                     isCzar: response.isCzar,

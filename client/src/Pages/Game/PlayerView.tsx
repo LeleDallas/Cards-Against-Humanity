@@ -4,10 +4,9 @@ import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
-import { deleteRoom, drawWhiteCards, resetWhite, sendWhiteResponse, startGame } from "../../hooks/functions"
+import { drawWhiteCards, resetWhite, sendWhiteResponse } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
-import { useNavigate } from "react-router-dom"
 
 const PlayerView = () => {
     const { socket, black_card, czarSocketId, new_turn } = useContext(socketContext).socketState;
@@ -26,7 +25,7 @@ const PlayerView = () => {
 
     useEffect(() => {
         setHasPlayed(new_turn)
-        if (new_turn == false){
+        if (new_turn == false) {
             resetWhite(socket, czarSocketId)
         }
     }, [new_turn])

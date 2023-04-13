@@ -32,7 +32,6 @@ export type SocketContextActions =
     'remove_user' |
     'room' |
     'update_rooms' |
-    'start_game' |
     'get_black_card' |
     'set_czar' |
     'get_white_card' |
@@ -55,7 +54,7 @@ export interface SocketContextActionsPayload {
 }
 
 export const socketReducer = (state: SocketContextState, action: SocketContextActionsPayload) => {
-    console.log('Message received - Action: ' + action.type + ' - Payload: ', action.payload);
+    // console.log('Message received - Action: ' + action.type + ' - Payload: ', action.payload);
     switch (action.type) {
         case 'update_socket':
             return { ...state, socket: action.payload as Socket };
