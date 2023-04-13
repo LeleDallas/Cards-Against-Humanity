@@ -41,7 +41,7 @@ interface WhiteLobbyCard {
 }
 
 const WhiteLobbyCard = ({ roomName, players, join = false }: WhiteLobbyCard) => {
-    const { socket, uid, users, rooms } = useContext(socketContext).socketState;
+    const { socket } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const joinRoom = (roomName: string) => {
         socket?.emit("join_room", roomName, (response: any) => {

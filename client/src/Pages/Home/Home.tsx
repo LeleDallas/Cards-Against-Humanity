@@ -8,12 +8,15 @@ import berry from '../../assets/miracleberry.png';
 import airplane from '../../assets/paperairplane.png';
 import pizza from '../../assets/pizza.png';
 import { isMobile } from "react-device-detect";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import WhiteCard from "../../components/Cards/WhiteCard";
 import BlackCard from "../../components/Cards/BlackCard";
 import { useDispatch } from "react-redux";
-import { updateBlack, updateWhite } from "../../reducers";
+import { updateBlack, updateUserName, updateWhite } from "../../reducers";
 import { Cards } from "../../types/cards";
+import { useAppSelector } from "../../hooks/hooks";
+import { faker } from '@faker-js/faker';
+
 
 const ContainerWhite = styled.div`
 position: absolute;
@@ -34,23 +37,24 @@ rotate: 22deg;
 
 const Home = () => {
     const navigate = useNavigate();
-    const [black, setBlacks] = useState([]);
-    const [white, setWhites] = useState([]);
     const dispatch = useDispatch();
+    const white = useAppSelector(state => state.whiteCards.cards)
+    const black = useAppSelector(state => state.blackCards.cards)
 
     useEffect(() => {
-        if (white.length == 0) {
+        dispatch(updateUserName(faker.name.fullName()))
+        if (white.length === 0 || black.length === 0) {
             fetch('http://localhost:3000/cards/', { mode: 'cors' })
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch(updateBlack(data.filter((card: Cards) => card.isBlack == true)));
-                    dispatch(updateWhite(data.filter((card: Cards) => card.isBlack == false)));    
+                    dispatch(updateWhite(data.filter((card: Cards) => card.isBlack == false)));
                 })
                 .catch((err) => {
                     console.log(err.message);
                 });
         }
-    }, [white.length > 0 && black.length > 0]);
+    }, []);
 
     return (
         <div style={{ width: "100%", height: "100%" }}>

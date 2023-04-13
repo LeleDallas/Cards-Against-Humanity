@@ -35,15 +35,19 @@ export const drawNew = (playerHand: Array<Cards>, selected: string) =>
 export const setCurrentSolution = (
     solution: string,
     selected: string,
+    userSelected: string,
     setSelected: (string: string) => void,
-    setSolution: (isSelected: boolean) => void
+    setSolution: (isSelected: boolean) => void,
+    setSelectedUser: (userSelected: string) => void
 ) => {
-    if (solution !== selected) {
+    if (solution !== selected && selected !== solution) {
         setSelected(solution)
         setSolution(true)
+        setSelectedUser(userSelected)
     }
     else {
         setSelected("")
+        setSelectedUser("")
         setSolution(false)
     }
 }
@@ -60,15 +64,35 @@ export const sendWhiteResponse = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     czarSocketId: string,
     card: string,
+    user: string
 ) => {
-    socket?.emit("send_white_card", czarSocketId, card, (response: SocketGameStartResponse) => { })
+    socket?.emit("send_white_card", czarSocketId, card, user, (response: SocketGameStartResponse) => { })
 }
 
-export const onConfirm = () => {
-    //TO DO
-    //Notify all
+const updateScore = (oldScore: Map<string, number>, userKey: string) => {
+    if (userKey === "")
+        return oldScore
+    const newScore = new Map();
+    oldScore.forEach((item: any) => newScore.set(item[0], item[1]));
+    newScore.set(userKey, newScore.get(userKey)! + 1);
+    return newScore
 }
 
+export const onConfirm = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    oldScore: Map<string, number>,
+    newCzarId: string,
+    hasPlayed: boolean
+) => {
+    socket?.emit("request_update_score", roomName, Array.from(updateScore(oldScore, newCzarId)))
+    socket?.emit("reset_turn", roomName, hasPlayed, (response: SocketGameStartResponse) => { })
+}
+
+export const resetWhite = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined, czarSocketId: string) => {
+    socket?.emit("reset_white", czarSocketId, (response: SocketGameStartResponse) => {
+    })
+}
 
 export const startGame = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
@@ -90,6 +114,24 @@ export const startGame = (
     })
 }
 
+export const nextCzar = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction,
+    newCzarId: string
+) => {
+    socket?.emit("update_turn", roomName, newCzarId, (response: SocketGameStartResponse) => {
+        if (response?.success) {
+            navigate("/game", {
+                state: {
+                    isCzar: response.isCzar,
+                    roomName: roomName
+                }
+            })
+        }
+    })
+}
+
 export const deleteRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
@@ -105,5 +147,5 @@ export const leaveRoom = (
     navigate: NavigateFunction
 ) => {
     socket?.emit("leave_room", roomName, (response: SocketRoomResponse) =>
-        response?.success && navigate(-1))
+        response?.success && navigate("/lobby"))
 }

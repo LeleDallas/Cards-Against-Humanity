@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom';
 import { describe, vi } from 'vitest'
-import { createRoom, deleteRoom, drawBlackCard, drawNew, drawWhiteCards, leaveRoom, onConfirm, sendBlack, sendWhiteResponse, setCurrentSolution, startGame } from '../src/hooks/functions';
+import { createRoom, deleteRoom, drawBlackCard, drawNew, drawWhiteCards, leaveRoom, nextCzar, onConfirm, sendBlack, sendWhiteResponse, setCurrentSolution, startGame } from '../src/hooks/functions';
 import { message } from 'antd';
 import { Socket, io } from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
+import { useNavigate } from 'react-router-dom';
 
 const cards = [
     {
@@ -79,13 +80,15 @@ describe('Functions test', async () => {
         const selected = "solution1"
         const setSelected = vi.fn()
         const setSolution = vi.fn()
+        const setSelectedUser = vi.fn()
+        const userSelected = "string"
 
-        setCurrentSolution("solution2", selected, setSelected, setSolution)
+        setCurrentSolution("solution2", selected, userSelected, setSelected, setSolution, setSelectedUser)
 
         expect(setSelected).toHaveBeenCalledWith("solution2")
         expect(setSolution).toHaveBeenCalledWith(true)
 
-        setCurrentSolution("solution1", selected, setSelected, setSolution)
+        setCurrentSolution("solution1", selected, userSelected, setSelected, setSolution, setSelectedUser)
 
         expect(setSelected).toHaveBeenCalledWith("")
         expect(setSolution).toHaveBeenCalledWith(false)
@@ -109,18 +112,43 @@ describe('Functions test', async () => {
         it('should not call event if empty', () => {
             const socket = undefined
             const roomName = ''
-            sendWhiteResponse(socket, "A", roomName);
+            sendWhiteResponse(socket, "A", roomName, "user");
             expect(socket).not.toHaveBeenCalledWith('send_black_card', roomName, expect.any(Function))
         })
         it('should call send_white_card', () => {
             const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
             const roomName = 'test-room'
-            sendWhiteResponse(socket, "A", roomName);
+            sendWhiteResponse(socket, "A", roomName, "user");
             expect(socket.emit).toHaveBeenCalledWith('send_white_card', roomName, expect.any(Function))
         })
     });
     test('onConfirm', async () => {
-        onConfirm()
+        it('should call request_update_score', () => {
+            const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
+            const roomName = 'test-room'
+            let oldScore = new Map()
+            onConfirm(socket, roomName, oldScore, "A", false)
+            expect(socket.emit).toHaveBeenCalledWith('request_update_score', roomName, expect.any(Function))
+        })
+        it('should call reset_turn', () => {
+            const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
+            const roomName = 'test-room'
+            let oldScore = new Map()
+            onConfirm(socket, roomName, oldScore, "A", false)
+            expect(socket.emit).toHaveBeenCalledWith('reset_turn', roomName, false, expect.any(Function))
+        })
+
+    });
+
+    test('nextCzar', async () => {
+        it('should call update_turn', () => {
+            const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
+            const roomName = 'test-room'
+            let oldScore = new Map()
+            nextCzar(socket, roomName, useNavigate(), "A")
+            expect(socket.emit).toHaveBeenCalledWith('update_turn', roomName, "A", expect.any(Function))
+        })
+
     });
 
     test('startGame', async () => {

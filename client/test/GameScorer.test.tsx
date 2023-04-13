@@ -14,6 +14,6 @@ describe('Game Scorer', () => {
                 <GameScorer />
             </BrowserRouter>
         )
-        expect(getByText("4")).toBeInTheDocument()
+        expect(getByText("No data")).toBeInTheDocument()
     })
 })

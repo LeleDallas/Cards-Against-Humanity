@@ -4,7 +4,6 @@ import { defaultSocketContextState, SocketContextProvider, socketReducer } from 
 import 'antd/dist/reset.css';
 import SpinningCard from '../components/Cards/SpinningCard';
 import { useNavigate } from 'react-router-dom';
-import { Socket } from 'socket.io';
 
 export interface SocketContextComponentProps extends PropsWithChildren { }
 
@@ -72,8 +71,11 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
             socketDispatch({ type: "set_czar", payload: czarSocket })
         });
 
-        socket.on('get_white_card', (title: string) => socketDispatch({ type: "get_white_card", payload: title }));
+        socket.on('get_white_card', (cardTitle: string, user: string) => socketDispatch({ type: "get_white_card", payload: { cardTitle, user } }));
         socket.on('reset_white_card', () => socketDispatch({ type: "reset_white_card", payload: "" }));
+        socket.on('update_score', (newScore: Map<string, number>) => socketDispatch({ type: "update_score", payload: newScore }))
+        socket.on('reset_score', () => socketDispatch({ type: "reset_score", payload: "" }));
+        socket.on('new_turn', (hasPlayed: boolean) => socketDispatch({ type: "new_turn", payload: hasPlayed }));
     };
 
     const sendHandshake = async () => {

@@ -120,10 +120,17 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         callback(response);
     });
 
-    socket.on('leave_room', (value, callback) => {
-        if (!io.sockets.adapter.rooms.has(value)) return
-        console.info(`User ${socket.id} want to leave room ${value}`);
-        socket.leave(value);
+    socket.on('leave_room', (roomName, callback) => {
+        if (!io.sockets.adapter.rooms.has(roomName)) return
+        console.info(`User ${socket.id} want to leave room ${roomName}`);
+        socket.leave(roomName);
+        let roomPlayers = io.sockets.adapter.rooms.get(roomName)?.size
+        if (roomPlayers && roomPlayers < 3) {
+            io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+                console.log("IS leaving", socketId)
+                io.sockets.sockets.get(socketId)?.leave(roomName)
+            });
+        }
         const response = { success: true, data: Object.fromEntries([...getRooms(io.sockets.adapter.rooms)]) };
         callback(response);
     });
@@ -138,8 +145,10 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         let randomCzar = roomPlayers && Math.floor(Math.random() * roomPlayers)
         let index = 0
         let isCzar = "user"
+        let userScore = new Map<string, number>()
 
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            userScore.set(socketId, 0)
             if (index === randomCzar) {
                 socket.to(socketId).emit("start_game", "czar", roomName)
                 if (socketId === socket.id)
@@ -149,9 +158,35 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
                 socket.to(socketId).emit("start_game", "user", roomName)
             index++
         })
+        socket.nsp.to(roomName).emit("update_score", Array.from([...userScore]))
+
         const response = { success: true, isCzar };
         callback(response);
     });
+
+    socket.on('update_turn', (roomName, newCzarId, callback) => {
+        if (!io.sockets.adapter.rooms.has(roomName)) return
+        let roomPlayers = io.sockets.adapter.rooms.get(roomName)?.size
+        if (roomPlayers && roomPlayers < 3) {
+            callback({ success: false })
+            return
+        }
+        io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            if (socketId === newCzarId) {
+                socket.to(socketId).emit("start_game", "czar", roomName)
+            }
+            else
+                socket.to(socketId).emit("start_game", "user", roomName)
+        })
+
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('request_update_score', (roomName: string, userScore: any) => {
+        console.log("SERVER", userScore)
+        socket.nsp.to(roomName).emit("update_score", userScore)
+    })
 
     socket.on('send_black_card', (cardTitle, roomName, czarSocket, callback) => {
         console.info(`The card is ${cardTitle}`);
@@ -162,9 +197,24 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         callback(response);
     });
 
-    socket.on('send_white_card', (cZarSocketId, card, callback) => {
+    socket.on('send_white_card', (cZarSocketId, card, user, callback) => {
         console.info(`The white card is ${card}`);
-        socket.to(cZarSocketId).emit("get_white_card", card)
+        socket.to(cZarSocketId).emit("get_white_card", card, user)
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('reset_white', (cZarSocketId, callback) => {
+        console.info(`Reset White Cards`);
+        socket.to(cZarSocketId).emit("reset_white_card")
+        const response = { success: true };
+        callback(response);
+    });
+
+    socket.on('reset_turn', (roomName, hasPlayed, callback) => {
+        io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            socket.to(socketId).emit("new_turn", hasPlayed)
+        })
         const response = { success: true };
         callback(response);
     });
