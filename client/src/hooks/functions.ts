@@ -84,7 +84,6 @@ export const onConfirm = (
     //TO DO
     //update scores
     //Notify all
-    console.log(updateScore(oldScore, newCzarId))
     socket?.emit("request_update_score", roomName, Array.from(updateScore(oldScore, newCzarId)))
 }
 
@@ -124,5 +123,5 @@ export const leaveRoom = (
     navigate: NavigateFunction
 ) => {
     socket?.emit("leave_room", roomName, (response: SocketRoomResponse) =>
-        response?.success && navigate(-1))
+        response?.success && navigate("/lobby"))
 }
