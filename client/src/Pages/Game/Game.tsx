@@ -1,6 +1,6 @@
 import { CalculatorOutlined, LeftOutlined } from "@ant-design/icons"
 import { Button, Dropdown, Modal, Result, Row } from "antd"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import GameScorer from "./GameScorer"
 import CzarView from "./CzarView"
@@ -22,6 +22,11 @@ const Game = ({ ...props }) => {
         },
     ];
 
+    useEffect(() => {
+        setLobbyType(state?.isCzar)
+    }, [state])
+    
+
     return (
         <>
             {players === undefined || players.length < 3 ?
@@ -42,7 +47,7 @@ const Game = ({ ...props }) => {
                             <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
                         </Dropdown>
                     </Row>
-                    {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView roomName={state?.roomName}/>}
+                    {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView />}
                     <Modal open={modal} title="Are you sure to leave the lobby?"
                         onOk={() => leaveRoom(socket, state?.roomName, navigate)}
                         onCancel={() => showModal(false)}

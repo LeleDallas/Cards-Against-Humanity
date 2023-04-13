@@ -164,6 +164,25 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         callback(response);
     });
 
+    socket.on('update_turn', (roomName, newCzarId, callback) => {
+        if (!io.sockets.adapter.rooms.has(roomName)) return
+        let roomPlayers = io.sockets.adapter.rooms.get(roomName)?.size
+        if (roomPlayers && roomPlayers < 3) {
+            callback({ success: false })
+            return
+        }
+        io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
+            if (socketId === newCzarId) {
+                socket.to(socketId).emit("start_game", "czar", roomName)
+            }
+            else
+                socket.to(socketId).emit("start_game", "user", roomName)
+        })
+
+        const response = { success: true };
+        callback(response);
+    });
+
     socket.on('request_update_score', (roomName: string, userScore: any) => {
         socket.nsp.to(roomName).emit("update_score", userScore)
     })

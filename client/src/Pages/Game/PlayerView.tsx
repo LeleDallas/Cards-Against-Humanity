@@ -16,8 +16,6 @@ const PlayerView = ({ ...props }) => {
     const white = useAppSelector(state => state?.whiteCards?.cards)
     const spin = <LoadingOutlined style={{ fontSize: 100 }} spin />;
     const [hasPlayed, setHasPlayed] = useState<boolean>(false)
-    const { roomName } = props
-    const navigate = useNavigate()
 
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
 
@@ -32,12 +30,6 @@ const PlayerView = ({ ...props }) => {
             resetWhite(socket, czarSocketId)
         }
     }, [new_turn])
-
-    useEffect(() => {
-        if (rooms[roomName] === undefined){
-            deleteRoom(socket, roomName, navigate)
-        }
-    }, [rooms])
 
     const drawNew = () => {
         sendWhiteResponse(socket!, czarSocketId, selected, socket!.id)

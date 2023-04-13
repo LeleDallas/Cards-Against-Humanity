@@ -3,7 +3,7 @@ import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
-import { deleteRoom, drawBlackCard, onConfirm, resetWhite, sendBlack, setCurrentSolution, startGame } from "../../hooks/functions"
+import { deleteRoom, drawBlackCard, nextCzar, onConfirm, resetWhite, sendBlack, setCurrentSolution, startGame } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { useNavigate } from "react-router-dom"
 
@@ -15,6 +15,7 @@ const CzarView = ({ ...props }) => {
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
     const { roomName } = props
+    const { iscZar } = props
     const [hasPicked, setHasPicked] = useState(false)
     const navigate = useNavigate()
     const roomPlayers = rooms[roomName]
@@ -33,18 +34,10 @@ const CzarView = ({ ...props }) => {
             setHasPicked(true)
         }
         if (white_card.size === 0 && hasPicked){
-            startGame(socket, roomName, navigate)
+            nextCzar(socket, roomName, navigate, selectedUser)
             setHasPicked(false)
         }
-    }, [white_card])
-
-    useEffect(() => {
-        if (rooms[roomName] === undefined){
-            deleteRoom(socket, roomName, navigate)
-        }
-    }, [rooms])
-    
-    
+    }, [white_card.size])
 
     return (
         <>

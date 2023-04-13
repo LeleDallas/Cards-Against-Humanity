@@ -115,6 +115,24 @@ export const startGame = (
     })
 }
 
+export const nextCzar = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction,
+    newCzarId: string
+) => {
+    socket?.emit("update_turn", roomName, newCzarId, (response: SocketGameStartResponse) => {
+        if (response?.success) {
+            navigate("/game", {
+                state: {
+                    isCzar: response.isCzar,
+                    roomName: roomName
+                }
+            })
+        }
+    })
+}
+
 export const deleteRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
