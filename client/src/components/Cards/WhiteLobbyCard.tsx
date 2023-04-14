@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import socketContext from '../../context/SocketContext';
+import { joinRoom } from '../../hooks/functions';
 
 const Card = styled.div`
 height: 25em;
@@ -43,13 +44,6 @@ interface WhiteLobbyCard {
 const WhiteLobbyCard = ({ roomName, players, join = false }: WhiteLobbyCard) => {
     const { socket } = useContext(socketContext).socketState;
     const navigate = useNavigate()
-    const joinRoom = (roomName: string) => {
-        socket?.emit("join_room", roomName, (response: any) => {
-            if (response.success) {
-                navigate("/waiting", { state: { roomName, type: "user" } })
-            }
-        })
-    }
 
     return (
         players === undefined ?
@@ -71,7 +65,7 @@ const WhiteLobbyCard = ({ roomName, players, join = false }: WhiteLobbyCard) => 
                         renderItem={(item: string) => <List.Item style={{ textAlign: "center" }}>{item}</List.Item>}
                     />
                     {join &&
-                        <JoinButton type="primary" onClick={() => joinRoom(roomName)}>
+                        <JoinButton type="primary" onClick={() => joinRoom(socket, roomName, navigate)}>
                             Connect
                         </JoinButton>}
                 </Front>

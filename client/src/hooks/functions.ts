@@ -21,6 +21,18 @@ export const createRoom = (
     })
 }
 
+export const joinRoom = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction
+) => {
+    socket?.emit("join_room", roomName, (response: any) => {
+        if (response.success) {
+            navigate("/waiting", { state: { roomName, type: "user" } })
+        }
+    })
+}
+
 export const drawBlackCard = (black: Array<Cards>): Cards =>
     black[Math.floor(Math.random() * black.length)];
 
@@ -157,6 +169,6 @@ export const leaveRoom = (
 }
 
 export const checkScore = (players: Array<User>) => {
-    let res = players.filter(playerStatus => playerStatus.score > 1)
+    let res = players.filter(playerStatus => playerStatus.score > 5)
     return { status: res.length > 0, res }
 }

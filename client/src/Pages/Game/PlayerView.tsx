@@ -59,20 +59,23 @@ const PlayerView = () => {
                     />
                 }
             </Row>
-            {!hasPlayed && <Row justify="center" align="middle" gutter={[32, 32]} style={{ marginTop: 12 }}>
-                {playerHand.map((card, index) =>
-                    <Col key={index} onClick={() => useSelect(card.title)}>
-                        <WhiteCard
-                            hoverable
-                            selected={selected === card.title}
-                            cardStyle={{ width: 180, height: 200 }}
-                            title={card.title}
-                            frontStyle={{ fontSize: "15px" }}
-                        />
+            {!hasPlayed &&
+                <Row justify="center" align="middle" gutter={[32, 32]} style={{ marginTop: 12 }}>
+                    {playerHand.map((card, index) =>
+                        <Col key={index} onClick={() => useSelect(card.title)}>
+                            <WhiteCard
+                                hoverable
+                                selected={selected === card.title}
+                                cardStyle={{ width: 180, height: 200 }}
+                                title={card.title}
+                                frontStyle={{ fontSize: "15px" }}
+                            />
+                        </Col>
+                    )}
+                    <Col>
+                        <Button size="large" style={{ marginBottom: 20 }} disabled={selected === ""} type="primary" onClick={() => drawNew()}>Submit Response</Button>
                     </Col>
-                )}
-                <Button disabled={selected === ""} type="primary" onClick={() => drawNew()}>Submit Response</Button>
-            </Row >}
+                </Row >}
         </>
 
     )

@@ -41,18 +41,22 @@ const Game = ({ ...props }) => {
                 <Row justify="center" align="middle">
                     <BlackCard
                         frontStyle={{ margin: 0 }}
-                        title={`The player ${checkScore(playersForScore)?.res[0]?.name} Won the game`}
-                        children={<List
-                            size="small"
-                            itemLayout="horizontal"
-                            dataSource={playersForScore.sort((a, b) => b.score - a.score)}
-                            renderItem={(user) => (
-                                <List.Item >
-                                    <p style={{ color: "white", fontSize: 12 }}>{user.name} : {user.score}</p>
-                                </List.Item>
-                            )}
-
-                        />}
+                        title={""}
+                        children={
+                            <>
+                                <List
+                                    header={<p style={{ fontSize: 15, textAlign: "center", color: "white" }}>Player ${checkScore(playersForScore)?.res[0]?.name} won the game</p>}
+                                    size="small"
+                                    itemLayout="horizontal"
+                                    dataSource={playersForScore.sort((a, b) => b.score - a.score)}
+                                    renderItem={(user) => (
+                                        <List.Item >
+                                            <p style={{ color: "white", fontSize: 12 }}>{user.name} : {user.score}</p>
+                                        </List.Item>
+                                    )}
+                                />
+                            </>
+                        }
                     />
                     <Col span={24}>
                         <Row style={{ marginTop: 22 }} justify="center">

@@ -56,12 +56,14 @@ const CzarView = ({ ...props }) => {
             </Row>
             <Row justify="center" align="middle" style={{ marginTop: 32 }}>
                 <Button type="primary"
+                    size="large"
+                    style={{ marginBottom: 32 }}
                     onClick={() => onConfirm(socket, roomName, score, selectedUser, false)}
                     disabled={!hasPicked || selected === ""}
                 >
                     Confirm
                 </Button>
-            </Row>
+            </Row >
         </>
 
     )
