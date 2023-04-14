@@ -53,7 +53,8 @@ export const drawNew = (
     setPlayerHand: React.Dispatch<React.SetStateAction<Cards[]>>,
     setHasPlayed: (userSelected: boolean) => void,
 ) => {
-    sendWhiteResponse(socket!, czarSocketId, selected, socket!.id)
+    if (socket)
+        sendWhiteResponse(socket!, czarSocketId, selected, socket?.id)
     setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
     setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
     setSelected("")
