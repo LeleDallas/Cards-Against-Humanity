@@ -4,11 +4,11 @@ import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
-import { drawWhiteCards, resetWhite, sendWhiteResponse } from "../../hooks/functions"
+import { drawNew, drawWhiteCards, resetWhite, sendWhiteResponse } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
 
-const PlayerView = () => {
+const PlayerView = ({ ...props }) => {
     const { socket, black_card, czarSocketId, new_turn } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
@@ -29,14 +29,6 @@ const PlayerView = () => {
             resetWhite(socket, czarSocketId)
         }
     }, [new_turn])
-
-    const drawNew = () => {
-        sendWhiteResponse(socket!, czarSocketId, selected, socket!.id)
-        setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
-        setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
-        setSelected("")
-        setHasPlayed(true)
-    }
 
     return (
         <>
@@ -73,7 +65,8 @@ const PlayerView = () => {
                         </Col>
                     )}
                     <Col>
-                        <Button size="large" style={{ marginBottom: 20 }} disabled={selected === ""} type="primary" onClick={() => drawNew()}>Submit Response</Button>
+                        <Button size="large" style={{ marginBottom: 20 }} disabled={selected === ""} type="primary"
+                            onClick={() => drawNew(socket, czarSocketId,playerHand, selected, white, setSelected, setPlayerHand, setHasPlayed)}>Submit Response</Button>
                     </Col>
                 </Row >}
         </>

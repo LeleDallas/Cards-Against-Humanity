@@ -6,7 +6,7 @@ import GameScorer from "./GameScorer"
 import CzarView from "./CzarView"
 import PlayerView from "./PlayerView"
 import socketContext from "../../context/SocketContext"
-import { checkScore, leaveRoom, resetScore } from "../../hooks/functions"
+import { checkScore, leaveRoom } from "../../hooks/functions"
 import BlackCard from "../../components/Cards/BlackCard"
 
 const Game = ({ ...props }) => {
@@ -70,7 +70,6 @@ const Game = ({ ...props }) => {
                     </Col>
                 </Row>
                 :
-
                 players === undefined || players.length < 3 ?
                     <Result
                         status="warning"

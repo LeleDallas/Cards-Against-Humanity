@@ -43,8 +43,22 @@ export const drawWhiteCards = (white: Array<Cards>, quantity: number): Array<Car
     [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
 
 
-export const drawNew = (playerHand: Array<Cards>, selected: string) =>
-    playerHand.filter((card, _) => card.title !== selected)
+export const drawNew = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    czarSocketId: string,
+    playerHand: Array<Cards>,
+    selected: string,
+    white: any,
+    setSelected: (string: string) => void,
+    setPlayerHand: React.Dispatch<React.SetStateAction<Cards[]>>,
+    setHasPlayed: (userSelected: boolean) => void,
+) => {
+    sendWhiteResponse(socket!, czarSocketId, selected, socket!.id)
+    setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
+    setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
+    setSelected("")
+    setHasPlayed(true)
+}
 
 export const setCurrentSolution = (
     solution: string,
@@ -176,7 +190,7 @@ export const leaveRoom = (
         nextCzar(socket, roomName, navigate, "", true)
     if (score) {
         let newScore = new Map(score)
-        newScore.delete(socket!.id)
+        socket != undefined && newScore.delete(socket.id)
         socket?.emit("request_update_score", roomName, Array.from(updateScore(newScore, "")))
     }
 }
