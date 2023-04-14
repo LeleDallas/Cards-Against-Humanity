@@ -4,6 +4,9 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { SocketGameStartResponse, SocketRoomResponse } from "../types/socketResponse";
 import { NavigateFunction } from "react-router-dom";
 import { message } from "antd";
+import { updateBlack, updateWhite } from "../reducers";
+import { Dispatch } from "react";
+import { AnyAction } from "@reduxjs/toolkit";
 
 export const createRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
@@ -171,4 +174,16 @@ export const leaveRoom = (
 export const checkScore = (players: Array<User>) => {
     let res = players.filter(playerStatus => playerStatus.score > 5)
     return { status: res.length > 0, res }
+}
+
+export const fetchCards = (dispatch: Dispatch<AnyAction>) => {
+    fetch('http://localhost:3000/cards/', { mode: 'cors' })
+        .then((res) => res.json())
+        .then((data) => {
+            dispatch(updateBlack(data.filter((card: Cards) => card.isBlack == true)));
+            dispatch(updateWhite(data.filter((card: Cards) => card.isBlack == false)));
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
 }
