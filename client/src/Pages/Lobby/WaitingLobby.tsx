@@ -1,16 +1,26 @@
 import { Button, Popconfirm, Row } from "antd"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import socketContext from "../../context/SocketContext"
 import { useLocation, useNavigate } from "react-router-dom"
 import { LeftOutlined } from "@ant-design/icons"
 import { isMobile } from "react-device-detect"
 import WhiteLobbyCard from "../../components/Cards/WhiteLobbyCard"
-import { deleteRoom, leaveRoom, startGame } from "../../hooks/functions"
+import { deleteRoom, fetchCards, leaveRoom, startGame } from "../../hooks/functions"
+import { useAppSelector } from "../../hooks/hooks"
+import { useDispatch } from "react-redux"
 
 const WaitingLobby = () => {
     const { socket, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const { state } = useLocation();
+    const dispatch = useDispatch()
+    const white = useAppSelector(state => state.whiteCards.cards)
+    const black = useAppSelector(state => state.blackCards.cards)
+    useEffect(() => {
+        if (white.length === 0 || black.length === 0)
+            fetchCards(dispatch)
+    }, [white.length === 0 || black.length === 0]);
+
 
     return (
         <div style={{ margin: 30 }}>
