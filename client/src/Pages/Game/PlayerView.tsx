@@ -4,7 +4,7 @@ import WhiteCard from "../../components/Cards/WhiteCard"
 import { useContext, useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/hooks"
 import { Cards } from "../../types/cards"
-import { drawNew, drawWhiteCards, resetWhite, sendWhiteResponse } from "../../hooks/functions"
+import { drawNew, drawWhiteCards, resetWhite } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
 
@@ -15,9 +15,7 @@ const PlayerView = ({ ...props }) => {
     const white = useAppSelector(state => state?.whiteCards?.cards)
     const spin = <LoadingOutlined style={{ fontSize: 100 }} spin />;
     const [hasPlayed, setHasPlayed] = useState<boolean>(false)
-
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
-
     useEffect(() => {
         setPlayerHand([])
         setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 10)]);
@@ -66,7 +64,7 @@ const PlayerView = ({ ...props }) => {
                     )}
                     <Col>
                         <Button size="large" style={{ marginBottom: 20 }} disabled={selected === ""} type="primary"
-                            onClick={() => drawNew(socket, czarSocketId,playerHand, selected, white, setSelected, setPlayerHand, setHasPlayed)}>Submit Response</Button>
+                            onClick={() => drawNew(socket, czarSocketId, playerHand, selected, white, setSelected, setPlayerHand, setHasPlayed)}>Submit Response</Button>
                     </Col>
                 </Row >}
         </>
