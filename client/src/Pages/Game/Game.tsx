@@ -61,7 +61,7 @@ const Game = ({ ...props }) => {
                     <Col span={24}>
                         <Row style={{ marginTop: 22 }} justify="center">
                             <Button size="large" type="primary" onClick={() => {
-                                leaveRoom(socket, state?.roomName, true, navigate)
+                                leaveRoom(socket, state?.roomName, true, lobbyType, navigate)
                             }}
                             >
                                 Go back to Homepage
@@ -85,13 +85,14 @@ const Game = ({ ...props }) => {
                     <div style={{ margin: 30 }}>
                         <Row justify="space-between" style={{ marginBottom: 22 }}>
                             <Button type="primary" onClick={() => showModal(true)} icon={<LeftOutlined />}> Back</Button>
+                            <p>You are: {socket?.id}</p>
                             <Dropdown menu={{ items }} placement="bottomLeft">
                                 <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
                             </Dropdown>
                         </Row>
                         {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView />}
                         <Modal open={modal} title="Are you sure to leave the lobby?"
-                            onOk={() => leaveRoom(socket, state?.roomName, true, navigate)}
+                            onOk={() => leaveRoom(socket, state?.roomName, true, lobbyType, navigate, score)}
                             onCancel={() => showModal(false)}
                         />
                     </div >

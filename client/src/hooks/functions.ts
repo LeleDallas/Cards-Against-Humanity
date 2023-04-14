@@ -138,10 +138,11 @@ export const nextCzar = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
     navigate: NavigateFunction,
-    newCzarId: string
+    newCzarId: string,
+    exit: boolean = false
 ) => {
     socket?.emit("update_turn", roomName, newCzarId, (response: SocketGameStartResponse) => {
-        if (response?.success) {
+        if (response?.success && !exit) {
             navigate("/game", {
                 state: {
                     isCzar: response.isCzar,
@@ -165,10 +166,19 @@ export const leaveRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
     inGame: boolean,
-    navigate: NavigateFunction
+    lobbyType: string,
+    navigate: NavigateFunction,
+    score?: Map<string, number>
 ) => {
     socket?.emit("leave_room", roomName, inGame, (response: SocketRoomResponse) =>
         response?.success && navigate("/"))
+    if (lobbyType === "czar")
+        nextCzar(socket, roomName, navigate, "", true)
+    if (score) {
+        let newScore = new Map(score)
+        newScore.delete(socket!.id)
+        socket?.emit("request_update_score", roomName, Array.from(updateScore(newScore, "")))
+    }
 }
 
 export const checkScore = (players: Array<User>) => {

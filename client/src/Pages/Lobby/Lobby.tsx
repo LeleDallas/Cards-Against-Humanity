@@ -21,6 +21,7 @@ const Lobby = () => {
         <div style={{ margin: 20 }}>
             <Row justify="space-between" align="middle">
                 <Button icon={<LeftOutlined />} type="primary" onClick={() => navigate("/")}>Back</Button>
+                <p>You are: {socket?.id}</p>
                 <Button icon={<ReloadOutlined />} type="primary" onClick={() => reloadPage()}>Refresh</Button>
             </Row>
             <Row justify="center" style={{ marginTop: 22 }}>

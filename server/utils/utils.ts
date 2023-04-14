@@ -169,12 +169,17 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
             callback({ success: false })
             return
         }
+        let done = false
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
-            if (socketId === newCzarId) {
+            if (newCzarId === "" && !done) {
+                done = true
                 socket.to(socketId).emit("start_game", "czar", roomName)
             }
             else
-                socket.to(socketId).emit("start_game", "user", roomName)
+                if (socketId === newCzarId)
+                    socket.to(socketId).emit("start_game", "czar", roomName)
+                else
+                    socket.to(socketId).emit("start_game", "user", roomName)
         })
         callback({ success: true });
     });
