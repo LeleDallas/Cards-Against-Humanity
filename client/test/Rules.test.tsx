@@ -4,6 +4,8 @@ import { expect, it, describe, beforeEach, vi } from 'vitest'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import Rules from '../src/pages/Rules/Rules';
 import { BrowserRouter } from 'react-router-dom';
+import * as reactDeviceDetect from 'react-device-detect'
+
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -43,5 +45,18 @@ describe('Rules component', () => {
         fireEvent.click(join)
         fireEvent.click(create)
         expect(mockedUseNavigate).toHaveBeenCalledTimes(3)
+    })
+
+    it('not render on mobile', async () => {
+        Object.defineProperty(reactDeviceDetect, 'isMobile', { get: () => true });
+        Object.defineProperty(reactDeviceDetect, 'isMobile', { get: () => false });
+        const { getByText } = await waitFor(() => rulesComponent);
+        const back = getByText("Back")
+        const join = getByText("Join room")
+        const create = getByText("Create room")
+        expect(back).toBeInTheDocument()
+        expect(join).toBeInTheDocument()
+        expect(create).toBeInTheDocument()
+
     })
 })
