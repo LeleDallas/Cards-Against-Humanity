@@ -198,7 +198,7 @@ describe('Functions test', async () => {
             const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
             const roomName = 'test-room'
             const navigate = vi.fn()
-            leaveRoom(socket, "A", false, navigate);
+            leaveRoom(socket, "A", false, "", navigate);
             expect(socket.emit).toHaveBeenCalledWith('leave_room', roomName, expect.any(Function))
             expect(navigate).toHaveBeenCalledWith('/')
         });
