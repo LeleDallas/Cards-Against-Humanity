@@ -1,11 +1,12 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { expect, it, describe, vi, test } from 'vitest'
-import { fireEvent, render } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom';
+import { fireEvent, render, screen } from '@testing-library/react'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import WaitingLobby from '../src/pages/Lobby/WaitingLobby';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';
+import { SocketContextProvider } from '../src/context/SocketContext';
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -186,5 +187,45 @@ describe("WaitingLobby", () => {
         fireEvent.click(back)
         expect(mockedUseNavigate).toHaveBeenCalledTimes(0)
     })
+
+
+    it('renders admin waiting lobby', async () => {
+        const socket = { on: vi.fn(), emit: vi.fn() };
+        const mockState = {
+            socket: undefined,
+            uid: '',
+            users: [],
+            rooms: {
+                "room1": ["a", "b", "c"],
+                "room2": ["a", "b", "c"],
+                "room3": ["a", "b", "c"],
+            },
+            white_card: new Map([
+                ['player1', 'card1'],
+                ['player2', 'card2'],
+                ['player3', 'card3']
+            ]),
+            czarSocketId: "",
+            black_card: "",
+            score: new Map(),
+            new_turn: false
+        };
+
+        const mockNavigate = vi.fn();
+        const state = { roomName: 'room1', type: "admin" };
+        const socketProvider = ({ children }) => (
+            <Provider store={store}>
+                <SocketContextProvider value={{ socketState: mockState, socketDispatch: () => { } }}>
+                    <MemoryRouter initialEntries={[{ pathname: '/waiting', state }]}>
+                        {children}
+                    </MemoryRouter>
+                </SocketContextProvider>
+            </Provider>
+        )
+        render(<WaitingLobby state={{ state: { roomName: "room1" } }} roomName="room1" navigate={mockNavigate} />, { wrapper: socketProvider });
+        expect(screen.getByText('Start Game')).toBeInTheDocument();
+        fireEvent.click(screen.getByText('Start Game'));
+        expect(mockNavigate).toHaveBeenCalledTimes(0)
+    });
 
 });
