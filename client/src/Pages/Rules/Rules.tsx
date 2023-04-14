@@ -1,9 +1,9 @@
 import { Button, Col, Row, Typography } from "antd"
 import { LeftOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
-import { isMobile } from "react-device-detect"
 import BlackCard from "../../components/Cards/BlackCard"
 import WhiteCard from "../../components/Cards/WhiteCard"
+import { buttonRulesWidth, gutterRules } from "../../hooks/style.utils"
 
 
 const Rules = () => {
@@ -17,7 +17,7 @@ const Rules = () => {
                     Cards Against Humanity: [Fill in the Blank] Edition
                 </Typography.Title>
             </Row>
-            <Row style={{ width: "auto" }} align="middle" justify="center" gutter={isMobile ? [64, 32] : [32, 0]}>
+            <Row style={{ width: "auto" }} align="middle" justify="center" gutter={gutterRules}>
                 <Col>
                     <BlackCard title="All I want for Christmas is" />
                 </Col>
@@ -44,10 +44,10 @@ const Rules = () => {
             </p>
             <Row align="middle" justify="center" gutter={[32, 32]} >
                 <Col>
-                    <Button type="primary" style={{ width: isMobile ? 250 : 150, height: 50, fontSize: 18 }} size="large" onClick={() => navigate("/lobby")}>Join room</Button>
+                    <Button type="primary" style={{ width: buttonRulesWidth, height: 50, fontSize: 18 }} size="large" onClick={() => navigate("/lobby")}>Join room</Button>
                 </Col>
                 <Col>
-                    <Button type="primary" style={{ width: isMobile ? 250 : 150, height: 50, fontSize: 18 }} size="large" onClick={() => navigate("/create")}>Create room</Button>
+                    <Button type="primary" style={{ width: buttonRulesWidth, height: 50, fontSize: 18 }} size="large" onClick={() => navigate("/create")}>Create room</Button>
                 </Col>
             </Row>
         </div >

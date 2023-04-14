@@ -1,9 +1,9 @@
-import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
+import { cardHeight, cardWidth } from '../../hooks/style.utils';
 
 const Card = styled.div<any>`
-height: ${isMobile ? "18em" : "25em"};
-width: ${isMobile ? "13.75em" : "18.75em"};
+height: ${cardHeight};
+width: ${cardWidth};
 position: relative;
 font-family: "Poppins", sans-serif;
 border-radius: 0.6em;
