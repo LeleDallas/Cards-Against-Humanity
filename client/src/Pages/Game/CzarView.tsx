@@ -15,7 +15,6 @@ const CzarView = ({ ...props }) => {
     const [blackCard, setBlackCard] = useState("")
     const black = useAppSelector(state => state.blackCards.cards)
     const { roomName } = props
-    const { iscZar } = props
     const [hasPicked, setHasPicked] = useState(false)
     const navigate = useNavigate()
     const roomPlayers = rooms[roomName]
@@ -25,7 +24,7 @@ const CzarView = ({ ...props }) => {
         setBlackCard(card)
         setTimeout(() => {
             sendBlack(socket, card, roomName)
-        }, 200);
+        }, 500);
     }, [])
 
     useEffect(() => {
@@ -57,12 +56,14 @@ const CzarView = ({ ...props }) => {
             </Row>
             <Row justify="center" align="middle" style={{ marginTop: 32 }}>
                 <Button type="primary"
+                    size="large"
+                    style={{ marginBottom: 32 }}
                     onClick={() => onConfirm(socket, roomName, score, selectedUser, false)}
                     disabled={!hasPicked || selected === ""}
                 >
                     Confirm
                 </Button>
-            </Row>
+            </Row >
         </>
 
     )

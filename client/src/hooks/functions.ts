@@ -4,6 +4,9 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { SocketGameStartResponse, SocketRoomResponse } from "../types/socketResponse";
 import { NavigateFunction } from "react-router-dom";
 import { message } from "antd";
+import { updateBlack, updateWhite } from "../reducers";
+import { Dispatch } from "react";
+import { AnyAction } from "@reduxjs/toolkit";
 
 export const createRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
@@ -21,6 +24,17 @@ export const createRoom = (
     })
 }
 
+export const joinRoom = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string,
+    navigate: NavigateFunction
+) => {
+    socket?.emit("join_room", roomName, (response: any) => {
+        if (response.success) {
+            navigate("/waiting", { state: { roomName, type: "user" } })
+        }
+    })
+}
 
 export const drawBlackCard = (black: Array<Cards>): Cards =>
     black[Math.floor(Math.random() * black.length)];
@@ -29,8 +43,23 @@ export const drawWhiteCards = (white: Array<Cards>, quantity: number): Array<Car
     [...white].sort(() => 0.5 - Math.random()).slice(0, quantity);
 
 
-export const drawNew = (playerHand: Array<Cards>, selected: string) =>
-    playerHand.filter((card, _) => card.title !== selected)
+export const drawNew = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    czarSocketId: string,
+    playerHand: Array<Cards>,
+    selected: string,
+    white: any,
+    setSelected: (string: string) => void,
+    setPlayerHand: React.Dispatch<React.SetStateAction<Cards[]>>,
+    setHasPlayed: (userSelected: boolean) => void,
+) => {
+    if (socket)
+        sendWhiteResponse(socket!, czarSocketId, selected, socket?.id)
+    setPlayerHand(playerHand.filter((card, _) => card.title !== selected))
+    setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 1)]);
+    setSelected("")
+    setHasPlayed(true)
+}
 
 export const setCurrentSolution = (
     solution: string,
@@ -94,6 +123,12 @@ export const resetWhite = (socket: Socket<DefaultEventsMap, DefaultEventsMap> | 
     })
 }
 
+export const resetScore = (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
+    roomName: string) => {
+    socket?.emit("request_reset_score", roomName)
+}
+
 export const startGame = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
@@ -101,7 +136,7 @@ export const startGame = (
 ) => {
     socket?.emit("request_start_game", roomName, (response: SocketGameStartResponse) => {
         if (response?.success) {
-            message.success("Game is starting!")
+            message.success("Game started!")
             navigate("/game", {
                 state: {
                     isCzar: response.isCzar,
@@ -118,10 +153,11 @@ export const nextCzar = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
     navigate: NavigateFunction,
-    newCzarId: string
+    newCzarId: string,
+    exit: boolean = false
 ) => {
     socket?.emit("update_turn", roomName, newCzarId, (response: SocketGameStartResponse) => {
-        if (response?.success) {
+        if (response?.success && !exit) {
             navigate("/game", {
                 state: {
                     isCzar: response.isCzar,
@@ -144,8 +180,35 @@ export const deleteRoom = (
 export const leaveRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
     roomName: string,
-    navigate: NavigateFunction
+    inGame: boolean,
+    lobbyType: string,
+    navigate: NavigateFunction,
+    score?: Map<string, number>
 ) => {
-    socket?.emit("leave_room", roomName, (response: SocketRoomResponse) =>
-        response?.success && navigate("/lobby"))
+    socket?.emit("leave_room", roomName, inGame, (response: SocketRoomResponse) =>
+        response?.success && navigate("/"))
+    if (lobbyType === "czar")
+        nextCzar(socket, roomName, navigate, "", true)
+    if (score) {
+        let newScore = new Map(score)
+        socket != undefined && newScore.delete(socket.id)
+        socket?.emit("request_update_score", roomName, Array.from(updateScore(newScore, "")))
+    }
+}
+
+export const checkScore = (players: Array<User>) => {
+    let res = players.filter(playerStatus => playerStatus.score > 5)
+    return { status: res.length > 0, res }
+}
+
+export const fetchCards = (dispatch: Dispatch<AnyAction>) => {
+    fetch('http://localhost:3000/cards/', { mode: 'cors' })
+        .then((res) => res.json())
+        .then((data) => {
+            dispatch(updateBlack(data.filter((card: Cards) => card.isBlack == true)));
+            dispatch(updateWhite(data.filter((card: Cards) => card.isBlack == false)));
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
 }

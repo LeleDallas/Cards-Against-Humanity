@@ -4,7 +4,6 @@ import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render, } from '@testing-library/react';
 import ErrorRoute from "../src/route/ErrorRoute"
 import { BrowserRouter } from 'react-router-dom';
-import * as router from 'react-router-dom'
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {

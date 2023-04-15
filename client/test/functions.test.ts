@@ -70,10 +70,14 @@ describe('Functions test', async () => {
     });
 
     test('drawNew', async () => {
-        const playerHand = "A"
-        expect(cards).toHaveLength(7)
-        const newCard = drawNew(cards, playerHand)
-        expect(newCard).toHaveLength(6)
+        const playerHand = cards
+        const setSelected = vi.fn()
+        const setPlayerHand = vi.fn()
+        const setHasPlayed = vi.fn()
+        const socket = undefined
+        expect(playerHand).toHaveLength(7)
+        drawNew(socket, "czarSocketId", playerHand, "A", cards, setSelected, setPlayerHand, setHasPlayed)
+        expect(playerHand).toHaveLength(7)
     });
 
     test('setCurrentSolution', async () => {
@@ -198,7 +202,7 @@ describe('Functions test', async () => {
             const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io();
             const roomName = 'test-room'
             const navigate = vi.fn()
-            leaveRoom(socket, "A", navigate);
+            leaveRoom(socket, "A", false, "", navigate);
             expect(socket.emit).toHaveBeenCalledWith('leave_room', roomName, expect.any(Function))
             expect(navigate).toHaveBeenCalledWith('/')
         });
