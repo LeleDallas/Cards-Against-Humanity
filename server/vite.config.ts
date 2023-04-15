@@ -7,7 +7,7 @@ export default defineConfig({
       provider: "c8",
       all: true,
       include: ["**/*.ts"],
-      exclude: ["**/types/*.ts", "**/test/*.ts", "vite-env.d.ts", "vite.config.ts",],
+      exclude: ["**/types/*.ts", "**/test/*.ts", "vite-env.d.ts", "vite.config.ts", "**/db/**/*.ts"],
     },
   },
 });

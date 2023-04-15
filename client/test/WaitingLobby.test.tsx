@@ -26,8 +26,6 @@ describe("WaitingLobby", () => {
     const leaveRoom = vi.fn();
     const startGame = vi.fn();
     const socket = { on: vi.fn(), emit: vi.fn() };
-    const socketState = { socket, rooms: { [state.roomName]: [] } };
-    const socketContext = { socketState };
 
     beforeEach(() => {
         vi.clearAllMocks();

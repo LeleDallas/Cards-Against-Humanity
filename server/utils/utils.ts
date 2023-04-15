@@ -38,7 +38,7 @@ export const getUidFromSocketID = (users: user, id: string) =>
 
 export const sendMessage = (messageType: string, users: string[], io: Server, payload?: Object) => {
     console.info(`Emitting event: ${messageType} to`, users);
-    users.forEach((id) => (payload ? io.to(id).emit(messageType, payload) : io.to(id).emit(messageType)));
+    users.forEach((id) => (payload ? io.to(id)?.emit(messageType, payload) : io.to(id)?.emit(messageType)));
 };
 
 
@@ -113,7 +113,6 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         if (!io.sockets.adapter.rooms.has(value)) return
         console.info(`User ${socket.id} want to join room ${value}`);
         socket.join(value);
-        io.to(value).emit("event");
         const response = { success: true, data: Object.fromEntries([...getRooms(io.sockets.adapter.rooms)]) };
         io.emit("update_rooms", response);
         callback(response);
@@ -148,12 +147,12 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
             userScore.set(socketId, 0)
             if (index === randomCzar) {
-                socket.to(socketId).emit("start_game", "czar", roomName)
+                socket.to(socketId)?.emit("start_game", "czar", roomName)
                 if (socketId === socket.id)
                     isCzar = "czar"
             }
             else
-                socket.to(socketId).emit("start_game", "user", roomName)
+                socket.to(socketId)?.emit("start_game", "user", roomName)
             index++
         })
         socket.nsp.to(roomName).emit("update_score", Array.from([...userScore]))
@@ -173,13 +172,13 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
             if (newCzarId === "" && !done) {
                 done = true
-                socket.to(socketId).emit("start_game", "czar", roomName)
+                socket.to(socketId)?.emit("start_game", "czar", roomName)
             }
             else
                 if (socketId === newCzarId)
-                    socket.to(socketId).emit("start_game", "czar", roomName)
+                    socket.to(socketId)?.emit("start_game", "czar", roomName)
                 else
-                    socket.to(socketId).emit("start_game", "user", roomName)
+                    socket.to(socketId)?.emit("start_game", "user", roomName)
         })
         callback({ success: true });
     });
