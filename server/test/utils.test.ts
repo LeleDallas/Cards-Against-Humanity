@@ -406,4 +406,116 @@ describe('startListeners', () => {
             success: false,
         });
     });
+
+    it('should update score', () => {
+        startListeners(ioMock, socketMock, socketUsersMock);
+        const socketIds = ['socket1', 'socket2'];
+        const callbackMock = vi.fn();
+        const roomName = 'test-room';
+        const [eventName, eventHandler] = socketMock.on.mock.calls[2];
+        eventHandler(roomName, callbackMock);
+        expect(socketMock.join).toHaveBeenCalledTimes(1);
+        expect(socketMock.join).toHaveBeenCalledWith('room_' + roomName);
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+        const [start, updateHandler] = socketMock.on.mock.calls[9];
+        ioMock.sockets.adapter.rooms = new Map([[roomName, new Set(socketIds)]]);
+        updateHandler('room_' + roomName, new Map(), callbackMock, callbackMock)
+        expect(ioMock.to).not.toHaveBeenCalled();
+        expect(ioMock.nsp.to).not.toHaveBeenCalled();
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should reset score', () => {
+        startListeners(ioMock, socketMock, socketUsersMock);
+        const socketIds = ['socket1', 'socket2'];
+        const callbackMock = vi.fn();
+        const roomName = 'test-room';
+        const [eventName, eventHandler] = socketMock.on.mock.calls[2];
+        eventHandler(roomName, callbackMock);
+        expect(socketMock.join).toHaveBeenCalledTimes(1);
+        expect(socketMock.join).toHaveBeenCalledWith('room_' + roomName);
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+        const [start, updateHandler] = socketMock.on.mock.calls[10];
+        ioMock.sockets.adapter.rooms = new Map([[roomName, new Set(socketIds)]]);
+        updateHandler('room_' + roomName, callbackMock, callbackMock)
+        expect(ioMock.to).not.toHaveBeenCalled();
+        expect(ioMock.nsp.to).not.toHaveBeenCalled();
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should send black card', () => {
+        startListeners(ioMock, socketMock, socketUsersMock);
+        const socketIds = ['socket1', 'socket2'];
+        const callbackMock = vi.fn();
+        const roomName = 'test-room';
+        const [eventName, eventHandler] = socketMock.on.mock.calls[2];
+        eventHandler(roomName, callbackMock);
+        expect(socketMock.join).toHaveBeenCalledTimes(1);
+        expect(socketMock.join).toHaveBeenCalledWith('room_' + roomName);
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+        const [start, updateHandler] = socketMock.on.mock.calls[11];
+        ioMock.sockets.adapter.rooms = new Map([[roomName, new Set(socketIds)]]);
+        updateHandler("test-card", roomName, 'socket1', callbackMock, callbackMock)
+        expect(ioMock.to).not.toHaveBeenCalled();
+        expect(ioMock.nsp.to).not.toHaveBeenCalled();
+        expect(callbackMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('should send white cards', () => {
+        startListeners(ioMock, socketMock, socketUsersMock);
+        const socketIds = ['socket1', 'socket2'];
+        const callbackMock = vi.fn();
+        const roomName = 'test-room';
+        const [eventName, eventHandler] = socketMock.on.mock.calls[2];
+        eventHandler(roomName, callbackMock);
+        expect(socketMock.join).toHaveBeenCalledTimes(1);
+        expect(socketMock.join).toHaveBeenCalledWith('room_' + roomName);
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+        const [start, updateHandler] = socketMock.on.mock.calls[12];
+        ioMock.sockets.adapter.rooms = new Map([[roomName, new Set(socketIds)]]);
+        updateHandler("test-card", roomName, 'socket1', callbackMock, callbackMock)
+        expect(ioMock.to).not.toHaveBeenCalled();
+        expect(ioMock.nsp.to).not.toHaveBeenCalled();
+        expect(callbackMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('should reset white cards', () => {
+        startListeners(ioMock, socketMock, socketUsersMock);
+        const socketIds = ['socket1', 'socket2'];
+        const callbackMock = vi.fn();
+        const roomName = 'test-room';
+        const [eventName, eventHandler] = socketMock.on.mock.calls[2];
+        eventHandler(roomName, callbackMock);
+        expect(socketMock.join).toHaveBeenCalledTimes(1);
+        expect(socketMock.join).toHaveBeenCalledWith('room_' + roomName);
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+        const [start, updateHandler] = socketMock.on.mock.calls[13];
+        ioMock.sockets.adapter.rooms = new Map([[roomName, new Set(socketIds)]]);
+        updateHandler('socket1', callbackMock, callbackMock)
+        expect(ioMock.to).not.toHaveBeenCalled();
+        expect(ioMock.nsp.to).not.toHaveBeenCalled();
+        expect(callbackMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('should reset turn', () => {
+        startListeners(ioMock, socketMock, socketUsersMock);
+        const socketIds = ['socket1', 'socket2'];
+        const callbackMock = vi.fn();
+        const roomName = 'test-room';
+        const [eventName, eventHandler] = socketMock.on.mock.calls[2];
+        eventHandler(roomName, callbackMock);
+        expect(socketMock.join).toHaveBeenCalledTimes(1);
+        expect(socketMock.join).toHaveBeenCalledWith('room_' + roomName);
+        expect(callbackMock).toHaveBeenCalledTimes(1);
+        const [start, updateHandler] = socketMock.on.mock.calls[14];
+        ioMock.sockets.adapter.rooms = new Map([[roomName, new Set(socketIds)]]);
+        updateHandler(roomName, true, callbackMock, callbackMock)
+        expect(ioMock.to).not.toHaveBeenCalled();
+        expect(ioMock.nsp.to).not.toHaveBeenCalled();
+        expect(callbackMock).toHaveBeenCalledTimes(2);
+        expect(callbackMock).toHaveBeenCalledWith({
+            success: true,
+        });
+    });
+
 })
