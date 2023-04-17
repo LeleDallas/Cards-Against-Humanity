@@ -41,10 +41,12 @@ export const sendMessage = (messageType: string, users: string[], io: Server, pa
     users.forEach((id) => (payload ? io.to(id)?.emit(messageType, payload) : io.to(id)?.emit(messageType)));
 };
 
+var host = new Map()
+var roomState = new Map()
+var czars = new Map()
 
 export const startListeners = (io: Server, socket: Socket, socketUsers: user) => {
     console.info('Message received from socketId: ' + socket.id);
-
     socket.on('handshake', (callback: (uid: string, users: string[]) => void) => {
         console.info('Handshake received from: ' + socket.id);
         const reconnected = Object.values(socketUsers).includes(socket.id);
@@ -77,17 +79,39 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
         console.info('Disconnect received from: ' + socket.id);
 
         const uid = getUidFromSocketID(socketUsers, socket.id);
+        let newScore = new Map()
 
         if (uid) {
+            io.sockets.adapter.rooms.forEach((room, roomName) => {
+                if (roomName.includes("room")) {
+                    if (host.get(roomName) === socket.id) {
+                        room.forEach((socketId) => {
+                            io.sockets.sockets.get(socketId)?.leave(roomName)
+                        });
+                    }
+                    if (roomState.get(roomName)) {
+                        let done = false
+                        room.forEach(player => {
+                            if (player != socket.id && !done && czars.get(roomName) === socket.id) {
+                                socket.to(player)?.emit("start_game", "czar", roomName)
+                                done = true
+                            }
+                        })
+                    }
+                }
+            });
             delete socketUsers[uid];
             const users = Object.values(socketUsers);
-            sendMessage('user_disconnected', users, io, socket.id);
+            const rooms = { success: true, data: Object.fromEntries([...getRooms(io.sockets.adapter.rooms)]) };
+            sendMessage('user_disconnected', users, io, { uid: socket.id, rooms, users });
         }
     });
 
     socket.on('create_room', (value, callback) => {
         if (io.sockets.adapter.rooms.has("room_" + value)) return
         socket.join("room_" + value);
+        host.set("room_" + value, socket.id)
+        roomState.set("room_" + value, false)
         const response = { success: true, ...getCurrentRoom("room_" + value, getUsersInRoom(io, "room_" + value)) };
         const response2 = { success: true, data: Object.fromEntries([...getRooms(io.sockets.adapter.rooms)]) };
 
@@ -133,6 +157,7 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
     });
 
     socket.on('request_start_game', (roomName, callback) => {
+        roomState.set(roomName, true)
         if (!io.sockets.adapter.rooms.has(roomName)) return
         let roomPlayers = io.sockets.adapter.rooms.get(roomName)?.size
         if (roomPlayers && roomPlayers < 3) {
@@ -148,6 +173,7 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
             userScore.set(socketId, 0)
             if (index === randomCzar) {
                 socket.to(socketId)?.emit("start_game", "czar", roomName)
+                czars.set(roomName, socketId)
                 if (socketId === socket.id)
                     isCzar = "czar"
             }
@@ -173,10 +199,13 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
             if (newCzarId === "" && !done) {
                 done = true
                 socket.to(socketId)?.emit("start_game", "czar", roomName)
+                czars.set(roomName, socketId)
             }
             else
-                if (socketId === newCzarId)
+                if (socketId === newCzarId) {
                     socket.to(socketId)?.emit("start_game", "czar", roomName)
+                    czars.set(roomName, socketId)
+                }
                 else
                     socket.to(socketId)?.emit("start_game", "user", roomName)
         })
@@ -184,36 +213,36 @@ export const startListeners = (io: Server, socket: Socket, socketUsers: user) =>
     });
 
     socket.on('request_update_score', (roomName: string, userScore: any) => {
-        socket.nsp.to(roomName).emit("update_score", userScore)
+        socket.nsp.to(roomName)?.emit("update_score", userScore)
     })
 
     socket.on('request_reset_score', (roomName: string) => {
-        socket.nsp.to(roomName).emit("reset_score")
+        socket.nsp.to(roomName)?.emit("reset_score")
     })
 
     socket.on('send_black_card', (cardTitle, roomName, czarSocket, callback) => {
         console.info(`The card is ${cardTitle}`);
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
-            socket.to(socketId).emit("get_black_card", cardTitle, czarSocket)
+            socket.to(socketId)?.emit("get_black_card", cardTitle, czarSocket)
         })
         callback({ success: true });
     });
 
     socket.on('send_white_card', (cZarSocketId, card, user, callback) => {
         console.info(`The white card is ${card}`);
-        socket.to(cZarSocketId).emit("get_white_card", card, user)
+        socket.to(cZarSocketId)?.emit("get_white_card", card, user)
         callback({ success: true });
     });
 
     socket.on('reset_white', (cZarSocketId, callback) => {
         console.info(`Reset White Cards`);
-        socket.to(cZarSocketId).emit("reset_white_card")
+        socket.to(cZarSocketId)?.emit("reset_white_card")
         callback({ success: true });
     });
 
     socket.on('reset_turn', (roomName, hasPlayed, callback) => {
         io.sockets.adapter.rooms.get(roomName)?.forEach((socketId) => {
-            socket.to(socketId).emit("new_turn", hasPlayed)
+            socket.to(socketId)?.emit("new_turn", hasPlayed)
         })
         callback({ success: true });
     });

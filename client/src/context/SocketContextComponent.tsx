@@ -33,9 +33,11 @@ const SocketContextComponent: React.FunctionComponent<SocketContextComponentProp
             socketDispatch({ type: 'update_users', payload: users });
         });
 
-        socket.on('user_disconnected', (uid: string) => {
+        socket.on('user_disconnected', (data: any) => {
             console.info('User disconnected message received');
-            socketDispatch({ type: 'remove_user', payload: uid });
+            socketDispatch({ type: 'remove_user', payload: data.uid });
+            socketDispatch({ type: "update_rooms", payload: data.rooms?.data })
+            socketDispatch({ type: 'update_users', payload: data.users });
         });
 
         socket.io.on('reconnect', (attempt) => {

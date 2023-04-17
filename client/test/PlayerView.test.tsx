@@ -151,7 +151,7 @@ describe('Player View', () => {
             </Provider>
         )
         render(<PlayerView />, { wrapper: socketProvider });
-        const card = screen.getByText(1);
+        const card = screen.getByText(7);
         fireEvent.click(card);
         fireEvent.click(screen.getByText('Submit Response'));
         expect(screen.queryByText('1')).not.toBeInTheDocument()
