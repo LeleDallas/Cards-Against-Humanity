@@ -19,4 +19,13 @@ export default defineConfig({
       exclude: ["src/main.tsx", "src/types", "src/vite-env.d.ts", "src/reducers.ts", "src/testReducer.ts"],
     },
   },
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    host: true,
+    strictPort: true,
+    port: 5173,
+  }
 });
+
