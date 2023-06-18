@@ -90,7 +90,27 @@ As players continue to engage with the game over time, they develop a shared set
 <!-- GETTING STARTED -->
 <h2 id="getting-started"> :book: Getting Started</h2>
 
-<p>Download the apk file or clone the repository and launch the app from Android Studio</p>
+<p>Via GitHub Desktop clone this repository then to run the server and client, you need to have Node.js `v18.15.0` or higher installed on your system.
+
+`Server`:
+To run the server locally, follow these steps:
+
+- Navigate to the server folder of the project.
+- Run the command `npm install` to install all the necessary dependencies.
+- Run the command `npm run dev` to start the server.
+
+The server will be listening at `http://localhost:3000`.
+
+`Client`:
+To run the client locally, follow these steps:
+
+- Navigate to the client folder of the project.
+- Run the command `npm install` to install all the necessary dependencies.
+- Run the command `npm run dev` or `npm run host` to start the client.
+
+The client will be running at `http://localhost:5173`.
+
+</p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
