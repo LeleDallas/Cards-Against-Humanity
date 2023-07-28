@@ -26,9 +26,6 @@ jobs:
           cd client
           npm ci
           npm run coverage
-        env:
-          CI: true
-          API_URL: ${{ secrets.API_URL }}
       - name: Vitest Coverage Report
         uses: davelosert/vitest-coverage-report-action@v1.4.0
         with:
@@ -38,10 +35,6 @@ jobs:
           cd server
           npm ci
           npm run coverage
-        env:
-          CI: true
-          API_URL: ${{ secrets.API_URL }}
-      
       - name: Vitest Coverage Report
         uses: davelosert/vitest-coverage-report-action@v1.4.0
         with:
