@@ -15,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: "18"
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -42,7 +41,7 @@ jobs:
         uses: davelosert/vitest-coverage-report-action@v1.4.0
         with:
           vite-config-path: "./vite.config.ts"
-          
+
   release-please:
     name: Release Please
     needs: sonarcloud
@@ -52,6 +51,5 @@ jobs:
       - name: Release Please Action
         uses: google-github-actions/release-please-action@v3
         with:
-          node-version: "18"
           release-type: node
           package-name: release-please-action
