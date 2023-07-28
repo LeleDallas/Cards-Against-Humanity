@@ -90,7 +90,7 @@ As players continue to engage with the game over time, they develop a shared set
 <!-- GETTING STARTED -->
 <h2 id="getting-started"> :book: Getting Started</h2>
 
-<p>Via GitHub Desktop clone this repository then to run the server and client, you need to have Node.js `v18.15.0` or higher installed on your system.
+Via GitHub Desktop clone this repository then to run the server and client, you need to have Node.js `v18.15.0` or higher installed on your system.
 
 `Server`:
 To run the server locally, follow these steps:
@@ -110,7 +110,7 @@ To run the client locally, follow these steps:
 
 The client will be running at `http://localhost:5173`.
 
-</p>
+
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
