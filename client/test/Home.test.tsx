@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { expect, it, describe, vi, test } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
-import Home from '../src/pages/Home/Home';
+import Home from '../src/Pages/Home/Home';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';

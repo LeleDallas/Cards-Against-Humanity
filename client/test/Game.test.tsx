@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import Game from '../src/pages/Game/Game';
+import Game from '../src/Pages/Game/Game';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';

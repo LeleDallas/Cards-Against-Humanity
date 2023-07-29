@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import SocketContextComponent from "../context/SocketContextComponent";
 import { ConfigProvider } from "antd";
-import Home from "../pages/Home/Home";
-import Lobby from "../pages/Lobby/Lobby";
-import Rules from "../pages/Rules/Rules";
-import CreateLobby from "../pages/Lobby/CreateLobby";
-import WaitingLobby from "../pages/Lobby/WaitingLobby";
-import Game from "../pages/Game/Game";
+import Home from "../Pages/Home/Home";
+import Lobby from "../Pages/Lobby/Lobby";
+import Rules from "../Pages/Rules/Rules";
+import CreateLobby from "../Pages/Lobby/CreateLobby";
+import WaitingLobby from "../Pages/Lobby/WaitingLobby";
+import Game from "../Pages/Game/Game";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import ErrorRoute from "./ErrorRoute";
