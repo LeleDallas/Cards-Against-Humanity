@@ -135,10 +135,6 @@ describe('Player View', () => {
             score: new Map(),
             new_turn: false
         };
-        const drawNew = vi.fn();
-        const setSelected = vi.fn();
-        const setPlayerHand = vi.fn();
-        const setHasPlayed = vi.fn();
         const state = { roomName: 'room1', isCzar: false };
 
         const socketProvider = ({ children }) => (
@@ -151,8 +147,7 @@ describe('Player View', () => {
             </Provider>
         )
         render(<PlayerView />, { wrapper: socketProvider });
-        const card = screen.getByText(7);
-        fireEvent.click(card);
+        fireEvent.click(screen.getByText(1));
         fireEvent.click(screen.getByText('Submit Response'));
         expect(screen.queryByText('1')).not.toBeInTheDocument()
     });
