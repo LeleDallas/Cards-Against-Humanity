@@ -6,6 +6,7 @@ export default defineConfig({
     coverage: {
       provider: "c8",
       // all: true,
+      reporter: ['json-summary'],
       include: ["**/*.ts"],
       exclude: ["**/types/*.ts", "**/test/*.ts", "vite-env.d.ts", "vite.config.ts", "**/db/**/*.ts"],
     },
