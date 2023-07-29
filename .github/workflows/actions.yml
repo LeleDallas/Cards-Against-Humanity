@@ -26,13 +26,21 @@ jobs:
           cd client
           npm ci
           npm run coverage
-      
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2.1.0
+        with:
+          working-directory: "./client/"
+          vite-config-path: "./vite.config.ts"
       - name: Run server tests & coverage
         run: |
           cd server
           npm ci
           npm run coverage
-     
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2.1.0
+        with:
+          working-directory: "./server/"
+          vite-config-path: "./vite.config.ts"
 
   release-please:
     name: Release Please
