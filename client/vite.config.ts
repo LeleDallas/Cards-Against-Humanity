@@ -13,6 +13,10 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: [resolve(__dirname, './setup.js')],
     coverage: {
+      lines: 70,
+      branches: 70,
+      functions: 70,
+      statements: 70,
       provider: "c8",
       // all: true,
       reporter: ['text', 'json-summary', 'json'],
