@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import PlayerView from '../src/pages/Game/PlayerView';
+import PlayerView from '../src/Pages/Game/PlayerView';
 import { testStore } from '../src/store/store';
 import { Provider } from 'react-redux';
 import { SocketContextProvider } from '../src/context/SocketContext';

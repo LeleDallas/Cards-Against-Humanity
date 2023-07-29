@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi, test } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import WaitingLobby from '../src/pages/Lobby/WaitingLobby';
+import WaitingLobby from '../src/Pages/Lobby/WaitingLobby';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';
 import { SocketContextProvider } from '../src/context/SocketContext';

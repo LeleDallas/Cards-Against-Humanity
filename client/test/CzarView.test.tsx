@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import CzarView from '../src/pages/Game/CzarView';
+import CzarView from '../src/Pages/Game/CzarView';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';
 import { SocketContextProvider } from '../src/context/SocketContext';

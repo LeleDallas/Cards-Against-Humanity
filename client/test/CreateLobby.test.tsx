@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { expect, it, describe, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react';
-import CreateLobby from "../src/pages/Lobby/CreateLobby"
+import CreateLobby from "../src/Pages/Lobby/CreateLobby"
 import { BrowserRouter } from 'react-router-dom';
 
 const mockedUseNavigate = vi.fn();

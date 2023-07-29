@@ -3,7 +3,7 @@ import React from 'react';
 import { expect, it, describe } from 'vitest'
 import { render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom';
-import GameScorer from '../src/pages/Game/GameScorer';
+import GameScorer from '../src/Pages/Game/GameScorer';
 
 describe('Game Scorer', () => {
 
