@@ -85,6 +85,9 @@ Cards Against Humanity: Fill in the Blank Edition encourages players to let loos
 As players continue to engage with the game over time, they develop a shared set of inside jokes and memories. The game becomes a catalyst for creating new hilarious moments and referencing past experiences, making it an excellent choice for gatherings with close friends or long-standing groups.
 </p>
 
+
+![Demo](https://github.com/LeleDallas/Cards-Against-Humanity/blob/master/demo.gif)
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- GETTING STARTED -->
