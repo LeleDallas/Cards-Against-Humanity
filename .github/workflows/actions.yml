@@ -27,7 +27,7 @@ jobs:
           npm ci
           npm run coverage
       - name: Vitest Coverage Report
-        uses: davelosert/vitest-coverage-report-action@v2.1.0
+        uses: davelosert/vitest-coverage-report-action@v2.1.1
         with:
           working-directory: "./client/"
           vite-config-path: "./vite.config.ts"
@@ -37,7 +37,7 @@ jobs:
           npm ci
           npm run coverage
       - name: Vitest Coverage Report
-        uses: davelosert/vitest-coverage-report-action@v2.1.0
+        uses: davelosert/vitest-coverage-report-action@v2.1.1
         with:
           working-directory: "./server/"
           vite-config-path: "./vite.config.ts"
