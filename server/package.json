@@ -35,7 +35,7 @@
     "@vitest/coverage-c8": "^0.29.8",
     "@vitest/coverage-istanbul": "^0.29.8",
     "@vitest/ui": "^0.29.8",
-    "concurrently": "^7.6.0",
+    "concurrently": "^8.0.0",
     "jsdom": "^22.0.0",
     "nodemon": "^2.0.22",
     "typescript": "^5.0.3",
