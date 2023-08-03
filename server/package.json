@@ -37,7 +37,7 @@
     "@vitest/ui": "^0.29.8",
     "concurrently": "^8.0.0",
     "jsdom": "^22.0.0",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.0",
     "typescript": "^5.0.3",
     "vite": "^4.2.1",
     "vite-plugin-node": "^3.0.2",
