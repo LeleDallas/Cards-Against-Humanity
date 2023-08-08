@@ -1,6 +1,8 @@
 <p align="center"> 
-  <img alt="Screenshot 2023-03-06 alle 11 32 00" src="https://github.com/LeleDallas/Cards-Against-Humanity/blob/master/client/src/assets/icon.svg" height="auto" width="200" style="border-radius:100%" >
+  <img alt="Screenshot 2023-03-06 alle 11 32 00" src="https://github.com/LeleDallas/Cards-Against-Humanity/assets/71103219/3992eff8-014a-4b9d-890d-2e4058bf529b" height="auto" width="auto" style="border-radius:100%" >
 </p>
+
+
 <h1 align="center"> Cards Against Humanity ⚫️🃏⚪️ </h1>
 
 <span>
