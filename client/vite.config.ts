@@ -17,7 +17,7 @@ export default defineConfig({
       branches: 70,
       functions: 70,
       statements: 70,
-      provider: "c8",
+      provider: "v8",
       // all: true,
       reporter: ['text', 'json-summary', 'json'],
       include: ["src/**/*.tsx", "src/**/*.ts"],

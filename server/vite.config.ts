@@ -8,7 +8,7 @@ export default defineConfig({
       branches: 60,
       functions: 60,
       statements: 60,
-      provider: "c8",
+      provider: "v8",
       // all: true,
       reporter: ['text', 'json-summary', 'json'],
       include: ["**/*.ts"],
