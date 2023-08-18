@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.3...v1.0.4) (2023-08-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @testing-library/jest-dom to v6.0.1 ([0d33ff7](https://github.com/LeleDallas/Cards-Against-Humanity/commit/0d33ff79cc4a3b24a2d8d147e189196b6023c91d))
+
 ## [1.0.3](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.2...v1.0.3) (2023-08-13)
 
 
