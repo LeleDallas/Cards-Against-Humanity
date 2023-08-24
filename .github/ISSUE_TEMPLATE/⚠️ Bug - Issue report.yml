@@ -1,5 +1,5 @@
 name: "⚠️ Bug - Issue report"
-description: "Use this issue template to submit a bug report and help us improve our project. Please provide as much detail as possible. Issues may be closed if they do not follow the template."
+description: "Submit a bug report to help us improve"
 title: "[🐛 - Account Type] Bug Report Title - CHANGE ME"
 labels: ["type: bug"]
 body:
@@ -13,7 +13,7 @@ body:
     attributes:
       label: "📜 Description"
       description: "A clear and concise description of what the bug is."
-      placeholder: "It bugs out when ... with account..."
+      placeholder: "It bugs out when ..."
   - type: textarea
     id: steps-to-reproduce
     validations:
@@ -41,6 +41,30 @@ body:
       label: "👎 Actual Behavior with Screenshots"
       description: "What did actually happen? Add screenshots, if applicable."
       placeholder: "It actually ..."
+  - type: input
+    id: novu-version
+    validations:
+      required: true
+    attributes:
+      label: Novu version
+      description: In case of self-hosting or local installation mention the Novu version like 0.17.0. If using our cloud-managed solution, mention Novu SaaS.
+      placeholder: Novu SaaS
+  - type: input
+    id: npm-version
+    validations:
+      required: false
+    attributes:
+      label: npm version
+      description: In case of self-hosting or local installation mention the npm version. If using our cloud-managed solution, mention NA.
+      placeholder: 7.0.0
+  - type: input
+    id: node-version
+    validations:
+      required: false
+    attributes:
+      label: node version
+      description: In case of self-hosting or local installation mention the node version. If using our cloud-managed solution, mention NA.
+      placeholder: 16.0.0
   - type: textarea
     id: additional-context
     validations:
@@ -56,9 +80,16 @@ body:
       options:
         - label: "I checked and didn't find a similar issue"
           required: true
+  - type: checkboxes
+    id: read-code-of-conduct
+    attributes:
+      label: "🏢 Have you read the Contributing Guidelines?"
+      options:
+        - label: "I have read the [Contributing Guidelines](https://github.com/novuhq/novu/blob/main/CONTRIBUTING.md)"
+          required: true
   - type: dropdown
     attributes:
       label: Are you willing to submit PR?
-      description: This is absolutely not required, but we are happy to guide you in the contribution process.
+      description: This is absolutely not required, but we are happy to guide you in the contribution process. Find us in help-needed channel on [Discord](https://discord.gg/9wcGSf22PM)!
       options:
         - "Yes I am willing to submit a PR!"
