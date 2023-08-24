@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.4...v1.0.5) (2023-08-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mongodb to v5.8.1 ([f07580c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f07580cb7faef016bb4c093802d561454c1952fe))
+
 ## [1.0.4](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.3...v1.0.4) (2023-08-18)
 
 
