@@ -13,7 +13,11 @@
     "coverage": "vitest --coverage"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Emanuele Dall'Ara",
+    "email": "emanuele.dallara99@gmail.com",
+    "url": "https://leledallas.github.io/skillsfolio/"
+  },
   "license": "ISC",
   "dependencies": {
     "@types/supertest": "^2.0.12",
@@ -43,5 +47,9 @@
     "vite": "^4.2.1",
     "vite-plugin-node": "^3.0.2",
     "vitest": "^0.34.0"
+  },
+  "engines": {
+    "npm": ">=18.15.0",
+    "node": ">=9.5.0"
   }
 }

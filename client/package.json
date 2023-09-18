@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "Emanuele Dall'Ara",
+    "email": "emanuele.dallara99@gmail.com",
+    "url": "https://leledallas.github.io/skillsfolio/"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -45,5 +50,9 @@
     "typescript": "^5.0.2",
     "vite": "^4.1.0",
     "vitest": "^0.34.0"
+  },
+  "engines": {
+    "npm": ">=18.15.0",
+    "node": ">=9.5.0"
   }
 }
