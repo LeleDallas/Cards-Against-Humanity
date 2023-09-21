@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.6](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.5...v1.0.6) (2023-09-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ant-design/icons to v5.2.6 ([36524fe](https://github.com/LeleDallas/Cards-Against-Humanity/commit/36524fe0bf1f10694b0966afb6d2d74bae932f0f))
+* **deps:** update dependency @testing-library/jest-dom to v6.1.3 ([b6aae33](https://github.com/LeleDallas/Cards-Against-Humanity/commit/b6aae33f595326dcd685fe19fa30f03f9bc20a2d))
+* **deps:** update dependency antd to v5.8.5 ([f77348a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f77348aa98d723d47d723edd204307a87bd23544))
+* **deps:** update dependency antd to v5.8.6 ([4521226](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4521226aad5091a36df2d2a88d177e2b8b77f2e7))
+* **deps:** update dependency antd to v5.9.0 ([08c795d](https://github.com/LeleDallas/Cards-Against-Humanity/commit/08c795de57226a04db8d1ccb2ddbc7bcd91b62bd))
+* **deps:** update dependency antd to v5.9.1 ([60908be](https://github.com/LeleDallas/Cards-Against-Humanity/commit/60908be9931148bd8b7fa80586840b1c1119d360))
+* **deps:** update dependency antd to v5.9.2 ([6b9a9ac](https://github.com/LeleDallas/Cards-Against-Humanity/commit/6b9a9ac92b19a3ff661da39474641dd94677f354))
+* **deps:** update dependency mongodb to v6 ([f13f6d0](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f13f6d04b249ad717fcb63c43f99994ab4f92875))
+* **deps:** update dependency mongodb to v6.1.0 ([da78014](https://github.com/LeleDallas/Cards-Against-Humanity/commit/da78014f704a798489a2e99d100df2bb5d76dcad))
+* **deps:** update dependency react-router-dom to v6.16.0 ([3b86514](https://github.com/LeleDallas/Cards-Against-Humanity/commit/3b86514259b7c5c63608b1b06cda11183d79980e))
+* **deps:** update dependency styled-components to v6.0.8 ([93976a7](https://github.com/LeleDallas/Cards-Against-Humanity/commit/93976a799f85b74bf3bec66ac3756601e6d963d3))
+* **deps:** update dependency uuid to v9.0.1 ([416cf45](https://github.com/LeleDallas/Cards-Against-Humanity/commit/416cf45e9994bfc15729568d3bb15654aa091f45))
+* **deps:** update dependency vite-tsconfig-paths to v4.2.1 ([8665219](https://github.com/LeleDallas/Cards-Against-Humanity/commit/866521980ff885e53728ded1e178392135fe7aa9))
+* **deps:** update version ([2b02a1a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2b02a1a035d507496e3241f01ee2df46a47d1b30))
+
 ## [1.0.5](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.4...v1.0.5) (2023-08-24)
 
 
