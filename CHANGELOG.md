@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.7](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.6...v1.0.7) (2023-10-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @reduxjs/toolkit to v1.9.6 ([20f042a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/20f042a28e2faaf95e6543680d6a0a78678147e8))
+* **deps:** update dependency @reduxjs/toolkit to v1.9.7 ([eea28ab](https://github.com/LeleDallas/Cards-Against-Humanity/commit/eea28ab87ceb32960d25853af91b52585bf80b2d))
+* **deps:** update dependency @types/supertest to v2.0.13 ([3da4f52](https://github.com/LeleDallas/Cards-Against-Humanity/commit/3da4f528199c739bac8fde07229883407e076e05))
+* **deps:** update dependency @types/supertest to v2.0.14 ([e092435](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e0924354b10a3b47dc338eb9062e40f1cd42fc38))
+* **deps:** update dependency @vitejs/plugin-react to v4.1.0 ([29146b3](https://github.com/LeleDallas/Cards-Against-Humanity/commit/29146b391831670fb48175717dc94dc86e4bd2f4))
+* **deps:** update dependency antd to v5.9.3 ([4204f46](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4204f463a7098fc201e0aaa69871897d8ce6eff1))
+* **deps:** update dependency antd to v5.9.4 ([ce9c850](https://github.com/LeleDallas/Cards-Against-Humanity/commit/ce9c850f6f7c0b3b3eaed1f2d0a01583c882552d))
+* **deps:** update dependency react-redux to v8.1.3 ([f4bd79d](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f4bd79d5e50dfb5e4eb37f75e27a96fe7febe37c))
+
 ## [1.0.6](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.5...v1.0.6) (2023-09-21)
 
 
