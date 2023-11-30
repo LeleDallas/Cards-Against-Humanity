@@ -2,7 +2,7 @@ name: release-please
 
 on:
   workflow_run:
-    workflows: ["Client Coverage", "Server Coverage"]
+    workflows: [Client Coverage, Server Coverage]
     types:
       - completed
 permissions:

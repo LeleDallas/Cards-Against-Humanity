@@ -6,7 +6,7 @@ permissions:
 
 on:
   workflow_run:
-    workflows: ["SonarCloud"]
+    workflows: [SonarCloud]
     types:
       - completed
 jobs:
