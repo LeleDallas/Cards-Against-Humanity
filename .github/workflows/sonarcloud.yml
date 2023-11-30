@@ -13,7 +13,6 @@ on:
 
 jobs:
   sonarcloud:
-    name: SonarCloud
     runs-on: ubuntu-latest
 
     steps:
