@@ -1,0 +1,29 @@
+name: Server Coverage
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_run:
+    workflows: ["sonarcloud"]
+    types:
+      - completed
+jobs:
+  server-tests-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Run server tests & coverage
+        run: |
+          cd server
+          npm ci
+          npm run coverage
+
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2.1.1
+        with:
+          working-directory: "./server/"
+          vite-config-path: "./vite.config.ts"
