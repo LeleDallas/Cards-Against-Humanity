@@ -1,0 +1,82 @@
+name: Build
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  client:
+    name: Client Tests and Coverage
+    needs: sonarcloud
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Run client tests & coverage
+        run: |
+          cd client
+          npm ci
+          npm run coverage
+
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2.1.1
+        with:
+          working-directory: "./client/"
+          vite-config-path: "./vite.config.ts"
+
+  server:
+    name: Server Tests and Coverage
+    needs: sonarcloud
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Run server tests & coverage
+        run: |
+          cd server
+          npm ci
+          npm run coverage
+
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2.1.1
+        with:
+          working-directory: "./server/"
+          vite-config-path: "./vite.config.ts"
+
+  release-please:
+    name: Release Please
+    needs: [sonarcloud, client, server]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Release Please Action
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          package-name: release-please-action
