@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.13](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.12...v1.0.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vitejs/plugin-react to v4.2.1 ([1daa838](https://github.com/LeleDallas/Cards-Against-Humanity/commit/1daa8389ee1579c300ccf9e04177c8b30314b2be))
+* **deps:** update dependency antd to v5.12.1 ([65596f3](https://github.com/LeleDallas/Cards-Against-Humanity/commit/65596f3401919e19ed81ccc6bb2facaa5b6a05a3))
+* **deps:** update dependency antd to v5.12.2 ([d4a209c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/d4a209c925edcbb919d29e92acb81cdc6517a123))
+* **deps:** update dependency react-router-dom to v6.20.1 ([df248c6](https://github.com/LeleDallas/Cards-Against-Humanity/commit/df248c6445f89b90af442f1a5792a16d1511aa3a))
+* **deps:** update dependency react-router-dom to v6.21.0 ([dbc2c26](https://github.com/LeleDallas/Cards-Against-Humanity/commit/dbc2c26032837700a1dce9f76d8055d77da3ac20))
+* **deps:** update dependency vite-tsconfig-paths to v4.2.2 ([04eb2f5](https://github.com/LeleDallas/Cards-Against-Humanity/commit/04eb2f5d1dd3fc77ee551379f35610d6d54ab537))
+
 ## [1.0.12](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.11...v1.0.12) (2023-11-30)
 
 
