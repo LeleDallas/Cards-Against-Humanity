@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.14](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.13...v1.0.14) (2023-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/supertest to v6 ([3832617](https://github.com/LeleDallas/Cards-Against-Humanity/commit/3832617dd9d368144448073f73c3e9b0e5c91bc7))
+* **deps:** update dependency react-router-dom to v6.21.1 ([854b3b7](https://github.com/LeleDallas/Cards-Against-Humanity/commit/854b3b7e35118a3c103469bc26b4c4312fd75df4))
+* **deps:** update dependency styled-components to v6.1.2 ([ef8a546](https://github.com/LeleDallas/Cards-Against-Humanity/commit/ef8a54610e5ab5bba29fc0bd21836b3bb746bf55))
+
 ## [1.0.13](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.12...v1.0.13) (2023-12-19)
 
 
