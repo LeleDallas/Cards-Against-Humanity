@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.16](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.15...v1.0.16) (2023-12-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vite-tsconfig-paths to v4.2.3 ([de79c2d](https://github.com/LeleDallas/Cards-Against-Humanity/commit/de79c2d9867250e0688619ac931f0832b80eace0))
+
 ## [1.0.15](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.14...v1.0.15) (2023-12-27)
 
 
