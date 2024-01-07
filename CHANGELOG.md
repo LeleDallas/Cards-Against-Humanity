@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.17](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.16...v1.0.17) (2024-01-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @testing-library/jest-dom to v6.2.0 ([2390823](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2390823a7c0cd4878c038cd50de8ab0348bd82da))
+* **deps:** update dependency antd to v5.12.7 ([9723a8c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/9723a8cd6befd71fb6d8f385dfa2e47f896f6ab5))
+* **deps:** update dependency antd to v5.12.8 ([7d73abc](https://github.com/LeleDallas/Cards-Against-Humanity/commit/7d73abc917a7d214373adcbec701cfaf0e21053c))
+* **deps:** update socket.io packages to v4.7.3 ([2b5f291](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2b5f291fb39ae026fe77e9894d98ace1307c5654))
+
 ## [1.0.16](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.15...v1.0.16) (2023-12-30)
 
 
