@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.17](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.16...v1.0.17) (2024-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @testing-library/jest-dom to v6.2.0 ([2390823](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2390823a7c0cd4878c038cd50de8ab0348bd82da))
+* **deps:** update dependency @testing-library/jest-dom to v6.3.0 ([b9b12b9](https://github.com/LeleDallas/Cards-Against-Humanity/commit/b9b12b9b4ff1876eef2a544e1e9066a33b2f67e9))
+* **deps:** update dependency antd to v5.12.7 ([9723a8c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/9723a8cd6befd71fb6d8f385dfa2e47f896f6ab5))
+* **deps:** update dependency antd to v5.12.8 ([7d73abc](https://github.com/LeleDallas/Cards-Against-Humanity/commit/7d73abc917a7d214373adcbec701cfaf0e21053c))
+* **deps:** update dependency dotenv to v16.3.2 ([4961c83](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4961c8329519d4e41f623b75affd2f707b0d7da3))
+* **deps:** update dependency dotenv to v16.4.1 ([39e5ab7](https://github.com/LeleDallas/Cards-Against-Humanity/commit/39e5ab71e05a70ea61380eb4723f065a52fce332))
+* **deps:** update dependency react-router-dom to v6.21.2 ([5ab3556](https://github.com/LeleDallas/Cards-Against-Humanity/commit/5ab35565bbd59229a9707fc0d3b662818929febc))
+* **deps:** update dependency react-router-dom to v6.21.3 ([9fdf878](https://github.com/LeleDallas/Cards-Against-Humanity/commit/9fdf878818e50298c9e00d4dcdb47045164ee924))
+* **deps:** update dependency styled-components to v6.1.7 ([82632ec](https://github.com/LeleDallas/Cards-Against-Humanity/commit/82632ec6fb58d679a04266604ce666477a7e640d))
+* **deps:** update dependency styled-components to v6.1.8 ([7996e67](https://github.com/LeleDallas/Cards-Against-Humanity/commit/7996e67a109ab6b9663c3c9e29db65e6f84c20d2))
+* **deps:** update dependency supertest to v6.3.4 ([0574a0d](https://github.com/LeleDallas/Cards-Against-Humanity/commit/0574a0d78d28cf490722b8e725a8bf7c17deac77))
+* **deps:** update dependency vite-tsconfig-paths to v4.3.1 ([6b2a5ab](https://github.com/LeleDallas/Cards-Against-Humanity/commit/6b2a5abf838bdbd5d1b0f9d8d69ce7da9616c7c5))
+* **deps:** update socket.io packages to v4.7.3 ([2b5f291](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2b5f291fb39ae026fe77e9894d98ace1307c5654))
+* **deps:** update socket.io packages to v4.7.4 ([846c551](https://github.com/LeleDallas/Cards-Against-Humanity/commit/846c5519015cd2b6d9744e24030ad59c47187829))
+
 ## [1.0.16](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.15...v1.0.16) (2023-12-30)
 
 
