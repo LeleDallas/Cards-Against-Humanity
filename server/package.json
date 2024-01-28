@@ -41,7 +41,7 @@
     "@vitest/coverage-istanbul": "^0.34.0",
     "@vitest/ui": "^0.34.0",
     "concurrently": "^8.0.0",
-    "jsdom": "^23.0.0",
+    "jsdom": "^24.0.0",
     "nodemon": "^3.0.0",
     "typescript": "^5.0.3",
     "vite": "^4.2.1",
