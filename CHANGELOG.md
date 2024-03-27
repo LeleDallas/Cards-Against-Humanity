@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.20](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.19...v1.0.20) (2024-03-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @reduxjs/toolkit to v2.2.2 ([02b283b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/02b283bdab8547210f7784ecae20afb376ac3610))
+* **deps:** update dependency antd to v5.15.3 ([005f3c8](https://github.com/LeleDallas/Cards-Against-Humanity/commit/005f3c82dc5bde0601cefa7b3685b6749a691190))
+* **deps:** update dependency express to v4.19.0 ([f2dd6d5](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f2dd6d5445dc6b237c81be1dcda13738a4ad2fda))
+* **deps:** update dependency express to v4.19.1 ([70ade05](https://github.com/LeleDallas/Cards-Against-Humanity/commit/70ade05deff842c3ed80dbdb4c5fcbd6daca7adb))
+* **deps:** update dependency vite-tsconfig-paths to v4.3.2 ([66fe23a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/66fe23a25d38fce9e281827ecdc9ce2d9554e4a9))
+* **deps:** update socket.io packages to v4.7.5 ([d054669](https://github.com/LeleDallas/Cards-Against-Humanity/commit/d054669591a38b1d0e427c683e05004c8a077d76))
+
 ## [1.0.19](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.18...v1.0.19) (2024-03-08)
 
 
