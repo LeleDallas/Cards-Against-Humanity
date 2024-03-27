@@ -22,7 +22,7 @@ describe("Default socket test", () => {
             io.on("connection", (socket: any) => {
                 serverSocket = socket;
             });
-            clientSocket.on("connect", done);
+            clientSocket?.on("connect", done);
         });
     });
 
@@ -32,7 +32,7 @@ describe("Default socket test", () => {
     });
 
     test("should work", (done: any) => {
-        clientSocket.on("hello", (arg: any) => {
+        clientSocket?.on("hello", (arg: any) => {
             expect(arg).toBe("world");
             done();
         });
@@ -44,7 +44,7 @@ describe("Default socket test", () => {
             serverSocket.on("hi", (reply: any) => {
                 reply("hi!");
             });
-        clientSocket.emit("hi", (arg: any) => {
+        clientSocket?.emit("hi", (arg: any) => {
             expect(arg).toBe("hi!");
             done();
         });

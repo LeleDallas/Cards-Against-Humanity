@@ -18,13 +18,13 @@ beforeAll((done: any) => {
         io.on("connection", (socket: any) => {
             serverSocket = socket;
         });
-        clientSocket.on("connect", done);
+        clientSocket?.on("connect", done);
     });
 });
 
 afterAll(() => {
     io.close();
-    clientSocket.close();
+    clientSocket?.close();
 });
 
 
