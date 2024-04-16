@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.0",
-    "@testing-library/dom": "^9.0.1",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/react": "^15.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
