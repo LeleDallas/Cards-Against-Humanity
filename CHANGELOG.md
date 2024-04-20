@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.20](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.19...v1.0.20) (2024-04-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ant-design/icons to v5.3.6 ([6747c5d](https://github.com/LeleDallas/Cards-Against-Humanity/commit/6747c5d86391c272a43a0c112d60f5746170733b))
+* **deps:** update dependency @reduxjs/toolkit to v2.2.2 ([02b283b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/02b283bdab8547210f7784ecae20afb376ac3610))
+* **deps:** update dependency @reduxjs/toolkit to v2.2.3 ([86ceb83](https://github.com/LeleDallas/Cards-Against-Humanity/commit/86ceb830918b3450a2c923c1225c39d2ebe7d27a))
+* **deps:** update dependency antd to v5.15.3 ([005f3c8](https://github.com/LeleDallas/Cards-Against-Humanity/commit/005f3c82dc5bde0601cefa7b3685b6749a691190))
+* **deps:** update dependency antd to v5.16.0 ([d7b18d7](https://github.com/LeleDallas/Cards-Against-Humanity/commit/d7b18d740d84b79e65d6fcb625091f032d9a54ad))
+* **deps:** update dependency antd to v5.16.1 ([8470429](https://github.com/LeleDallas/Cards-Against-Humanity/commit/84704296fd0ee2e8f670424efd2254b8ff4993dc))
+* **deps:** update dependency antd to v5.16.2 ([6f79e69](https://github.com/LeleDallas/Cards-Against-Humanity/commit/6f79e69bc1580b34069988ac0cf94760a26a3bf5))
+* **deps:** update dependency express to v4.19.0 ([f2dd6d5](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f2dd6d5445dc6b237c81be1dcda13738a4ad2fda))
+* **deps:** update dependency express to v4.19.1 ([70ade05](https://github.com/LeleDallas/Cards-Against-Humanity/commit/70ade05deff842c3ed80dbdb4c5fcbd6daca7adb))
+* **deps:** update dependency react-redux to v9.1.1 ([13b3a1a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/13b3a1a09a3f74469bae41b67915c293d0502478))
+* **deps:** update dependency vite-tsconfig-paths to v4.3.2 ([66fe23a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/66fe23a25d38fce9e281827ecdc9ce2d9554e4a9))
+* **deps:** update socket.io packages to v4.7.5 ([d054669](https://github.com/LeleDallas/Cards-Against-Humanity/commit/d054669591a38b1d0e427c683e05004c8a077d76))
+
 ## [1.0.19](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.18...v1.0.19) (2024-03-08)
 
 
