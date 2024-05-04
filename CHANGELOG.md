@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.21](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.20...v1.0.21) (2024-05-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency antd to v5.16.4 ([564e666](https://github.com/LeleDallas/Cards-Against-Humanity/commit/564e66673b12e7afe3d1c97fc81ec0c50c1ae3a2))
+* **deps:** update dependency antd to v5.16.5 ([6527e35](https://github.com/LeleDallas/Cards-Against-Humanity/commit/6527e357b2bca9ec604b615a813f6853b3bf375c))
+* **deps:** update dependency antd to v5.17.0 ([fbbde85](https://github.com/LeleDallas/Cards-Against-Humanity/commit/fbbde85340a76cc8527fdb23e69b508b4e2d96f0))
+* **deps:** update dependency mongodb to v6.6.0 ([8766f6a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/8766f6aa277e23a96f75cc16527ba82c27dcc184))
+* **deps:** update dependency react-redux to v9.1.2 ([c75c0e8](https://github.com/LeleDallas/Cards-Against-Humanity/commit/c75c0e8d4104ae1cbd9ec68d13ecf86ff336c379))
+* **deps:** update dependency react-router-dom to v6.23.0 ([4b72c1a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4b72c1a698096c5dac8df2fff00abb82cc3d8e4d))
+* **deps:** update dependency supertest to v7 ([198065a](https://github.com/LeleDallas/Cards-Against-Humanity/commit/198065a3dcec40116e864adfd6d1ff3091bdee40))
+
 ## [1.0.20](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.19...v1.0.20) (2024-04-19)
 
 
