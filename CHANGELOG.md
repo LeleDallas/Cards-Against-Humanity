@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.25](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.24...v1.0.25) (2024-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency antd to v5.18.0 ([48d0a75](https://github.com/LeleDallas/Cards-Against-Humanity/commit/48d0a75eb824ee2fbfca14522aeb007df6eb5ad6))
+* **deps:** update dependency mongodb to v6.7.0 ([e100b3e](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e100b3ed645da6e169cba0876695c086370100fa))
+
 ## [1.0.24](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.23...v1.0.24) (2024-05-28)
 
 
