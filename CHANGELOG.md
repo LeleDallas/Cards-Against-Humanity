@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.26](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.25...v1.0.26) (2024-06-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vitejs/plugin-react to v4.3.1 ([aa24dc2](https://github.com/LeleDallas/Cards-Against-Humanity/commit/aa24dc2d114b50fc14ea01d6a69764a9fdceecf1))
+* **deps:** update dependency uuid to v10 ([7787b8c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/7787b8c744ee91eb9737441c1addaae3ede8c521))
+
 ## [1.0.25](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.24...v1.0.25) (2024-06-05)
 
 
