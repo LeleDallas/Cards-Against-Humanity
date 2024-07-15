@@ -5,28 +5,12 @@
 
 <h1 align="center"> Cards Against Humanity ⚫️🃏⚪️ </h1>
 
-<span>
-  <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB">
-</span>
-<span>
-  <img alt="Vite" src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white">
-</span>
-<span>
-  <img alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18.svg?style=for-the-badge&logo=Vitest&logoColor=white">
-</span>
-<span>
-  <img alt="Styled Components" src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
-</span>
+<p align="center">
+  <a href="https://go-skill-icons.vercel.app/">
+       <img src="https://go-skill-icons.vercel.app/api/icons?i=ts,react,vite,vitest,styledcomponents,nodejs,express,mongodb" />
+  </a>
+</p>
 
-<span>
-  <img alt="Node.js" src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white">
-</span>
-<span>
-  <img alt="Express.js" src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB">
-</span>
-<span>
-  <img alt="Nodemon" src="https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD">
-</span>
 
 <!-- TABLE OF CONTENTS -->
 <h2 id="table-of-contents"> :book: Table of Contents</h2>
