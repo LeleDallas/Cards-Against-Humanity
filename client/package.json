@@ -32,7 +32,7 @@
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "styled-components": "^6.0.0",
-    "vite-tsconfig-paths": "^4.2.0",
+    "vite-tsconfig-paths": "^5.0.0",
     "vitest": "^1.4.0"
   },
   "devDependencies": {
