@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.29](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.28...v1.0.29) (2024-08-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ant-design/icons to v5.4.0 ([5154a5b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/5154a5bc2ec59d31ffe789bdda52c959aaf4fdf4))
+* **deps:** update dependency @reduxjs/toolkit to v2.2.7 ([77239cf](https://github.com/LeleDallas/Cards-Against-Humanity/commit/77239cfdc7ce0b6b8d7c681927a908d00f966bee))
+* **deps:** update dependency antd to v5.20.0 ([d982924](https://github.com/LeleDallas/Cards-Against-Humanity/commit/d982924b10e6cb35ce1cb0dfadda3221def24c7b))
+* **deps:** update dependency vite-tsconfig-paths to v5 ([159c778](https://github.com/LeleDallas/Cards-Against-Humanity/commit/159c7787807307d39e05b8a1b016ccc800bfca06))
+
 ## [1.0.28](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.27...v1.0.28) (2024-07-28)
 
 
