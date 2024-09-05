@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.30](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.29...v1.0.30) (2024-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-router-dom to v6.26.1 ([0b37758](https://github.com/LeleDallas/Cards-Against-Humanity/commit/0b377582b3dd3d213c1130cc13a7c2d45e685351))
+
 ## [1.0.29](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.28...v1.0.29) (2024-08-10)
 
 
