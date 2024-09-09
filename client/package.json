@@ -36,7 +36,7 @@
     "vitest": "^1.4.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.0",
+    "@faker-js/faker": "^9.0.0",
     "@testing-library/dom": "^10.0.0",
     "@testing-library/react": "^15.0.0",
     "@testing-library/user-event": "^14.4.3",
