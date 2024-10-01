@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.31](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.30...v1.0.31) (2024-09-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ant-design/icons to v5.5.1 ([dfc9413](https://github.com/LeleDallas/Cards-Against-Humanity/commit/dfc9413e013d41ff1292935703c8cb42615a2441))
+* **deps:** update dependency antd to v5.20.5 ([f7c89e9](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f7c89e96eb01ec025332abd0998390c00ceb1fa7))
+* **deps:** update dependency antd to v5.20.6 ([529a01b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/529a01b9d25264d959cc1ea32d6ba7a6de5f2185))
+* **deps:** update dependency antd to v5.21.1 ([ba720eb](https://github.com/LeleDallas/Cards-Against-Humanity/commit/ba720eb53eddfb23865c818d882cbfab344f0fdf))
+* **deps:** update dependency mongodb to v6.9.0 ([b2c2e40](https://github.com/LeleDallas/Cards-Against-Humanity/commit/b2c2e4069777f708dcee85b7cb39f538e5dc0281))
+* **deps:** update dependency react-router-dom to v6.26.2 ([2cdfdea](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2cdfdea987ece1740d8c5eb51cc43fb93af740ad))
+
 ## [1.0.30](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.29...v1.0.30) (2024-09-03)
 
 
