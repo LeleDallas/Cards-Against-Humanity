@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.32](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.31...v1.0.32) (2024-10-27)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([c1e0f69](https://github.com/LeleDallas/Cards-Against-Humanity/commit/c1e0f6903a77e07f2834dd6ef50abd78c713fb5e))
+* **deps:** update all non-major dependencies ([d5a07e7](https://github.com/LeleDallas/Cards-Against-Humanity/commit/d5a07e73d5c706dfa69e6d353003e4414904f36c))
+* **deps:** update all non-major dependencies ([7a41633](https://github.com/LeleDallas/Cards-Against-Humanity/commit/7a41633baa356a8435ecc84fedbf44820247f4a2))
+* **deps:** update dependency @testing-library/jest-dom to v6.6.1 ([9117440](https://github.com/LeleDallas/Cards-Against-Humanity/commit/91174400c5fd72018a7a3b62601e21581be2142f))
+* **deps:** update dependency @vitejs/plugin-react to v4.3.2 ([86e5a0b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/86e5a0badf041e170b2cb4d7af700b2d8044a1b1))
+
 ## [1.0.31](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.30...v1.0.31) (2024-09-30)
 
 
