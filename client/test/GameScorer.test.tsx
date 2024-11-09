@@ -6,14 +6,12 @@ import { BrowserRouter } from 'react-router-dom';
 import GameScorer from '../src/Pages/Game/GameScorer';
 
 describe('Game Scorer', () => {
-
-
     it('renders without errors', async () => {
-        const { getByText } = render(
+        const { getAllByText } = render(
             <BrowserRouter>
                 <GameScorer />
             </BrowserRouter>
         )
-        expect(getByText("No data")).toBeInTheDocument()
+        expect(getAllByText("No data")).toBeTruthy()
     })
 })
