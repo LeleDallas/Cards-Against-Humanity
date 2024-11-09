@@ -31,7 +31,7 @@ const Lobby = () => {
             </Row>
             <Row justify="space-around" style={{ marginTop: 22 }} gutter={[32, 32]}>
                 {Object.keys(rooms).map((roomName, index) =>
-                    <WhiteLobbyCard join roomName={roomName} players={rooms[roomName]} key={index} />
+                    <WhiteLobbyCard join roomName={roomName} players={rooms[roomName]} key={`${roomName}-${index}`} />
                 )}
             </Row>
         </div >

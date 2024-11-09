@@ -8,7 +8,7 @@ import { drawNew, drawWhiteCards, resetWhite } from "../../hooks/functions"
 import socketContext from "../../context/SocketContext"
 import { LoadingOutlined } from "@ant-design/icons"
 
-const PlayerView = ({ ...props }) => {
+const PlayerView = () => {
     const { socket, black_card, czarSocketId, new_turn } = useContext(socketContext).socketState;
     const [selected, setSelected] = useState<string>("")
     const [playerHand, setPlayerHand] = useState<Array<Cards>>([])
@@ -16,6 +16,7 @@ const PlayerView = ({ ...props }) => {
     const spin = <LoadingOutlined style={{ fontSize: 100 }} spin />;
     const [hasPlayed, setHasPlayed] = useState<boolean>(false)
     const useSelect = (cardTitle: string) => cardTitle === selected ? setSelected("") : setSelected(cardTitle)
+
     useEffect(() => {
         setPlayerHand([])
         setPlayerHand((oldHand: Array<Cards>) => [...oldHand, ...drawWhiteCards(white, 10)]);
@@ -23,7 +24,7 @@ const PlayerView = ({ ...props }) => {
 
     useEffect(() => {
         setHasPlayed(new_turn)
-        if (new_turn == false) {
+        if (!new_turn) {
             resetWhite(socket, czarSocketId)
         }
     }, [new_turn])

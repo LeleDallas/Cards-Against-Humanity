@@ -5,7 +5,7 @@ export const useSocket = (url: string, options?: Partial<ManagerOptions & Socket
     const { current: socket } = useRef(io(url, options));
 
     useEffect(() => {
-        () => socket && socket.close()
+        () => socket?.close();
     }, [socket]);
 
     return socket;
