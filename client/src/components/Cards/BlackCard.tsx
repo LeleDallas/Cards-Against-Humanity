@@ -28,10 +28,7 @@ letter-spacing: 0.05em;
 interface BlackProps {
   title?: string,
   cardStyle?: React.CSSProperties,
-  frontStyle?: React.CSSProperties,
   children?: JSX.Element | JSX.Element[],
-  hoverable?: boolean,
-  selected?: boolean,
 }
 
 const BlackCard = ({ cardStyle = {}, title = "Cards Against Humanity? More like ____________.", children }: BlackProps) =>

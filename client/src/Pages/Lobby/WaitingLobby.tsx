@@ -1,15 +1,15 @@
+import { LeftOutlined } from "@ant-design/icons"
 import { Button, Popconfirm, Row } from "antd"
 import { useContext, useEffect } from "react"
-import socketContext from "../../context/SocketContext"
+import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
-import { LeftOutlined } from "@ant-design/icons"
 import WhiteLobbyCard from "../../components/Cards/WhiteLobbyCard"
+import socketContext from "../../context/SocketContext"
 import { deleteRoom, fetchCards, leaveRoom, startGame } from "../../hooks/functions"
 import { useAppSelector } from "../../hooks/hooks"
-import { useDispatch } from "react-redux"
 import { waitingMargin } from "../../hooks/style.utils"
 
-const WaitingLobby = ({ ...props }) => {
+const WaitingLobby = () => {
     const { socket, rooms } = useContext(socketContext).socketState;
     const navigate = useNavigate()
     const { state } = useLocation();

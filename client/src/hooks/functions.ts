@@ -1,12 +1,12 @@
-import { Socket } from "socket.io-client";
-import { Cards } from "../types/cards";
-import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { SocketGameStartResponse, SocketRoomResponse } from "../types/socketResponse";
-import { NavigateFunction } from "react-router-dom";
+import { Action } from "@reduxjs/toolkit";
 import { message } from "antd";
-import { updateBlack, updateWhite } from "../reducers";
 import { Dispatch } from "react";
-import { AnyAction } from "@reduxjs/toolkit";
+import { NavigateFunction } from "react-router-dom";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { updateBlack, updateWhite } from "../reducers";
+import { Cards } from "../types/cards";
+import { SocketGameStartResponse, SocketRoomResponse } from "../types/socketResponse";
 
 export const createRoom = (
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined,
@@ -201,12 +201,12 @@ export const checkScore = (players: Array<User>) => {
     return { status: res.length > 0, res }
 }
 
-export const fetchCards = (dispatch: Dispatch<AnyAction>) => {
+export const fetchCards = (dispatch: Dispatch<Action>) => {
     fetch('http://localhost:3000/cards/', { mode: 'cors' })
         .then((res) => res.json())
         .then((data) => {
-            dispatch(updateBlack(data.filter((card: Cards) => card.isBlack == true)));
-            dispatch(updateWhite(data.filter((card: Cards) => card.isBlack == false)));
+            dispatch(updateBlack(data.filter((card: Cards) => card.isBlack)));
+            dispatch(updateWhite(data.filter((card: Cards) => !card.isBlack)));
         })
         .catch((err) => {
             console.log(err.message);

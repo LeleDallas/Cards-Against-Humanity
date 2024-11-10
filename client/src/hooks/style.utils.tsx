@@ -1,7 +1,7 @@
 import { Gutter } from "antd/es/grid/row";
 import { isMobile } from "react-device-detect";
-import berry from '../assets/miracleberry.png';
 import jazzHands from '../assets/jazzhands.png';
+import berry from '../assets/miracleberry.png';
 
 export const gutterRules: Gutter | [Gutter, Gutter] = isMobile ? [64, 32] : [32, 0]
 export const buttonRulesWidth = isMobile ? 250 : 150

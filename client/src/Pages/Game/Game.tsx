@@ -9,10 +9,10 @@ import socketContext from "../../context/SocketContext"
 import { checkScore, leaveRoom } from "../../hooks/functions"
 import BlackCard from "../../components/Cards/BlackCard"
 
-const Game = ({ ...props }) => {
+const Game = () => {
     const { socket, rooms, score } = useContext(socketContext).socketState;
     const { state } = useLocation();
-    const [modal, showModal] = useState(false)
+    const [modal, setModal] = useState(false)
     const [lobbyType, setLobbyType] = useState<string>(state?.isCzar)
     const [show, setShow] = useState<any>(false)
     const players = rooms[state?.roomName]
@@ -40,22 +40,19 @@ const Game = ({ ...props }) => {
             {show ?
                 <Row justify="center" align="middle">
                     <BlackCard
-                        frontStyle={{ margin: 0 }}
                         title={""}
                         children={
-                            <>
-                                <List
-                                    header={<p style={{ fontSize: 15, textAlign: "center", color: "white" }}>Player ${checkScore(playersForScore)?.res[0]?.name} won the game</p>}
-                                    size="small"
-                                    itemLayout="horizontal"
-                                    dataSource={playersForScore.sort((a, b) => b.score - a.score)}
-                                    renderItem={(user) => (
-                                        <List.Item >
-                                            <p style={{ color: "white", fontSize: 12 }}>{user.name} : {user.score}</p>
-                                        </List.Item>
-                                    )}
-                                />
-                            </>
+                            <List
+                                header={<p style={{ fontSize: 15, textAlign: "center", color: "white" }}>Player ${checkScore(playersForScore)?.res[0]?.name} won the game</p>}
+                                size="small"
+                                itemLayout="horizontal"
+                                dataSource={playersForScore.sort((a, b) => b.score - a.score)}
+                                renderItem={(user) => (
+                                    <List.Item >
+                                        <p style={{ color: "white", fontSize: 12 }}>{user.name} : {user.score}</p>
+                                    </List.Item>
+                                )}
+                            />
                         }
                     />
                     <Col span={24}>
@@ -83,7 +80,7 @@ const Game = ({ ...props }) => {
                     :
                     <div style={{ margin: 30 }}>
                         <Row justify="space-between" style={{ marginBottom: 22 }}>
-                            <Button type="primary" onClick={() => showModal(true)} icon={<LeftOutlined />}> Back</Button>
+                            <Button type="primary" onClick={() => setModal(true)} icon={<LeftOutlined />}> Back</Button>
                             <p>You are: {socket?.id}</p>
                             <Dropdown menu={{ items }} placement="bottomLeft">
                                 <Button icon={<CalculatorOutlined />} type="primary">Scores</Button>
@@ -92,7 +89,7 @@ const Game = ({ ...props }) => {
                         {lobbyType === "czar" ? <CzarView roomName={state?.roomName} /> : <PlayerView />}
                         <Modal open={modal} title="Are you sure to leave the lobby?"
                             onOk={() => leaveRoom(socket, state?.roomName, true, lobbyType, navigate, score)}
-                            onCancel={() => showModal(false)}
+                            onCancel={() => setModal(false)}
                         />
                     </div >
             }

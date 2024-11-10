@@ -71,10 +71,12 @@ export const socketReducer = (state: SocketContextState, action: SocketContextAc
         case 'set_czar':
             return { ...state, czarSocketId: action.payload as string };
         case 'get_white_card':
-            let newMap = new Map(state.white_card)
-            let payload = action.payload as UserToCard
-            newMap.set(payload.user, payload.cardTitle)
-            return { ...state, white_card: newMap };
+            {
+                const newMap = new Map(state.white_card)
+                const payload = action.payload as UserToCard
+                newMap.set(payload.user, payload.cardTitle)
+                return { ...state, white_card: newMap };
+            }
         case 'reset_white_card':
             return { ...state, white_card: new Map() };
         case 'update_score':
