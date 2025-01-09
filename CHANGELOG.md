@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.33](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.32...v1.0.33) (2025-01-09)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([2d035c9](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2d035c96f7254f856ee3003ad68877f773a68464))
+* **deps:** update all non-major dependencies ([0747dc6](https://github.com/LeleDallas/Cards-Against-Humanity/commit/0747dc6e91f58a8d1d453fdb257d4166466f50ac))
+* **deps:** update all non-major dependencies ([e3c4c4b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e3c4c4b3787f4f3fa3b8f56f84c34fda77d04ad9))
+* **deps:** update dependency npm to v11 ([e12acf9](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e12acf93dc9152e23c823f59f8cd2c0be4d16ace))
+* **deps:** update dependency styled-components to v6.1.14 ([89fa6f0](https://github.com/LeleDallas/Cards-Against-Humanity/commit/89fa6f03f1aedf96ac948ef60a780c7be945c512))
+* **deps:** update dependency uuid to v11.0.4 ([4de8285](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4de82854d94c417b7dc2a724478d265ad060f191))
+* **deps:** update dependency vite-tsconfig-paths to v5.1.2 ([fb5b025](https://github.com/LeleDallas/Cards-Against-Humanity/commit/fb5b025234b13cbd28c44b2afada28b8a416cf14))
+
 ## [1.0.32](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.31...v1.0.32) (2024-10-27)
 
 
