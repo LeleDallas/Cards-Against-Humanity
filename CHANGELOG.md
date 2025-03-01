@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.0.33](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.32...v1.0.33) (2025-03-01)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([74dc91c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/74dc91cf9fac4f5aef2999cd0245924f4537a6ed))
+* **deps:** update all non-major dependencies ([b035b75](https://github.com/LeleDallas/Cards-Against-Humanity/commit/b035b75a5b2f1df9a3421e207733c7fb1488c01e))
+* **deps:** update all non-major dependencies ([3e62b64](https://github.com/LeleDallas/Cards-Against-Humanity/commit/3e62b64fe8e76becd394df8c5d7d1b955736f004))
+* **deps:** update all non-major dependencies ([e17c142](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e17c1429f8247d912b46b2f315950a663380a296))
+* **deps:** update all non-major dependencies ([a6e3de0](https://github.com/LeleDallas/Cards-Against-Humanity/commit/a6e3de01210ebaa80888fc0a74b4491276c88ef8))
+* **deps:** update all non-major dependencies ([c8f290c](https://github.com/LeleDallas/Cards-Against-Humanity/commit/c8f290c6bd2498960d0f903d8890dc6a547cbaf3))
+* **deps:** update all non-major dependencies ([2e335fe](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2e335feff694aee4c4a2701a6e54de8c8be92148))
+* **deps:** update all non-major dependencies ([4cbfe16](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4cbfe16d9b23acb69c864da313f48f56a1d68472))
+* **deps:** update all non-major dependencies ([ed9f2a3](https://github.com/LeleDallas/Cards-Against-Humanity/commit/ed9f2a3a66325f1d0959c6002790ab90caa87531))
+* **deps:** update all non-major dependencies ([8f9a634](https://github.com/LeleDallas/Cards-Against-Humanity/commit/8f9a6342d2c0eb3be07c6ef472c28b69289ef86d))
+* **deps:** update all non-major dependencies ([2d035c9](https://github.com/LeleDallas/Cards-Against-Humanity/commit/2d035c96f7254f856ee3003ad68877f773a68464))
+* **deps:** update all non-major dependencies ([0747dc6](https://github.com/LeleDallas/Cards-Against-Humanity/commit/0747dc6e91f58a8d1d453fdb257d4166466f50ac))
+* **deps:** update all non-major dependencies ([e3c4c4b](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e3c4c4b3787f4f3fa3b8f56f84c34fda77d04ad9))
+* **deps:** update dependency npm to v11 ([e12acf9](https://github.com/LeleDallas/Cards-Against-Humanity/commit/e12acf93dc9152e23c823f59f8cd2c0be4d16ace))
+* **deps:** update dependency react-router-dom to v7 ([f650a90](https://github.com/LeleDallas/Cards-Against-Humanity/commit/f650a90477a0662078680dd7316bfbe527088e27))
+* **deps:** update dependency react-router-dom to v7.1.3 ([eac2815](https://github.com/LeleDallas/Cards-Against-Humanity/commit/eac2815e1e4fc275f7be22edb2634e623c0be0b2))
+* **deps:** update dependency styled-components to v6.1.14 ([89fa6f0](https://github.com/LeleDallas/Cards-Against-Humanity/commit/89fa6f03f1aedf96ac948ef60a780c7be945c512))
+* **deps:** update dependency uuid to v11.0.4 ([4de8285](https://github.com/LeleDallas/Cards-Against-Humanity/commit/4de82854d94c417b7dc2a724478d265ad060f191))
+* **deps:** update dependency vite-tsconfig-paths to v5.1.2 ([fb5b025](https://github.com/LeleDallas/Cards-Against-Humanity/commit/fb5b025234b13cbd28c44b2afada28b8a416cf14))
+* **deps:** update react monorepo to v19 ([3304e9d](https://github.com/LeleDallas/Cards-Against-Humanity/commit/3304e9d1959207973d930e53d88f75d3f2177607))
+* **deps:** update vitest monorepo to v3 ([6a0c7bc](https://github.com/LeleDallas/Cards-Against-Humanity/commit/6a0c7bc5312fac52bf15188954eae389717616f1))
+
 ## [1.0.32](https://github.com/LeleDallas/Cards-Against-Humanity/compare/v1.0.31...v1.0.32) (2024-10-27)
 
 
