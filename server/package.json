@@ -21,7 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/supertest": "^6.0.0",
-    "@vitejs/plugin-react": "^4.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
