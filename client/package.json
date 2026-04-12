@@ -22,7 +22,7 @@
     "@reduxjs/toolkit": "^2.0.0",
     "@testing-library/jest-dom": "^6.0.0",
     "antd": "^5.2.3",
-    "dotenv": "^16.0.3",
+    "dotenv": "^17.0.0",
     "npm": "^11.0.0",
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
